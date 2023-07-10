@@ -1,5 +1,6 @@
 # include<stdio.h>
 # include<stdlib.h>
+# include<stdbool.h>
 
 #define ROOT        0
 #define LEFT_CHILD  1
@@ -51,14 +52,21 @@ void printInorder( node *node ){
 
 }
 
-void inorderSuccessor( node *node ){
 
-   if ( node->left == NULL ){
-      printf("%d(%d)  ", node->key, node->duplicate);
-      return;
+// Only works for the node having both child
+node* inorderSuccessor( node *targetNode ){
+
+   node *current = targetNode;
+
+   while( current->left == NULL && current->right != NULL ){
+      current = current->right;
    }
 
-   inorderSuccessor(node->left);
+   while( current->left != NULL ){
+      current = current->left;
+   }
+
+   return current;
 }
 
 void InsertNode( node **root, int key ){
@@ -94,7 +102,7 @@ node* searchNode( node *root, int key )
    while( current->key != key ){
       if      ( current->key > key )  current = current->left;
       else if ( current->key < key )  current = current->right;
-      else { printf("Something wrong at %d\n", __LINE__); }
+      else { printf("Something wrong at %d\n", __LINE__); exit(1); }
 
       if ( current == NULL ) return NULL;
    }
@@ -106,12 +114,76 @@ node* searchNode( node *root, int key )
 
 void deleteNode( node **root, int key ){
 
+   node *targetNode = searchNode(*root, key);
+
+   if ( targetNode == NULL ){
+      printf("The key %d is not found.\n", key);
+      return;
+   }
+
+   // Checking duplicate
+   if ( targetNode->duplicate < 1 ){
+      printf("Node duplicate is less than 1\n", targetNode->duplicate);
+      exit(1);
+   }
+
+   // Case 0: The node to be deleted is duplicate
+   if ( targetNode->duplicate > 1 ){
+      (targetNode->duplicate)--;
+      return;
+   }
+
    // Case 1: The node to be deleted has no child
+   if ( targetNode->left == NULL && targetNode->right == NULL ){
+      if ( targetNode->parent->left == targetNode ){
+         targetNode->parent->left  = NULL;
+      }else{
+         targetNode->parent->right = NULL;
+      }
 
-   // Case 2: The node to be deleted has either left or right child
+      free(targetNode);
+   }
 
-   // Case 3: The node to be deleted has both child
+   // Case 2: The node to be deleted has left child
+   if ( targetNode->right == NULL && targetNode->left != NULL ){
+      if ( targetNode->parent->left == targetNode ){
+         targetNode->parent->left  = targetNode->left;
+      }else{
+         targetNode->parent->right = targetNode->left;
+      }
 
+      free(targetNode);
+   }
+
+   // Case 3: The node to be deleted has right child
+   if ( targetNode->right != NULL && targetNode->left == NULL ){
+      if ( targetNode->parent->left == targetNode ){
+         targetNode->parent->left  = targetNode->right;
+      }else{
+         targetNode->parent->right = targetNode->right;
+      }
+
+      free(targetNode);
+   }
+
+   // Case 4: The node to be deleted has both child
+   //         --> Delete the inorder successor in right-subtree
+   if ( targetNode->right != NULL && targetNode->left != NULL ){
+
+      node *successor = inorderSuccessor(targetNode);
+
+        // Since successor is always left child of its parent
+        // we can safely make successor's right child as left of its parent.
+        // If there is no succ, then assign succ->right to succParent->right
+      if ( successor->parent != *root )
+         successor->parent->left = successor->right;
+      else
+         successor->parent->right = successor->right;
+
+      targetNode->key = successor->key;
+
+      free(successor);
+   }
 
 }
 
@@ -134,13 +206,15 @@ int main(){
    InsertNode( &root, 6 );
 
 
-   node *node = searchNode(root, 2);
 
-   printf("%d\n", node->key);
 
-   //printInorder(root);
 
-   //inorderSuccessor(root);
+   printInorder(root);
+
+   deleteNode(&root, 6);
+   deleteNode(&root, 6);
+   printf("\n");
+   printInorder(root);
 
    return 0;
 }

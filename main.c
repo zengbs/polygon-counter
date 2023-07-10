@@ -9,6 +9,7 @@ typedef struct BSTNode node;
 
 struct BSTNode {
    int key;
+   int duplicate;
    node *parent;
    node *left;
    node *right;
@@ -22,6 +23,7 @@ void allocateNewNode( node **parent, int key, int left_root_right )
    newNode->key    = key;
    newNode->left   = NULL;
    newNode->right  = NULL;
+   newNode->duplicate = 1;
 
    if ( left_root_right == ROOT ){
       newNode->parent = NULL;
@@ -43,7 +45,7 @@ void printInorder( node *node ){
 
    printInorder(node->left);
 
-   printf("%d ", node->key);
+   printf("%d(%d)  ", node->key, node->duplicate);
 
    printInorder(node->right);
 
@@ -61,8 +63,11 @@ void InsertNode( node **root, int key ){
 
       if ( current->key > key ){
          current = current->left;
-      }else{
+      }else if ( current->key < key ){
          current = current->right;
+      }else{
+         (current->duplicate)++;
+         return;
       }
 
    }

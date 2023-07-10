@@ -87,11 +87,30 @@ void InsertNode( node **root, int key ){
    else                              allocateNewNode( &previous, key, RIGHT_CHILD );
 }
 
+node* searchNode( node *root, int key )
+{
+   node *current = root;
+
+   while( current->key != key ){
+      if      ( current->key > key )  current = current->left;
+      else if ( current->key < key )  current = current->right;
+      else { printf("Something wrong at %d\n", __LINE__); }
+
+      if ( current == NULL ) return NULL;
+   }
+
+   return current;
+
+}
 
 
 void deleteNode( node **root, int key ){
 
+   // Case 1: The node to be deleted has no child
 
+   // Case 2: The node to be deleted has either left or right child
+
+   // Case 3: The node to be deleted has both child
 
 
 }
@@ -114,9 +133,14 @@ int main(){
    InsertNode( &root, 10 );
    InsertNode( &root, 6 );
 
+
+   node *node = searchNode(root, 2);
+
+   printf("%d\n", node->key);
+
    //printInorder(root);
 
-   inorderSuccessor(root);
+   //inorderSuccessor(root);
 
    return 0;
 }

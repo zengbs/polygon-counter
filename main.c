@@ -51,6 +51,16 @@ void printInorder( node *node ){
 
 }
 
+void inorderSuccessor( node *node ){
+
+   if ( node->left == NULL ){
+      printf("%d(%d)  ", node->key, node->duplicate);
+      return;
+   }
+
+   inorderSuccessor(node->left);
+}
+
 void InsertNode( node **root, int key ){
 
    node *current = *root;
@@ -75,6 +85,14 @@ void InsertNode( node **root, int key ){
    if ( previous == NULL )           allocateNewNode( root, key, ROOT );
    else if ( previous->key > key )   allocateNewNode( &previous, key, LEFT_CHILD );
    else                              allocateNewNode( &previous, key, RIGHT_CHILD );
+}
+
+
+
+void deleteNode( node **root, int key ){
+
+
+
 
 }
 
@@ -92,11 +110,13 @@ int main(){
    InsertNode( &root, -3 );
    InsertNode( &root, 10 );
    InsertNode( &root, 10 );
-   InsertNode( &root, 10 );
+   InsertNode( &root, -10 );
    InsertNode( &root, 10 );
    InsertNode( &root, 6 );
 
-   printInorder(root);
+   //printInorder(root);
+
+   inorderSuccessor(root);
 
    return 0;
 }

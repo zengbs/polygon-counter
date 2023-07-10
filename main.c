@@ -72,12 +72,9 @@ void InsertNode( node **root, int key ){
 
    }
 
-   if ( previous == NULL )
-      allocateNewNode( root, key, ROOT );
-   else if ( previous->key > key )
-      allocateNewNode( &previous, key, LEFT_CHILD );
-   else
-      allocateNewNode( &previous, key, RIGHT_CHILD );
+   if ( previous == NULL )           allocateNewNode( root, key, ROOT );
+   else if ( previous->key > key )   allocateNewNode( &previous, key, LEFT_CHILD );
+   else                              allocateNewNode( &previous, key, RIGHT_CHILD );
 
 }
 
@@ -93,6 +90,10 @@ int main(){
    InsertNode( &root, 5 );
    InsertNode( &root, 1 );
    InsertNode( &root, -3 );
+   InsertNode( &root, 10 );
+   InsertNode( &root, 10 );
+   InsertNode( &root, 10 );
+   InsertNode( &root, 10 );
    InsertNode( &root, 6 );
 
    printInorder(root);

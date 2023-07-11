@@ -9,10 +9,13 @@
 #define LEFT_CHILD  1
 #define RIGHT_CHILD 2
 #define AAA 100000
+#define RED   true
+#define BLACK false
 
-typedef struct BSTNode TreeNode;
+typedef struct RBTNode TreeNode;
 
-struct BSTNode {
+struct RBTNode {
+   bool color
    int key;
    int duplicate;
    TreeNode *parent;
@@ -20,9 +23,8 @@ struct BSTNode {
    TreeNode *right;
 };
 
-# include"validate.c"
 
-void allocateNewNode( TreeNode **parent, int key, int left_root_right )
+void allocateNewNode( TreeNode **parent, int key, , bool color, int left_root_right )
 {
    TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
 
@@ -32,6 +34,7 @@ void allocateNewNode( TreeNode **parent, int key, int left_root_right )
    newNode->left   = NULL;
    newNode->right  = NULL;
    newNode->duplicate = 1;
+   newNode->color = color;
 
    if ( left_root_right == ROOT ){
       newNode->parent = NULL;
@@ -168,6 +171,8 @@ void deleteNode( TreeNode **root, int key ){
    }
 
    // Case 3: The node to be deleted has right child
+   if ( node == *root ) { *root = node->right; free(node); return; }
+
    if ( node->right != NULL && node->left == NULL ){
       if ( node->parent->left == node ){
          node->parent->left  = node->right;

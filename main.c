@@ -1,25 +1,32 @@
 # include<stdio.h>
-# include<stdlib.h>
 # include<stdbool.h>
+# include<stdlib.h>
+# include<time.h>
 
+#define LOCATION __FILE__, __FUNCTION__, __LINE__
+#define REPORT_ERROR { printf( "Error: %s(%s):%d\n", LOCATION ); exit(EXIT_FAILURE); }
 #define ROOT        0
 #define LEFT_CHILD  1
 #define RIGHT_CHILD 2
+#define AAA 100000
 
-typedef struct BSTNode node;
+typedef struct BSTNode TreeNode;
 
 struct BSTNode {
    int key;
    int duplicate;
-   node *parent;
-   node *left;
-   node *right;
+   TreeNode *parent;
+   TreeNode *left;
+   TreeNode *right;
 };
 
+# include"validate.c"
 
-void allocateNewNode( node **parent, int key, int left_root_right )
+void allocateNewNode( TreeNode **parent, int key, int left_root_right )
 {
-   node* newNode = (node*)malloc(sizeof(node));
+   TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
+
+   if ( newNode == NULL ) REPORT_ERROR
 
    newNode->key    = key;
    newNode->left   = NULL;
@@ -40,7 +47,7 @@ void allocateNewNode( node **parent, int key, int left_root_right )
 }
 
 
-void printInorder( node *node ){
+void printInorder( TreeNode *node ){
 
    if ( node == NULL ) return;
 
@@ -54,13 +61,9 @@ void printInorder( node *node ){
 
 
 // Only works for the node having both child
-node* inorderSuccessor( node *targetNode ){
+TreeNode* inorderSuccessor( TreeNode *node ){
 
-   node *current = targetNode->right;
-
-   while( current->left == NULL && current->right != NULL ){
-      current = current->right;
-   }
+   TreeNode *current = node->right;
 
    while( current->left != NULL ){
       current = current->left;
@@ -69,11 +72,11 @@ node* inorderSuccessor( node *targetNode ){
    return current;
 }
 
-void InsertNode( node **root, int key ){
+void InsertNode( TreeNode **root, int key ){
 
-   node *current = *root;
-   node *previous = NULL;
-   node *newNode = NULL;
+   TreeNode *current = *root;
+   TreeNode *previous = NULL;
+   TreeNode *newNode = NULL;
 
    while( current != NULL ){
 
@@ -95,14 +98,14 @@ void InsertNode( node **root, int key ){
    else                              allocateNewNode( &previous, key, RIGHT_CHILD );
 }
 
-node* searchNode( node *root, int key )
+TreeNode* searchNode( TreeNode *root, int key )
 {
-   node *current = root;
+   TreeNode *current = root;
 
    while( current->key != key ){
       if      ( current->key > key )  current = current->left;
       else if ( current->key < key )  current = current->right;
-      else { printf("Something wrong at %d\n", __LINE__); exit(1); }
+      else { REPORT_ERROR }
 
       if ( current == NULL ) return NULL;
    }
@@ -112,75 +115,90 @@ node* searchNode( node *root, int key )
 }
 
 
-void deleteNode( node **root, int key ){
+void deleteNode( TreeNode **root, int key ){
 
-   node *targetNode = searchNode(*root, key);
+   TreeNode *node = searchNode(*root, key);
 
-   if ( targetNode == NULL ){
+   if ( node == NULL ){
       printf("The key %d is not found.\n", key);
       return;
    }
 
    // Checking duplicate
-   if ( targetNode->duplicate < 1 ){
-      printf("Node duplicate is less than 1\n", targetNode->duplicate);
-      exit(1);
-   }
+   if ( node->duplicate < 1 )  REPORT_ERROR
 
    // Case 0: The node to be deleted is duplicate
-   if ( targetNode->duplicate > 1 ){
-      (targetNode->duplicate)--;
+   if ( node->duplicate > 1 ){
+      (node->duplicate)--;
       return;
    }
 
    // Case 1: The node to be deleted has no child
-   if ( targetNode->left == NULL && targetNode->right == NULL ){
-      if ( targetNode->parent->left == targetNode ){
-         targetNode->parent->left  = NULL;
+   if ( node->left == NULL && node->right == NULL ){
+
+      if ( node == *root ) { *root = NULL; free(node); return;}
+
+      if ( node->parent->left == node ){
+         node->parent->left  = NULL;
+      }else if (node->parent->right == node){
+         node->parent->right = NULL;
       }else{
-         targetNode->parent->right = NULL;
+         REPORT_ERROR
       }
 
-      free(targetNode);
+      free(node);
    }
 
    // Case 2: The node to be deleted has left child
-   if ( targetNode->right == NULL && targetNode->left != NULL ){
-      if ( targetNode->parent->left == targetNode ){
-         targetNode->parent->left  = targetNode->left;
+   if ( node->right == NULL && node->left != NULL ){
+
+      if ( node == *root ) { *root = node->left; free(node); return; }
+
+      if ( node->parent->left == node ){
+         node->parent->left  = node->left;
+      }else if (node->parent->right == node){
+         node->parent->right = node->left;
       }else{
-         targetNode->parent->right = targetNode->left;
+         REPORT_ERROR
       }
 
-      free(targetNode);
+      node->left->parent = node->parent;
+
+      free(node);
    }
 
    // Case 3: The node to be deleted has right child
-   if ( targetNode->right != NULL && targetNode->left == NULL ){
-      if ( targetNode->parent->left == targetNode ){
-         targetNode->parent->left  = targetNode->right;
+   if ( node->right != NULL && node->left == NULL ){
+      if ( node->parent->left == node ){
+         node->parent->left  = node->right;
+      }else if (node->parent->right == node){
+         node->parent->right = node->right;
       }else{
-         targetNode->parent->right = targetNode->right;
+         REPORT_ERROR
       }
 
-      free(targetNode);
+      node->right->parent = node->parent;
+
+      free(node);
    }
 
    // Case 4: The node to be deleted has both child
    //         --> Delete the inorder successor in right-subtree
-   if ( targetNode->right != NULL && targetNode->left != NULL ){
+   if ( node->right != NULL && node->left != NULL ){
+      TreeNode *successor = inorderSuccessor(node);
 
-      node *successor = inorderSuccessor(targetNode);
-
-      // Since successor is always left child of its parent
-      // we can safely make successor's right child as left of its parent.
-      // If there is no succ, then assign succ->right to succParent->right
-      if ( successor->parent != *root )
+      if ( successor->parent->left == successor ){
          successor->parent->left = successor->right;
-      else
+      }else if( successor->parent->right == successor ){
          successor->parent->right = successor->right;
+      }else{
+         REPORT_ERROR
+      }
 
-      targetNode->key = successor->key;
+      if ( successor->right != NULL )
+         successor->right->parent = successor->parent;
+
+      node->key = successor->key;
 
       free(successor);
    }
@@ -189,29 +207,38 @@ void deleteNode( node **root, int key ){
 
 int main(){
 
-   node *root = NULL;
-
-   InsertNode( &root, 2 );
-   InsertNode( &root, -50 );
-   InsertNode( &root, 50 );
-   InsertNode( &root, 20 );
-   InsertNode( &root, 19 );
-   InsertNode( &root, 40 );
-   InsertNode( &root, 30 );
-   InsertNode( &root, 45 );
-   InsertNode( &root, 25 );
-   InsertNode( &root, 35 );
-   InsertNode( &root, 26 );
+   // Initialization, should only be called once.
+   srand((unsigned int)time(NULL));
 
 
+   TreeNode *root = NULL;
+
+   int numInsertion = 10000;
+
+   int count = 0;
 
 
+   int insert[AAA] = {0};
 
-   printInorder(root);
+   for (int i=0;i<numInsertion;i++){
+      // Returns a pseudo-random integer between 0 and RAND_MAX.
+      int r = rand();
 
-   deleteNode(&root, 2);
-   printf("\n");
-   printInorder(root);
+      InsertNode( &root, r );
+
+      if ( insert[r%AAA] == 0)
+         insert[r%AAA] = r;
+      else{
+         deleteNode(&root, insert[r%AAA] );
+         insert[r%AAA] = 0;
+      }
+
+      if (!isValidBST(root)){
+         printf("Invalid BST! at i=%d\n", i);
+         exit(EXIT_FAILURE);
+      }
+   }
+
 
    return 0;
 }

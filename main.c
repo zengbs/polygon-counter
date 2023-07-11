@@ -56,7 +56,7 @@ void printInorder( node *node ){
 // Only works for the node having both child
 node* inorderSuccessor( node *targetNode ){
 
-   node *current = targetNode;
+   node *current = targetNode->right;
 
    while( current->left == NULL && current->right != NULL ){
       current = current->right;
@@ -172,9 +172,9 @@ void deleteNode( node **root, int key ){
 
       node *successor = inorderSuccessor(targetNode);
 
-        // Since successor is always left child of its parent
-        // we can safely make successor's right child as left of its parent.
-        // If there is no succ, then assign succ->right to succParent->right
+      // Since successor is always left child of its parent
+      // we can safely make successor's right child as left of its parent.
+      // If there is no succ, then assign succ->right to succParent->right
       if ( successor->parent != *root )
          successor->parent->left = successor->right;
       else
@@ -192,18 +192,16 @@ int main(){
    node *root = NULL;
 
    InsertNode( &root, 2 );
-   InsertNode( &root, -6 );
-   InsertNode( &root, 6 );
-   InsertNode( &root, 3 );
-   InsertNode( &root, 10 );
-   InsertNode( &root, 5 );
-   InsertNode( &root, 1 );
-   InsertNode( &root, -3 );
-   InsertNode( &root, 10 );
-   InsertNode( &root, 10 );
-   InsertNode( &root, -10 );
-   InsertNode( &root, 10 );
-   InsertNode( &root, 6 );
+   InsertNode( &root, -50 );
+   InsertNode( &root, 50 );
+   InsertNode( &root, 20 );
+   InsertNode( &root, 19 );
+   InsertNode( &root, 40 );
+   InsertNode( &root, 30 );
+   InsertNode( &root, 45 );
+   InsertNode( &root, 25 );
+   InsertNode( &root, 35 );
+   InsertNode( &root, 26 );
 
 
 
@@ -211,8 +209,7 @@ int main(){
 
    printInorder(root);
 
-   deleteNode(&root, 6);
-   deleteNode(&root, 6);
+   deleteNode(&root, 2);
    printf("\n");
    printInorder(root);
 

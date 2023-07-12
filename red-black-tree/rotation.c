@@ -19,11 +19,11 @@ void leftRotation( TreeNode *x, TreeNode *root ){
    TreeNode *k = y->right;
    TreeNode *A = x->parent;
 
-   // Connect x with j
+   // Connect x and j
    x->right = j;
    if ( j != neel )   j->parent = x;
 
-   // Connect A with y
+   // Connect A and y
    y->parent = A;
 
    if ( A == neel ){
@@ -31,12 +31,12 @@ void leftRotation( TreeNode *x, TreeNode *root ){
       root = y;
    }else if ( A->left == x ){
       A->left = y;
-   }else if ( A=>right == x ){
+   }else if ( A->right == x ){
       A->right = y;
    }else REPORT_ERROR;
 
 
-   // Connect y with x
+   // Connect y and x
    y->left = x;
    x->parent = y;
 }
@@ -61,11 +61,11 @@ void rightRotation( TreeNode *x, TreeNode *root ){
    TreeNode *k = y->right;
    TreeNode *A = x->parent;
 
-   // Connect x with k
+   // Connect x and k
    x->left = k;
    if ( k != neel )   k->parent = x;
 
-   // Connect A with y
+   // Connect A and y
    y->parent = A;
 
    if ( A == neel ){
@@ -78,7 +78,7 @@ void rightRotation( TreeNode *x, TreeNode *root ){
    }else REPORT_ERROR;
 
 
-   // Connect y with x
+   // Connect y and x
    y->right = x;
    x->parent = y;
 }

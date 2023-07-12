@@ -1,43 +1,26 @@
-# include<stdio.h>
-# include<stdbool.h>
-# include<stdlib.h>
-# include<time.h>
-
-#define LOCATION __FILE__, __FUNCTION__, __LINE__
-#define REPORT_ERROR { printf( "Error: %s(%s):%d\n", LOCATION ); exit(EXIT_FAILURE); }
-#define ROOT        0
-#define LEFT_CHILD  1
-#define RIGHT_CHILD 2
-#define AAA 100000
-#define RED   true
-#define BLACK false
-
-typedef struct RBTNode TreeNode;
-
-struct RBTNode {
-   bool color
-   int key;
-   int duplicate;
-   TreeNode *parent;
-   TreeNode *left;
-   TreeNode *right;
-};
+#include<stdio.h>
+#include<stdbool.h>
+#include<stdlib.h>
+#include<time.h>
+#include"macro.h"
+#include"rbtree.h"
+#include "prototypes.h"
 
 
-void allocateNewNode( TreeNode **parent, int key, , bool color, int left_root_right )
+TreeNode* allocateNewNode( TreeNode **parent, int key, bool color, int left_root_right )
 {
    TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
 
    if ( newNode == NULL ) REPORT_ERROR
 
    newNode->key    = key;
-   newNode->left   = NULL;
-   newNode->right  = NULL;
+   newNode->left   = neel;
+   newNode->right  = neel;
    newNode->duplicate = 1;
    newNode->color = color;
 
    if ( left_root_right == ROOT ){
-      newNode->parent = NULL;
+      newNode->parent = neel;
       *parent = newNode;
    }
    else if ( left_root_right == LEFT_CHILD ){
@@ -47,12 +30,14 @@ void allocateNewNode( TreeNode **parent, int key, , bool color, int left_root_ri
       newNode->parent = *parent;
       (*parent)->right = newNode;
    }
+
+   return newNode;
 }
 
 
 void printInorder( TreeNode *node ){
 
-   if ( node == NULL ) return;
+   if ( node == neel ) return;
 
    printInorder(node->left);
 
@@ -68,7 +53,7 @@ TreeNode* inorderSuccessor( TreeNode *node ){
 
    TreeNode *current = node->right;
 
-   while( current->left != NULL ){
+   while( current->left != neel ){
       current = current->left;
    }
 
@@ -77,40 +62,13 @@ TreeNode* inorderSuccessor( TreeNode *node ){
 
 
 
-
 int main(){
 
-   // Initialization, should only be called once.
-   srand((unsigned int)time(NULL));
+   // Allocate null node
+   neel = (TreeNode*)malloc(sizeof(TreeNode));
+   neel->color = BLACK;
 
 
-   TreeNode *root = NULL;
-
-   int numInsertion = 10000;
-
-   int count = 0;
-
-
-   int insert[AAA] = {0};
-
-   for (int i=0;i<numInsertion;i++){
-      // Returns a pseudo-random integer between 0 and RAND_MAX.
-      int r = rand();
-
-      InsertNode( &root, r );
-
-      if ( insert[r%AAA] == 0)
-         insert[r%AAA] = r;
-      else{
-         deleteNode(&root, insert[r%AAA] );
-         insert[r%AAA] = 0;
-      }
-
-      if (!isValidBST(root)){
-         printf("Invalid BST! at i=%d\n", i);
-         exit(EXIT_FAILURE);
-      }
-   }
 
 
    return 0;

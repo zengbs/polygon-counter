@@ -1,22 +1,21 @@
+#include"macro.h"
+#include"rbtree.h"
+#include "prototypes.h"
 
+/* ====================================================================== */
+/*             A                    A                                     */
+/*             |                    |                                     */
+/*             x                    y                                     */
+/*            / \       ==>        / \                                    */
+/*           i   y                x   k                                   */
+/*              / \              / \                                      */
+/*             j   k            i   j                                     */
+/* ====================================================================== */
 
-// ======================================================================
-//             A                    A
-//             |                    |
-//             x                    y
-//            / \       ==>        / \
-//           i   y                x   k
-//              / \              / \
-//             j   k            i   j
-// ======================================================================
+void leftRotate( TreeNode *x, TreeNode *root ){
 
-void leftRotation( TreeNode *x, TreeNode *root ){
-
-   TreeNode *i = x->left;
    TreeNode *y = x->right;
-
    TreeNode *j = y->left;
-   TreeNode *k = y->right;
    TreeNode *A = x->parent;
 
    // Connect x and j
@@ -42,22 +41,19 @@ void leftRotation( TreeNode *x, TreeNode *root ){
 }
 
 
-// ======================================================================
-//              A                   A
-//              |                   |
-//              x                   y
-//             / \       ==>       / \
-//            y   i               j   x
-//           / \                     / \
-//          j   k                   k   i
-// ======================================================================
+/* ====================================================================== */
+/*              A                   A                                     */
+/*              |                   |                                     */
+/*              x                   y                                     */
+/*             / \       ==>       / \                                    */
+/*            y   i               j   x                                   */
+/*           / \                     / \                                  */
+/*          j   k                   k   i                                 */
+/* ====================================================================== */
 
-void rightRotation( TreeNode *x, TreeNode *root ){
+void rightRotate( TreeNode *x, TreeNode *root ){
 
-   TreeNode *i = x->right;
    TreeNode *y = x->left;
-
-   TreeNode *j = y->left;
    TreeNode *k = y->right;
    TreeNode *A = x->parent;
 
@@ -73,7 +69,7 @@ void rightRotation( TreeNode *x, TreeNode *root ){
       root = y;
    }else if ( A->left == x ){
       A->left = y;
-   }else if ( A=>right == x ){
+   }else if ( A->right == x ){
       A->right = y;
    }else REPORT_ERROR;
 

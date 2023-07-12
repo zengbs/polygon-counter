@@ -1,3 +1,7 @@
+#include"macro.h"
+#include"rbtree.h"
+#include "prototypes.h"
+
 TreeNode* searchNode( TreeNode *root, int key )
 {
    TreeNode *current = root;

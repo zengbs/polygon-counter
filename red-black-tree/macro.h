@@ -6,6 +6,5 @@
 #define LEFT_CHILD  1
 #define RIGHT_CHILD 2
 #define NEEL        3
-#define AAA 100000
 #define RED   true
 #define BLACK false

@@ -12,4 +12,4 @@ struct RBTNode {
    TreeNode *right;
 };
 
-TreeNode *neel = NULL;
+extern TreeNode *neel;

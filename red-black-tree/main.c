@@ -7,6 +7,8 @@
 #include "prototypes.h"
 
 
+TreeNode *neel = NULL;
+
 TreeNode* allocateNewNode( TreeNode **parent, int key, bool color, int left_root_right )
 {
    TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
@@ -68,8 +70,18 @@ int main(){
    neel = (TreeNode*)malloc(sizeof(TreeNode));
    neel->color = BLACK;
 
+   TreeNode *root = NULL;
 
-
+   InsertNode(&root, 2);
+   InsertNode(&root, 3);
+   InsertNode(&root, 4);
+   InsertNode(&root, 5);
+   InsertNode(&root, 6);
+   InsertNode(&root, 7);
+   InsertNode(&root, 8);
+   InsertNode(&root, 9);
+   InsertNode(&root, 10);
+   InsertNode(&root, 11);
 
    return 0;
 }

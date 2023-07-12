@@ -70,7 +70,7 @@ int main(){
    neel = (TreeNode*)malloc(sizeof(TreeNode));
    neel->color = BLACK;
 
-   TreeNode *root = NULL;
+   TreeNode *root = neel;
 
    InsertNode(&root, 2);
    InsertNode(&root, 3);

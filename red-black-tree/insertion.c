@@ -53,7 +53,7 @@ void InsertNodeFixUpRBT( TreeNode *root, TreeNode *newNode ){
          }
 
       }
-      else if ( current->parent->parent->left == current->parent ){
+      else if ( current->parent->parent->right == current->parent ){
 
          TreeNode *uncle = current->parent->parent->left;
 

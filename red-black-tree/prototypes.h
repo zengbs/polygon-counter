@@ -7,3 +7,5 @@ void printInorder( TreeNode *node );
 TreeNode* inorderSuccessor( TreeNode *node );
 bool validateBST(TreeNode* node, TreeNode* prev);
 bool isValidBST(TreeNode* root);
+bool isBalanced(TreeNode *root);
+void print2D( TreeNode* root);

@@ -73,49 +73,55 @@ int main(){
    TreeNode *root = neel;
    root->parent = neel;
 
-   //InsertNode(&root, -2);
-   //InsertNode(&root, -3);
-   //InsertNode(&root, -4);
-   //InsertNode(&root, -5);
-   //InsertNode(&root, -6);
-   //InsertNode(&root, -7);
-   //InsertNode(&root, -8);
-   //InsertNode(&root, -9);
-   //InsertNode(&root, -10);
-   //InsertNode(&root, -11);
+   InsertNode(&root, -2);
+   InsertNode(&root, -3);
+   InsertNode(&root, -4);
+   InsertNode(&root, -5);
+   InsertNode(&root, -6);
+   InsertNode(&root, -7);
+   InsertNode(&root, -8);
+   InsertNode(&root, -9);
+   InsertNode(&root, -10);
+   InsertNode(&root, -11);
+   InsertNode(&root, -12);
+   InsertNode(&root, -13);
+   InsertNode(&root, -14);
+   InsertNode(&root, -15);
+   InsertNode(&root, -16);
+   InsertNode(&root, -17);
+   InsertNode(&root, -18);
+   InsertNode(&root, -19);
 
-   //printInorder(root);
-
-   // Initialization, should only be called once.
-   srand((unsigned int)time(NULL));
-
-
-
-   int numInsertion = 100000;
-
-   //int count = 0;
-
-
-   //int insert[AAA] = {0};
-
-   for (int i=0;i<numInsertion;i++){
-      // Returns a pseudo-random integer between 0 and RAND_MAX.
-      int r = rand();
-
-      InsertNode( &root, r );
-
-      //if ( insert[r%AAA] == 0)
-      //   insert[r%AAA] = r;
-      //else{
-      //   deleteNode(&root, insert[r%AAA] );
-      //   insert[r%AAA] = 0;
-      //}
-
-      if (!isValidBST(root)){
-         printf("Invalid BST! at i=%d\n", i);
-         exit(EXIT_FAILURE);
-      }
-   }
+   print2D(root);
+//   // Initialization, should only be called once.
+//   srand((unsigned int)time(NULL));
+//
+//
+//
+//   int numInsertion = 10000;
+//
+//   //int count = 0;
+//
+//
+//   //int insert[AAA] = {0};
+//
+//   for (int i=0;i<numInsertion;i++){
+//
+//      int r = rand();
+//
+//      InsertNode( &root, r );
+//
+//      if (!isValidBST(root)){
+//         printf("Invalid BST! at i=%d\n", i);
+//         exit(EXIT_FAILURE);
+//      }
+//
+//      if (!isBalanced(root)){
+//         printf("RBT is unbalanced! at i=%d\n", i);
+//         exit(EXIT_FAILURE);
+//      }
+//
+//   }
 
    return 0;
 }

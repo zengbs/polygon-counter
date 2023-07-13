@@ -25,8 +25,47 @@ bool isValidBST(TreeNode* root) {
 }
 
 // ====== Validate the height of RB tree ================================
+// Returns true if the Binary tree is balanced like a Red-Black tree.
+// This function also sets value in maxh and minh (passed by reference).
+// maxh and minh are set as maximum and minimum heights of root.
 // ======================================================================
+bool isBalancedUtil(TreeNode *root, int *maxh, int *minh)
+{
+    // Base case
+    if (root == NULL)
+    {
+        *maxh = *minh = 0;
+        return true;
+    }
 
+    int lmxh, lmnh; // To store max and min heights of left subtree
+    int rmxh, rmnh; // To store max and min heights of right subtree
+
+    // Check if left subtree is balanced, also set lmxh and lmnh
+    if (isBalancedUtil(root->left, &lmxh, &lmnh) == false)
+        return false;
+
+    // Check if right subtree is balanced, also set rmxh and rmnh
+    if (isBalancedUtil(root->right, &rmxh, &rmnh) == false)
+        return false;
+
+    // Set the max and min heights of this node for the parent call
+    *maxh = MAX(lmxh, rmxh) + 1;
+    *minh = MIN(lmnh, rmnh) + 1;
+
+    // See if this node is balanced
+    if (*maxh <= 2*(*minh))
+        return true;
+
+    return false;
+}
+
+// A wrapper over isBalancedUtil()
+bool isBalanced(TreeNode *root)
+{
+    int maxh, minh;
+    return isBalancedUtil(root, &maxh, &minh);
+}
 // ====== Validate the properties of RB tree ============================
 // 1. Every node is either red or black.
 // 2. All NIL nodes (figure 1) are considered black.
@@ -34,3 +73,40 @@ bool isValidBST(TreeNode* root) {
 // 4. Every path from a given node to any of its descendant NIL nodes
 //    goes through the same number of black nodes.
 // ======================================================================
+
+
+// ====== Print the structure of tree on 2D plane =======================
+// ======================================================================
+#define COUNT 10
+
+// Function to print binary tree in 2D
+// It does reverse inorder traversal
+void print2DUtil(TreeNode* root, int space)
+{
+    // Base case
+    if (root == NULL)
+        return;
+
+    // Increase distance between levels
+    space += COUNT;
+
+    // Process right child first
+    print2DUtil(root->right, space);
+
+    // Print current node after space
+    // count
+    printf("\n");
+    for (int i = COUNT; i < space; i++)
+        printf(" ");
+    printf("%d\n", root->key);
+
+    // Process left child
+    print2DUtil(root->left, space);
+}
+
+// Wrapper over print2DUtil()
+void print2D( TreeNode* root)
+{
+    // Pass initial space count as 0
+    print2DUtil(root, 0);
+}

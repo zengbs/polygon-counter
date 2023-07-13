@@ -3,8 +3,8 @@
 #include "prototypes.h"
 
 
-void InsertNodeFixUpRBT( TreeNode *root, TreeNode *newNode ){
-
+void InsertNodeFixUpRBT( TreeNode **root, TreeNode *newNode )
+{
    TreeNode *current = newNode;
 
    while ( current->parent->color == RED ){
@@ -17,7 +17,7 @@ void InsertNodeFixUpRBT( TreeNode *root, TreeNode *newNode ){
          if ( uncle->color == RED ){
 
             // Step 1: paint parent black
-            current->parent ->color = BLACK;
+            current->parent->color = BLACK;
 
             // Step 2: paint uncle black
             uncle->color = BLACK;
@@ -32,16 +32,6 @@ void InsertNodeFixUpRBT( TreeNode *root, TreeNode *newNode ){
          // Case 2: uncle is black, current is left child
          else if ( uncle->color == BLACK && current->parent->left == current ){
 
-            // Step 1: move current to parent
-            current->parent->color = BLACK;
-
-            // Step 2: left rotate based on current
-            leftRotate( current, root );
-         }
-
-         // Case 3: uncle is black, current is right child
-         else if ( uncle->color == BLACK && current->parent->right == current ){
-
             // Step 1: paint parent black
             current->parent->color = BLACK;
 
@@ -51,6 +41,28 @@ void InsertNodeFixUpRBT( TreeNode *root, TreeNode *newNode ){
             // Step 3: right rotate based on grandparent
             rightRotate( current->parent->parent, root );
          }
+
+         // Case 3: uncle is black, current is right child
+         else if ( uncle->color == BLACK && current->parent->right == current ){
+
+            // Step 1: move current to parent
+            current = current->parent;
+
+            // Step 2: left rotate based on current
+            leftRotate( current, root );
+
+            // Repeat case 2:
+            // Step 1: paint parent black
+            current->parent->color = BLACK;
+
+            // Step 2: paint grand parent red
+            current->parent->parent->color = RED;
+
+            // Step 3: right rotate based on grandparent
+            rightRotate( current->parent->parent, root );
+         }
+         else REPORT_ERROR;
+
 
       }
       else if ( current->parent->parent->right == current->parent ){
@@ -73,18 +85,8 @@ void InsertNodeFixUpRBT( TreeNode *root, TreeNode *newNode ){
             current = current->parent->parent;
          }
 
-         // Case 2: uncle is black, current is right child
+         // Case 2: uncle is black, current is left child
          else if ( uncle->color == BLACK && current->parent->right == current ){
-
-            // Step 1: move current to parent
-            current->parent->color = BLACK;
-
-            // Step 2: right rotate based on current
-            rightRotate( current, root );
-         }
-
-         // Case 3: uncle is black, current is left child
-         else if ( uncle->color == BLACK && current->parent->left == current ){
 
             // Step 1: paint parent black
             current->parent->color = BLACK;
@@ -92,15 +94,35 @@ void InsertNodeFixUpRBT( TreeNode *root, TreeNode *newNode ){
             // Step 2: paint grand parent red
             current->parent->parent->color = RED;
 
-            // Step 3: left rotate based on grandparent
+            // Step 3: right rotate based on grandparent
             leftRotate( current->parent->parent, root );
          }
+
+         // Case 3: uncle is black, current is right child
+         else if ( uncle->color == BLACK && current->parent->left == current ){
+
+            // Step 1: move current to parent
+            current = current->parent;
+
+            // Step 2: left rotate based on current
+            rightRotate( current, root );
+
+            // Repeat case 2:
+            // Step 1: paint parent black
+            current->parent->color = BLACK;
+
+            // Step 2: paint grand parent red
+            current->parent->parent->color = RED;
+
+            // Step 3: right rotate based on grandparent
+            leftRotate( current->parent->parent, root );
+         }else REPORT_ERROR
 
       }else REPORT_ERROR
 
    }
 
-   root->color = BLACK;
+   (*root)->color = BLACK;
 
 }
 
@@ -130,7 +152,7 @@ void InsertNode( TreeNode **root, int key ){
    else if ( previous->key > key )   newNode = allocateNewNode( &previous, key, RED, LEFT_CHILD );
    else                              newNode = allocateNewNode( &previous, key, RED, RIGHT_CHILD );
 
-   InsertNodeFixUpRBT( *root, newNode );
+   InsertNodeFixUpRBT( root, newNode );
 
 }
 

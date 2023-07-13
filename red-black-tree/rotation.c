@@ -12,8 +12,8 @@
 /*             j   k            i   j                                     */
 /* ====================================================================== */
 
-void leftRotate( TreeNode *x, TreeNode *root ){
-
+void leftRotate( TreeNode *x, TreeNode **root )
+{
    TreeNode *y = x->right;
    TreeNode *j = y->left;
    TreeNode *A = x->parent;
@@ -27,7 +27,7 @@ void leftRotate( TreeNode *x, TreeNode *root ){
 
    if ( A == neel ){
       y->parent = neel;
-      root = y;
+      *root = y;
    }else if ( A->left == x ){
       A->left = y;
    }else if ( A->right == x ){
@@ -51,8 +51,8 @@ void leftRotate( TreeNode *x, TreeNode *root ){
 /*          j   k                   k   i                                 */
 /* ====================================================================== */
 
-void rightRotate( TreeNode *x, TreeNode *root ){
-
+void rightRotate( TreeNode *x, TreeNode **root )
+{
    TreeNode *y = x->left;
    TreeNode *k = y->right;
    TreeNode *A = x->parent;
@@ -66,7 +66,7 @@ void rightRotate( TreeNode *x, TreeNode *root ){
 
    if ( A == neel ){
       y->parent = neel;
-      root = y;
+      *root = y;
    }else if ( A->left == x ){
       A->left = y;
    }else if ( A->right == x ){

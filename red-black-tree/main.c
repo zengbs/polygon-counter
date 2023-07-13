@@ -71,17 +71,21 @@ int main(){
    neel->color = BLACK;
 
    TreeNode *root = neel;
+   root->parent = neel;
 
-   InsertNode(&root, 2);
-   InsertNode(&root, 3);
-   InsertNode(&root, 4);
-   InsertNode(&root, 5);
-   InsertNode(&root, 6);
-   InsertNode(&root, 7);
-   InsertNode(&root, 8);
-   InsertNode(&root, 9);
-   InsertNode(&root, 10);
-   InsertNode(&root, 11);
+   InsertNode(&root, -2);
+   InsertNode(&root, -3);
+   InsertNode(&root, -4);
+   InsertNode(&root, -5);
+   InsertNode(&root, -6);
+   InsertNode(&root, -7);
+   InsertNode(&root, -8);
+   InsertNode(&root, -9);
+   InsertNode(&root, -10);
+   InsertNode(&root, -11);
+
+   printInorder(root);
+
 
    return 0;
 }

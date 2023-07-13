@@ -5,3 +5,5 @@ void InsertNode( TreeNode **root, int key );
 TreeNode* allocateNewNode( TreeNode **parent, int key, bool color, int left_root_right );
 void printInorder( TreeNode *node );
 TreeNode* inorderSuccessor( TreeNode *node );
+bool validateBST(TreeNode* node, TreeNode* prev);
+bool isValidBST(TreeNode* root);

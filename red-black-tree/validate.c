@@ -1,3 +1,8 @@
+#include<stdbool.h>
+#include<stdlib.h>
+#include"macro.h"
+#include"rbtree.h"
+#include "prototypes.h"
 
 // ====== Validate the properties of binary search tree =================
 // 1. The left subtree of a node contains only nodes with keys
@@ -7,16 +12,16 @@
 // 3. Both the left and right subtrees must also be binary search trees.
 // ======================================================================
 bool validateBST(TreeNode* node, TreeNode* prev) {
-    if (node == NULL) return true;
-    if (!validate(node->left, prev)) return false;
-    if (prev != NULL && prev->key >= node->key) return false;
+    if (node == neel) return true;
+    if (!validateBST(node->left, prev)) return false;
+    if (prev != neel && prev->key >= node->key) return false;
     prev = node;
-    return validate(node->right, prev);
+    return validateBST(node->right, prev);
 }
 
 bool isValidBST(TreeNode* root) {
-    TreeNode* prev = NULL;
-    return validate(root, prev);
+    TreeNode* prev = neel;
+    return validateBST(root, prev);
 }
 
 // ====== Validate the height of RB tree ================================

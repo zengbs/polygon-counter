@@ -98,7 +98,9 @@ void print2DUtil(TreeNode* root, int space)
     printf("\n");
     for (int i = COUNT; i < space; i++)
         printf(" ");
-    printf("%d\n", root->key);
+
+    if ( root->color == BLACK )      printf("%d(B)\n", root->key);
+    else                             printf("%d(R)\n", root->key);
 
     // Process left child
     print2DUtil(root->left, space);

@@ -5,62 +5,93 @@ void DeleteFixedUpRBT( TreeNode **root, TreeNode *current )
    {
       TreeNode *sibling = NULL;
 
-      if ( isLeftChild( current ) ) sibling = current->parent->right;
-      else                          sibling = current->parent->left;
 
-      // Case 1: sibling is red
-      if ( sibling->color = RED ){
+      if ( isLeftChild( current ) )
+      {
+         sibling = current->parent->right;
 
-         sibling->color = BLACK;
-         sibling->parent = RED;
+         // Case 1: sibling is red
+         if ( sibling->color = RED ){
+            sibling->color = BLACK;
+            sibling->parent = RED;
+            leftRotate( sibling->parent );
+         }
 
-         leftRotate( sibling->parent );
+         // Case 2: sibling is black, both children of sibling are black
+         if ( sibling->color == BLACK
+           && sibling->left->color == BLACK
+           && sibling->right->color == BLACK ){
+            sibling->color = RED;
+            current = current->parent;
+            if ( current->color = RED || current == root ) break;
+         }
+
+
+         // Case 3: sibling is black, right/left child of sibling is black/red
+         if ( sibling->color == BLACK
+           && sibling->left->color == RED
+           && sibling->right->color == BLACK ){
+            sibling->color = RED;
+            sibling->left->color = BLACK;
+            rightRotate( sibling, root );
+            sibling = current->parent;
+
+         }
+
+         // Case 4: sibling is black, right child of sibling is red
+         if ( sibling->color == BLACK
+              && sibling->right->color == RED ){
+            sibling->color = current->parent->color;
+            current->parent->color = BLACK;
+            sibling->right->color = BLACK;
+            leftRotate( current->parent, root );
+            current = root
+            break;
+         }
+
+      }else{
+
+         sibling = current->parent->left;
+
+         // Case 1: sibling is red
+         if ( sibling->color = RED ){
+            sibling->color = BLACK;
+            sibling->parent = RED;
+            rightRotate( sibling->parent );
+         }
+
+         // Case 2: sibling is black, both children of sibling are black
+         if ( sibling->color == BLACK
+           && sibling->right->color == BLACK
+           && sibling->left->color == BLACK ){
+            sibling->color = RED;
+            current = current->parent;
+            if ( current->color = RED || current == root ) break;
+         }
+
+
+         // Case 3: sibling is black, right/left child of sibling is black/red
+         if ( sibling->color == BLACK
+           && sibling->right->color == RED
+           && sibling-left->color == BLACK ){
+            sibling->color = RED;
+            sibling->right->color = BLACK;
+            leftRotate( sibling, root );
+            sibling = current->parent;
+
+         }
+
+         // Case 4: sibling is black, right child of sibling is red
+         if ( sibling->color == BLACK
+              && sibling->left->color == RED ){
+            sibling->color = current->parent->color;
+            current->parent->color = BLACK;
+            sibling->left->color = BLACK;
+            rightRotate( current->parent, root );
+            current = root
+            break;
+         }
       }
-
-      // Case 2: sibling is black, both children of sibling are black
-      if ( sibling->color == BLACK
-        && sibling->left->color == BLACK
-        && sibling->right->color == BLACK ){
-
-         sibling->color = RED;
-
-         current = current->parent;
-
-         if ( current->color = RED || current == root ) break;
-      }
-
-
-      // Case 3: sibling is black, right/left child of sibling is black/red
-      if ( sibling->color == BLACK
-        && sibling->left->color == RED
-        && sibling->right->color == BLACK ){
-
-         sibling->color = RED;
-         sibling->left->color = BLACK;
-
-         rightRotate( sibling, root );
-
-         sibling = current->parent;
-
-      }
-
-      // Case 4: sibling is black, right child of sibling is red
-      if ( sibling->color == BLACK
-           && sibling->right->color == RED ){
-
-         sibling->color = current->parent->color;
-
-         current->parent->color = BLACK;
-
-         sibling->right->color = BLACK;
-
-         leftRotate( current->parent, root );
-
-         current = root
-
-      }
-
-
    }
 
    current->color = BLACK;

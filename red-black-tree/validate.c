@@ -77,7 +77,7 @@ bool isBalanced(TreeNode *root)
 
 // ====== Print the structure of tree on 2D plane =======================
 // ======================================================================
-#define COUNT 10
+#define COUNT 12
 
 // Function to print binary tree in 2D
 // It does reverse inorder traversal

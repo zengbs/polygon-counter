@@ -93,6 +93,11 @@ int main(){
    InsertNode(&root, -19);
 
    print2D(root);
+
+   if (!isBalanced(root)){
+      printf("RBT is unbalanced!\n");
+      exit(EXIT_FAILURE);
+   }
 //   // Initialization, should only be called once.
 //   srand((unsigned int)time(NULL));
 //

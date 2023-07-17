@@ -1,0 +1,13 @@
+void rightRotate( TreeNode *x, TreeNode **root );
+void  leftRotate( TreeNode *x, TreeNode **root );
+void InsertNode( TreeNode **root, int leftend );
+void deleteNode( TreeNode **root, int leftend );
+TreeNode* allocateNewNode( TreeNode **parent, int leftend, bool color, int left_root_right );
+void printInorder( TreeNode *node );
+TreeNode* inorderSuccessor( TreeNode *node );
+bool validateBST(TreeNode* node, TreeNode* prev);
+bool isValidBST(TreeNode* root);
+bool isBalanced(TreeNode *root);
+void print2D( TreeNode* root);
+bool isLeftChild( TreeNode * node, char *fileName, int line );
+TreeNode* searchNode( TreeNode *root, int leftend );

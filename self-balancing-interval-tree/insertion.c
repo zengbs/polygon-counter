@@ -1,9 +1,9 @@
 #include"macro.h"
-#include"rbtree.h"
+#include"intervaltree.h"
 #include "prototypes.h"
 
 
-static void InsertNodeFixUpRBT( TreeNode **root, TreeNode *newNode )
+static void InsertNodeFixUpIntervalTree( TreeNode **root, TreeNode *newNode )
 {
    TreeNode *current = newNode;
 
@@ -126,7 +126,8 @@ static void InsertNodeFixUpRBT( TreeNode **root, TreeNode *newNode )
 
 }
 
-void InsertNode( TreeNode **root, int leftend ){
+void InsertNode( TreeNode **root, int leftend, int rightend )
+{
 
    TreeNode *current = *root;
    TreeNode *previous = neel;
@@ -148,11 +149,20 @@ void InsertNode( TreeNode **root, int leftend ){
 
    TreeNode *newNode = NULL;
 
-   if ( previous == neel )           newNode = allocateNewNode( root, leftend, BLACK, ROOT );
-   else if ( previous->leftend > leftend )   newNode = allocateNewNode( &previous, leftend, RED, LEFT_CHILD );
-   else                              newNode = allocateNewNode( &previous, leftend, RED, RIGHT_CHILD );
+   if ( previous == neel )                   newNode = allocateNewNode( root     , leftend, rightend, BLACK, ROOT        );
+   else if ( previous->leftend > leftend )   newNode = allocateNewNode( &previous, leftend, rightend, RED,   LEFT_CHILD  );
+   else                                      newNode = allocateNewNode( &previous, leftend, rightend, RED,   RIGHT_CHILD );
 
-   InsertNodeFixUpRBT( root, newNode );
+
+   // Update `max` attribute in each node on search path
+   current = previous;
+   while( current != *root ){
+      if ( current->max > current->parent->max ) current->parent->max = current->max;
+      current = current->parent;
+   }
+
+
+   // Fix up RB tree
+   InsertNodeFixUpIntervalTree( root, newNode );
 
 }
-

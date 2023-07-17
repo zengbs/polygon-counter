@@ -1,6 +1,6 @@
 #include"macro.h"
-#include"rbtree.h"
-#include "prototypes.h"
+#include"intervaltree.h"
+#include"prototypes.h"
 
 
 static void DeleteFixedUpRBT( TreeNode **root, TreeNode *current )
@@ -125,13 +125,15 @@ static void DeleteFixedUpRBT( TreeNode **root, TreeNode *current )
 
 }
 
-void deleteNode( TreeNode **root, int leftend )
+void DeleteNode( TreeNode **root, int leftend, int rightend )
 {
 
    TreeNode *node = searchNode(*root, leftend);
 
    bool deleteNodeColor;
+
    TreeNode *deleteNodeChild = NULL;
+   TreeNode *deleteNode      = NULL;
 
    if ( node == NULL ){
       printf("The leftend %d is not found.\n", leftend);
@@ -163,12 +165,11 @@ void deleteNode( TreeNode **root, int leftend )
       deleteNodeColor = node->color;
       deleteNodeChild = neel;
       deleteNodeChild->parent = node->parent;
+      deleteNode = node;
 
 #     ifdef DEBUG
       printf("deleteNode: Case 1\n");
 #     endif
-
-      free(node);
    }
 
    // Case 2: The node to be deleted has left child
@@ -189,8 +190,7 @@ void deleteNode( TreeNode **root, int leftend )
       deleteNodeColor = node->color;
       deleteNodeChild = node->left;
       deleteNodeChild->parent = node->parent;
-
-      free(node);
+      deleteNode = node;
    }
 
    // Case 3: The node to be deleted has right child
@@ -211,8 +211,7 @@ void deleteNode( TreeNode **root, int leftend )
       deleteNodeColor = node->color;
       deleteNodeChild = node->right;
       deleteNodeChild->parent = node->parent;
-
-      free(node);
+      deleteNode = node;
    }
 
    // Case 4: The node to be deleted has both child
@@ -237,11 +236,20 @@ void deleteNode( TreeNode **root, int leftend )
       deleteNodeColor = successor->color;
       deleteNodeChild = successor->right;
       deleteNodeChild->parent = successor->parent;
-
-      free(successor);
+      deleteNode = successor;
    }
    else REPORT_ERROR;
 
+
+   // Update `max` attribute in each node on search path
+   TreeNode *current = deleteNode;
+   while( current != *root ){
+      if ( current->max > current->parent->max ) current->parent->max = current->max;
+      current = current->parent;
+   }
+
+
+   free(deleteNode);
 
    if ( deleteNodeColor == BLACK )  DeleteFixedUpRBT( root, deleteNodeChild );
 

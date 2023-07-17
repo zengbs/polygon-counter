@@ -3,13 +3,13 @@
 #include<stdlib.h>
 #include<time.h>
 #include"macro.h"
-#include"rbtree.h"
-#include "prototypes.h"
+#include"intervaltree.h"
+#include"prototypes.h"
 
 
 TreeNode *neel = NULL;
 
-TreeNode* allocateNewNode( TreeNode **parent, int leftend, bool color, int left_root_right )
+TreeNode* allocateNewNode( TreeNode **parent, int leftend, int rightend, bool color, int left_root_right )
 {
    TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
 
@@ -20,6 +20,7 @@ TreeNode* allocateNewNode( TreeNode **parent, int leftend, bool color, int left_
    newNode->right  = neel;
    newNode->duplicate = 1;
    newNode->color = color;
+   newNode->max = rightend;
 
    if ( left_root_right == ROOT ){
       newNode->parent = neel;
@@ -78,8 +79,8 @@ root->parent = neel;
 #  ifdef MANUAL_TEST
 
    // Allocate null node
-   InsertNode(&root, 2);
-   deleteNode(&root, 2);
+   InsertNode(&root, 2, 3);
+   //DeleteNode(&root, 5, 9);
 
    if (!isValidBST(root)){
       printf("Invalid BST!\n");
@@ -116,7 +117,7 @@ root->parent = neel;
       if ( insert[r%ARRAY_LENGTH] == 0)
          insert[r%ARRAY_LENGTH] = r;
       else{
-         deleteNode(&root, insert[r%ARRAY_LENGTH] );
+         DeleteNode(&root, insert[r%ARRAY_LENGTH] );
          insert[r%ARRAY_LENGTH] = 0;
       }
 

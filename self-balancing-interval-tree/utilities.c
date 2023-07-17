@@ -1,6 +1,6 @@
 #include"macro.h"
-#include"rbtree.h"
-#include "prototypes.h"
+#include"intervaltree.h"
+#include"prototypes.h"
 
 
 bool isLeftChild( TreeNode * node, char *fileName, int line )

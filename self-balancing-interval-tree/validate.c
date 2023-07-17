@@ -1,8 +1,8 @@
 #include<stdbool.h>
 #include<stdlib.h>
 #include"macro.h"
-#include"rbtree.h"
-#include "prototypes.h"
+#include"intervaltree.h"
+#include"prototypes.h"
 
 // ====== Validate the properties of binary search tree =================
 // 1. The left subtree of a node contains only nodes with leftends

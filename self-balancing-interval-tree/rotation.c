@@ -1,5 +1,5 @@
 #include"macro.h"
-#include"rbtree.h"
+#include"intervaltree.h"
 #include "prototypes.h"
 
 /* ====================================================================== */
@@ -38,6 +38,12 @@ void leftRotate( TreeNode *x, TreeNode **root )
    // Connect y and x
    y->left = x;
    x->parent = y;
+
+   // Update `max` attribute
+   y->max = x->max;
+   x->max = MAX( x->left->max, x->right->max );
+   x->max = MAX( x->max, x->rightend );
+
 }
 
 
@@ -77,4 +83,11 @@ void rightRotate( TreeNode *x, TreeNode **root )
    // Connect y and x
    y->right = x;
    x->parent = y;
+
+
+   // Update `max` attribute
+   y->max = x->max;
+   x->max = MAX( x->left->max, x->right->max );
+   x->max = MAX( x->max, x->rightend );
+
 }

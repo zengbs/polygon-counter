@@ -6,7 +6,7 @@ typedef struct IntervalTreeNode TreeNode;
 struct IntervalTreeNode {
    bool color;
    int leftend;
-   int rightend
+   int rightend;
    int max;
    int duplicate;
    TreeNode *parent;

@@ -1,13 +1,11 @@
 #include<stdbool.h>
 #include<stdlib.h>
 
-typedef struct IntervalTreeNode TreeNode;
+typedef struct RBTreeNode TreeNode;
 
-struct IntervalTreeNode {
+struct RBTreeNode {
    bool color;
-   int leftend;
-   int rightend
-   int max;
+   int key;
    int duplicate;
    TreeNode *parent;
    TreeNode *left;

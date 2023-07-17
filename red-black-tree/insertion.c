@@ -3,7 +3,7 @@
 #include "prototypes.h"
 
 
-void InsertNodeFixUpRBT( TreeNode **root, TreeNode *newNode )
+static void InsertNodeFixUpRBT( TreeNode **root, TreeNode *newNode )
 {
    TreeNode *current = newNode;
 

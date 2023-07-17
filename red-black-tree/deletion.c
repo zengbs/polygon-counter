@@ -1,96 +1,123 @@
-void DeleteFixedUpRBT( TreeNode **root, TreeNode *current )
+#include"macro.h"
+#include"rbtree.h"
+#include "prototypes.h"
+
+
+static void DeleteFixedUpRBT( TreeNode **root, TreeNode *current )
 {
 
-   while( current != root && current->color == BLACK )
+   while( current != *root && current->color == BLACK )
    {
       TreeNode *sibling = NULL;
 
-
-      if ( isLeftChild( current ) )
+      if ( isLeftChild( current, __FILE__, __LINE__ ) )
       {
          sibling = current->parent->right;
 
          // Case 1: sibling is red
-         if ( sibling->color = RED ){
+         if ( sibling->color == RED ){
             sibling->color = BLACK;
-            sibling->parent = RED;
-            leftRotate( sibling->parent );
+            sibling->parent->color = RED;
+            leftRotate( sibling->parent, root );
+            sibling = current->parent->right;
+#           ifdef DEBUG
+            printf("DeleteFixedUpRBT: case 1\n");
+#           endif
          }
 
          // Case 2: sibling is black, both children of sibling are black
-         if ( sibling->color == BLACK
+         else if ( sibling->color == BLACK
            && sibling->left->color == BLACK
            && sibling->right->color == BLACK ){
             sibling->color = RED;
             current = current->parent;
-            if ( current->color = RED || current == root ) break;
+#           ifdef DEBUG
+            printf("DeleteFixedUpRBT: case 2\n");
+#           endif
          }
 
 
          // Case 3: sibling is black, right/left child of sibling is black/red
-         if ( sibling->color == BLACK
+         else if ( sibling->color == BLACK
            && sibling->left->color == RED
            && sibling->right->color == BLACK ){
             sibling->color = RED;
             sibling->left->color = BLACK;
             rightRotate( sibling, root );
-            sibling = current->parent;
+            sibling = current->parent->right;
+#           ifdef DEBUG
+            printf("DeleteFixedUpRBT: case 3\n");
+#           endif
 
          }
 
          // Case 4: sibling is black, right child of sibling is red
-         if ( sibling->color == BLACK
+         else if ( sibling->color == BLACK
               && sibling->right->color == RED ){
             sibling->color = current->parent->color;
             current->parent->color = BLACK;
             sibling->right->color = BLACK;
             leftRotate( current->parent, root );
-            current = root
-            break;
+            current = *root;
+#           ifdef DEBUG
+            printf("DeleteFixedUpRBT: case 4\n");
+#           endif
          }
+         else REPORT_ERROR;
 
       }else{
 
          sibling = current->parent->left;
-
          // Case 1: sibling is red
-         if ( sibling->color = RED ){
+         if ( sibling->color == RED ){
+#           ifdef DEBUG
+            printf("DeleteFixedUpRBT: case 1-2\n");
+#           endif
             sibling->color = BLACK;
-            sibling->parent = RED;
-            rightRotate( sibling->parent );
+            sibling->parent->color = RED;
+            rightRotate( sibling->parent, root );
+            sibling = current->parent->left;
          }
 
          // Case 2: sibling is black, both children of sibling are black
-         if ( sibling->color == BLACK
+         else if ( sibling->color == BLACK
            && sibling->right->color == BLACK
            && sibling->left->color == BLACK ){
+#           ifdef DEBUG
+            printf("DeleteFixedUpRBT: case 2-2\n");
+#           endif
             sibling->color = RED;
             current = current->parent;
-            if ( current->color = RED || current == root ) break;
          }
 
 
          // Case 3: sibling is black, right/left child of sibling is black/red
-         if ( sibling->color == BLACK
+         else if ( sibling->color == BLACK
            && sibling->right->color == RED
-           && sibling-left->color == BLACK ){
+           && sibling->left->color == BLACK ){
+#           ifdef DEBUG
+            printf("DeleteFixedUpRBT: case 3-2\n");
+#           endif
             sibling->color = RED;
             sibling->right->color = BLACK;
             leftRotate( sibling, root );
-            sibling = current->parent;
+            sibling = current->parent->left;
 
          }
 
-         // Case 4: sibling is black, right child of sibling is red
-         if ( sibling->color == BLACK
+         // Case 4: sibling is black, left child of sibling is red
+         else if ( sibling->color == BLACK
               && sibling->left->color == RED ){
+#           ifdef DEBUG
+            printf("DeleteFixedUpRBT: case 4-2");
+#           endif
             sibling->color = current->parent->color;
             current->parent->color = BLACK;
             sibling->left->color = BLACK;
             rightRotate( current->parent, root );
-            current = root
-            break;
+            current = *root;
          }
+         else REPORT_ERROR;
       }
    }
 
@@ -121,26 +148,31 @@ void deleteNode( TreeNode **root, int key )
    }
 
    // Case 1: The node to be deleted has no child
-   if ( node->left == NULL && node->right == NULL ){
+   if ( node->left == neel && node->right == neel ){
 
-      if ( node == *root ) { *root = NULL; free(node); return;}
+      if ( node == *root ) { *root = neel; free(node); return;}
 
       if ( node->parent->left == node ){
-         node->parent->left  = NULL;
+         node->parent->left  = neel;
       }else if (node->parent->right == node){
-         node->parent->right = NULL;
+         node->parent->right = neel;
       }else{
          REPORT_ERROR
       }
 
       deleteNodeColor = node->color;
+      deleteNodeChild = neel;
       deleteNodeChild->parent = node->parent;
+
+#     ifdef DEBUG
+      printf("deleteNode: Case 1\n");
+#     endif
 
       free(node);
    }
 
    // Case 2: The node to be deleted has left child
-   else if ( node->right == NULL && node->left != NULL ){
+   else if ( node->right == neel && node->left != neel ){
 
       if ( node == *root ) { *root = node->left; free(node); return; }
 
@@ -162,7 +194,7 @@ void deleteNode( TreeNode **root, int key )
    }
 
    // Case 3: The node to be deleted has right child
-   else if ( node->right != NULL && node->left == NULL ){
+   else if ( node->right != neel && node->left == neel ){
 
       if ( node == *root ) { *root = node->right; free(node); return; }
 
@@ -185,7 +217,7 @@ void deleteNode( TreeNode **root, int key )
 
    // Case 4: The node to be deleted has both child
    //         --> Delete the inorder successor in right-subtree
-   else if ( node->right != NULL && node->left != NULL ){
+   else if ( node->right != neel && node->left != neel ){
 
       TreeNode *successor = inorderSuccessor(node);
 
@@ -197,7 +229,7 @@ void deleteNode( TreeNode **root, int key )
          REPORT_ERROR
       }
 
-      if ( successor->right != NULL )
+      if ( successor->right != neel )
          successor->right->parent = successor->parent;
 
       node->key = successor->key;

@@ -128,7 +128,9 @@ static void DeleteFixedUpRBT( TreeNode **root, TreeNode *current )
 void DeleteNode( TreeNode **root, Interval *interval )
 {
 
-   TreeNode *node = searchInterval(*root, interval);
+   ListNode *listNode = NULL;
+
+   TreeNode *node = searchInterval( *root, interval, &listNode );
 
    bool deleteNodeColor;
 
@@ -140,14 +142,14 @@ void DeleteNode( TreeNode **root, Interval *interval )
       return;
    }
 
-   // Checking duplicate
-   if ( node->duplicate < 1 )  REPORT_ERROR
 
-   // Case 0: The node to be deleted is duplicate
-   if ( node->duplicate > 1 ){
-      (node->duplicate)--;
+   // Case 0: multiple intervals in a single node
+   if ( node->listLength > 1 ){
+      deleteNodeList( listNode );
+      (node->listLength)--;
       return;
    }
+
 
    // Case 1: The node to be deleted has no child
    if ( node->left == neel && node->right == neel ){
@@ -249,6 +251,7 @@ void DeleteNode( TreeNode **root, Interval *interval )
    }
 
 
+   freeList( deleteNode->highList );
    free(deleteNode);
 
    if ( deleteNodeColor == BLACK )  DeleteFixedUpRBT( root, deleteNodeChild );

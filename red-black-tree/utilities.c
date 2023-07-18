@@ -19,7 +19,7 @@ TreeNode* searchNode( TreeNode *root, int key )
       else if ( current->key < key )  current = current->right;
       else { REPORT_ERROR }
 
-      if ( current == NULL ) return NULL;
+      if ( current == neel ) REPORT_ERROR;
    }
 
    return current;

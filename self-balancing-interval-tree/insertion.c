@@ -143,7 +143,9 @@ void InsertNode( TreeNode **root, Interval *interval )
       }else if ( current->low < interval->low ){
          current = current->right;
       }else{
-         (current->duplicate)++;
+         addNodeList(current->highList, interval->high );
+         (current->listLength)++;
+         current->max = current->highList->key;
          return;
       }
 

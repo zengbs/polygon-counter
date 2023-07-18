@@ -14,13 +14,13 @@ TreeNode* allocateNewNode( TreeNode **parent, Interval *interval, bool color, in
 {
    TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
 
-   if ( newNode == NULL ) REPORT_ERROR
+   if ( newNode == NULL ) REPORT_ERROR;
 
-   newNode->low    = interval->low;
-   newNode->high   = interval->high;
+   newNode->low        = interval->low;
+   addNodeList(newNode->highList, interval->high);
+   newNode->listLength = 1;
    newNode->left       = neel;
    newNode->right      = neel;
-   newNode->duplicate  = 1;
    newNode->color      = color;
 
    if ( left_root_right == ROOT ){
@@ -48,7 +48,7 @@ void printInorder( TreeNode *node ){
 
    printInorder(node->left);
 
-   printf("%d(%d)  ", node->low, node->duplicate);
+   printf("%d  ", node->low);
 
    printInorder(node->right);
 
@@ -68,17 +68,24 @@ TreeNode* inorderSuccessor( TreeNode *node ){
 }
 
 
-TreeNode* searchInterval( TreeNode *root, Interval *interval )
+TreeNode* searchInterval( TreeNode *root, Interval *interval, ListNode **listNode )
 {
    TreeNode *current = root;
 
    while( current->low != interval->low ){
 
-      if      ( current->low > interval->low )  current = current->left;
-      else if ( current->low < interval->low )  current = current->right;
-      else    REPORT_ERROR;
+      if       ( current->low > interval->low ){
+         current = current->left;
+         *listNode = NULL;
+      }else if ( current->low < interval->low ){
+         current = current->right;
+         *listNode = NULL;
+      }else{
+         *listNode = searchNodeList( current->highList, interval->high );
+      }
 
-      if ( current == NULL ) return NULL;
+
+      if ( current == neel ) REPORT_ERROR;
    }
 
    return current;
@@ -108,8 +115,8 @@ void print2DUtil(TreeNode* root, int space)
     for (int i = COUNT; i < space; i++)
         printf(" ");
 
-    if ( root->color == BLACK )      printf("[%d,%d](%d, B)\n", root->low, root->high, root->max);
-    else                             printf("[%d,%d](%d, R)\n", root->low, root->high, root->max);
+    if ( root->color == BLACK )      printf("[%d,%d](%d, B)\n", root->low, root->highList->key, root->max);
+    else                             printf("[%d,%d](%d, R)\n", root->low, root->highList->key, root->max);
 
     // Process left child
     print2DUtil(root->left, space);

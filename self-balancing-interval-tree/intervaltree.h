@@ -7,13 +7,21 @@ typedef struct Interval{
    int high;
 } Interval;
 
+
+typedef struct ListNode ListNode;
+struct ListNode {
+   int key;
+   ListNode *next;
+   ListNode *prev;
+};
+
 typedef struct IntervalTreeNode TreeNode;
 struct IntervalTreeNode {
    bool color;
    int low;
-   int high;
+   ListNode *highList;
+   int listLength;
    int max;
-   int duplicate;
    TreeNode *parent;
    TreeNode *left;
    TreeNode *right;

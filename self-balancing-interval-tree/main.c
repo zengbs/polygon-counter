@@ -10,62 +10,6 @@
 
 TreeNode *neel = NULL;
 
-TreeNode* allocateNewNode( TreeNode **parent, Interval *interval, bool color, int left_root_right )
-{
-   TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
-
-   if ( newNode == NULL ) REPORT_ERROR
-
-   newNode->low    = interval->low;
-   newNode->high   = interval->high;
-   newNode->left       = neel;
-   newNode->right      = neel;
-   newNode->duplicate  = 1;
-   newNode->color      = color;
-
-   if ( left_root_right == ROOT ){
-      newNode->parent = neel;
-      *parent         = newNode;
-      newNode->max    = interval->high;
-   }
-   else if ( left_root_right == LEFT_CHILD ){
-      newNode->parent = *parent;
-      (*parent)->left = newNode;
-      newNode->max    = interval->high;
-   }else{
-      newNode->parent  = *parent;
-      (*parent)->right = newNode;
-      newNode->max     = interval->high;
-   }
-
-   return newNode;
-}
-
-
-void printInorder( TreeNode *node ){
-
-   if ( node == neel ) return;
-
-   printInorder(node->left);
-
-   printf("%d(%d)  ", node->low, node->duplicate);
-
-   printInorder(node->right);
-
-}
-
-
-// Only works for the node having both child
-TreeNode* inorderSuccessor( TreeNode *node ){
-
-   TreeNode *current = node->right;
-
-   while( current->left != neel ){
-      current = current->left;
-   }
-
-   return current;
-}
 
 
 #define MANUAL_TEST

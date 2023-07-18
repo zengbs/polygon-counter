@@ -98,7 +98,7 @@ Interval interval;
    InsertNode(&root, &interval);
    interval.low = 4; interval.high = 11;
    InsertNode(&root, &interval);
-   interval.low = 7; interval.high = 9;
+   interval.low = 7; interval.high = 90;
    InsertNode(&root, &interval);
    interval.low = -8; interval.high = 10;
    InsertNode(&root, &interval);

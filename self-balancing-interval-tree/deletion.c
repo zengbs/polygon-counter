@@ -128,7 +128,7 @@ static void DeleteFixedUpRBT( TreeNode **root, TreeNode *current )
 void DeleteNode( TreeNode **root, Interval *interval )
 {
 
-   TreeNode *node = searchNode(*root, interval->low);
+   TreeNode *node = searchInterval(*root, interval);
 
    bool deleteNodeColor;
 

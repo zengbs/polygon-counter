@@ -2,16 +2,12 @@
 #include<stdlib.h>
 
 
-
-
-
 typedef struct Interval{
    int low;
    int high;
 } Interval;
 
 typedef struct IntervalTreeNode TreeNode;
-
 struct IntervalTreeNode {
    bool color;
    int low;

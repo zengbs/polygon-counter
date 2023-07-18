@@ -80,19 +80,18 @@ neel->max = INT_MIN;
 TreeNode *root = neel;
 root->parent = neel;
 
+Interval interval;
 
 #  ifdef MANUAL_TEST
-
-
    // Allocate null node
-   Interval interval = {2, 3};
-   InsertNode(&root, &interval);
    interval.low = 4; interval.high = 5;
    InsertNode(&root, &interval);
    interval.low = 2; interval.high = 9;
    InsertNode(&root, &interval);
    interval.low = -1; interval.high = 3;
    InsertNode(&root, &interval);
+   interval.low = 2; interval.high = 9;
+   DeleteNode(&root, &interval);
    interval.low = -9; interval.high = 4;
    InsertNode(&root, &interval);
    interval.low = -7; interval.high = 5;

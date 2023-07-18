@@ -10,4 +10,4 @@ bool isValidBST(TreeNode* root);
 bool isBalanced(TreeNode *root);
 void print2D( TreeNode* root);
 bool isLeftChild( TreeNode * node, char *fileName, int line );
-TreeNode* searchNode( TreeNode *root, int leftend );
+TreeNode* searchInterval( TreeNode *root, Interval *interval );

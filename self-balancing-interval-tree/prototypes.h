@@ -1,8 +1,8 @@
 void rightRotate( TreeNode *x, TreeNode **root );
 void  leftRotate( TreeNode *x, TreeNode **root );
-void InsertNode( TreeNode **root, int leftend, int rightend );
-void DeleteNode( TreeNode **root, int leftend, int rightend );
-TreeNode* allocateNewNode( TreeNode **parent, int leftend, int rightend, bool color, int left_root_right );
+void InsertNode( TreeNode **root, Interval *interval );
+void DeleteNode( TreeNode **root, Interval *interval );
+TreeNode* allocateNewNode( TreeNode **parent, Interval *interval, bool color, int left_root_right );
 void printInorder( TreeNode *node );
 TreeNode* inorderSuccessor( TreeNode *node );
 bool validateBST(TreeNode* node, TreeNode* prev);

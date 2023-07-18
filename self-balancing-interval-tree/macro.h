@@ -9,6 +9,9 @@
 #define NEEL        3
 #define RED   true
 #define BLACK false
+#define LOW_END  0
+#define HIGH_END 1
+
 
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))

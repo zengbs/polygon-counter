@@ -126,8 +126,10 @@ static void InsertNodeFixUpIntervalTree( TreeNode **root, TreeNode *newNode )
 
 }
 
-void InsertNode( TreeNode **root, int leftend, int rightend )
+void InsertNode( TreeNode **root, Interval *interval )
 {
+
+   if ( interval->low > interval->high ) REPORT_ERROR;
 
    TreeNode *current = *root;
    TreeNode *previous = neel;
@@ -136,9 +138,9 @@ void InsertNode( TreeNode **root, int leftend, int rightend )
 
       previous = current;
 
-      if ( current->leftend > leftend ){
+      if ( current->low > interval->low ){
          current = current->left;
-      }else if ( current->leftend < leftend ){
+      }else if ( current->low < interval->low ){
          current = current->right;
       }else{
          (current->duplicate)++;
@@ -149,18 +151,17 @@ void InsertNode( TreeNode **root, int leftend, int rightend )
 
    TreeNode *newNode = NULL;
 
-   if ( previous == neel )                   newNode = allocateNewNode( root     , leftend, rightend, BLACK, ROOT        );
-   else if ( previous->leftend > leftend )   newNode = allocateNewNode( &previous, leftend, rightend, RED,   LEFT_CHILD  );
-   else                                      newNode = allocateNewNode( &previous, leftend, rightend, RED,   RIGHT_CHILD );
+   if ( previous == neel )
+      newNode = allocateNewNode( root     , interval, BLACK, ROOT        );
+   else if ( previous->low > interval->low )
+      newNode = allocateNewNode( &previous, interval, RED,   LEFT_CHILD  );
+   else
+      newNode = allocateNewNode( &previous, interval, RED,   RIGHT_CHILD );
 
 
    // Update `max` attribute in each node on search path
-   //printf("%d\n", current->leftend);
    current = newNode;
-
    while( current != *root ){
-      //PRINT_LOCATION;
-      //printf("%d\n", current->leftend);
       if ( current->max > current->parent->max ) current->parent->max = current->max;
       current = current->parent;
    }

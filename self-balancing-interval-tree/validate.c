@@ -5,16 +5,16 @@
 #include"prototypes.h"
 
 // ====== Validate the properties of binary search tree =================
-// 1. The left subtree of a node contains only nodes with leftends
-//    less than the node's leftend.
+// 1. The left subtree of a node contains only nodes with lows
+//    less than the node's low.
 // 2. The right subtree of a node contains only nodes with
-//    leftends greater than the node's leftend.
+//    lows greater than the node's low.
 // 3. Both the left and right subtrees must also be binary search trees.
 // ======================================================================
 bool validateBST(TreeNode* node, TreeNode* prev) {
     if (node == neel) return true;
     if (!validateBST(node->left, prev)) return false;
-    if (prev != neel && prev->leftend >= node->leftend) return false;
+    if (prev != neel && prev->low >= node->low) return false;
     prev = node;
     return validateBST(node->right, prev);
 }
@@ -99,8 +99,8 @@ void print2DUtil(TreeNode* root, int space)
     for (int i = COUNT; i < space; i++)
         printf(" ");
 
-    if ( root->color == BLACK )      printf("[%d,%d](%d, B)\n", root->leftend, root->rightend, root->max);
-    else                             printf("[%d,%d](%d, R)\n", root->leftend, root->rightend, root->max);
+    if ( root->color == BLACK )      printf("[%d,%d](%d, B)\n", root->low, root->high, root->max);
+    else                             printf("[%d,%d](%d, R)\n", root->low, root->high, root->max);
 
     // Process left child
     print2DUtil(root->left, space);

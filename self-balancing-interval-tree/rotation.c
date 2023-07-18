@@ -42,7 +42,7 @@ void leftRotate( TreeNode *x, TreeNode **root )
    // Update `max` attribute
    y->max = x->max;
    x->max = MAX( x->left->max, x->right->max );
-   x->max = MAX( x->max, x->rightend );
+   x->max = MAX( x->max, x->high );
 
 }
 
@@ -88,6 +88,6 @@ void rightRotate( TreeNode *x, TreeNode **root )
    // Update `max` attribute
    y->max = x->max;
    x->max = MAX( x->left->max, x->right->max );
-   x->max = MAX( x->max, x->rightend );
+   x->max = MAX( x->max, x->high );
 
 }

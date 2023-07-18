@@ -10,13 +10,13 @@ bool isLeftChild( TreeNode * node, char *fileName, int line )
    else { printf( "Error: %s(%d)\n", fileName, line ); exit(EXIT_FAILURE); return false; }
 }
 
-TreeNode* searchNode( TreeNode *root, int leftend )
+TreeNode* searchNode( TreeNode *root, int low )
 {
    TreeNode *current = root;
 
-   while( current->leftend != leftend ){
-      if      ( current->leftend > leftend )  current = current->left;
-      else if ( current->leftend < leftend )  current = current->right;
+   while( current->low != low ){
+      if      ( current->low > low )  current = current->left;
+      else if ( current->low < low )  current = current->right;
       else { REPORT_ERROR }
 
       if ( current == NULL ) return NULL;

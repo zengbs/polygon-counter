@@ -10,14 +10,14 @@
 
 TreeNode *neel = NULL;
 
-TreeNode* allocateNewNode( TreeNode **parent, int leftend, int rightend, bool color, int left_root_right )
+TreeNode* allocateNewNode( TreeNode **parent, Interval *interval, bool color, int left_root_right )
 {
    TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
 
    if ( newNode == NULL ) REPORT_ERROR
 
-   newNode->leftend    = leftend;
-   newNode->rightend   = rightend;
+   newNode->low    = interval->low;
+   newNode->high   = interval->high;
    newNode->left       = neel;
    newNode->right      = neel;
    newNode->duplicate  = 1;
@@ -26,16 +26,16 @@ TreeNode* allocateNewNode( TreeNode **parent, int leftend, int rightend, bool co
    if ( left_root_right == ROOT ){
       newNode->parent = neel;
       *parent         = newNode;
-      newNode->max    = rightend;
+      newNode->max    = interval->high;
    }
    else if ( left_root_right == LEFT_CHILD ){
       newNode->parent = *parent;
       (*parent)->left = newNode;
-      newNode->max    = rightend;
+      newNode->max    = interval->high;
    }else{
       newNode->parent  = *parent;
       (*parent)->right = newNode;
-      newNode->max     = rightend;
+      newNode->max     = interval->high;
    }
 
    return newNode;
@@ -48,7 +48,7 @@ void printInorder( TreeNode *node ){
 
    printInorder(node->left);
 
-   printf("%d(%d)  ", node->leftend, node->duplicate);
+   printf("%d(%d)  ", node->low, node->duplicate);
 
    printInorder(node->right);
 
@@ -68,8 +68,8 @@ TreeNode* inorderSuccessor( TreeNode *node ){
 }
 
 
-//#define MANUAL_TEST
-#define RANDOM_TEST
+#define MANUAL_TEST
+//#define RANDOM_TEST
 
 int main(){
 
@@ -83,16 +83,26 @@ root->parent = neel;
 
 #  ifdef MANUAL_TEST
 
+
    // Allocate null node
-   InsertNode(&root, 2, 3);
-   InsertNode(&root, 3, 4);
-   InsertNode(&root, 4, 5);
-   InsertNode(&root, 5, 6);
-   InsertNode(&root, 6, 7);
-   InsertNode(&root, 7, 8);
-   InsertNode(&root, 8, 9);
-   InsertNode(&root, 9, 10);
-   InsertNode(&root,10, 15);
+   Interval interval = {2, 3};
+   InsertNode(&root, &interval);
+   interval.low = 4; interval.high = 5;
+   InsertNode(&root, &interval);
+   interval.low = 2; interval.high = 9;
+   InsertNode(&root, &interval);
+   interval.low = -1; interval.high = 3;
+   InsertNode(&root, &interval);
+   interval.low = -9; interval.high = 4;
+   InsertNode(&root, &interval);
+   interval.low = -7; interval.high = 5;
+   InsertNode(&root, &interval);
+   interval.low = 4; interval.high = 11;
+   InsertNode(&root, &interval);
+   interval.low = 7; interval.high = 9;
+   InsertNode(&root, &interval);
+   interval.low = -8; interval.high = 10;
+   InsertNode(&root, &interval);
 
    print2D(root);
 

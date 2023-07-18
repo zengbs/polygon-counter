@@ -125,10 +125,10 @@ static void DeleteFixedUpRBT( TreeNode **root, TreeNode *current )
 
 }
 
-void DeleteNode( TreeNode **root, int leftend, int rightend )
+void DeleteNode( TreeNode **root, Interval *interval )
 {
 
-   TreeNode *node = searchNode(*root, leftend);
+   TreeNode *node = searchNode(*root, interval->low);
 
    bool deleteNodeColor;
 
@@ -136,7 +136,7 @@ void DeleteNode( TreeNode **root, int leftend, int rightend )
    TreeNode *deleteNode      = NULL;
 
    if ( node == NULL ){
-      printf("The leftend %d is not found.\n", leftend);
+      printf("The interval->low %d is not found.\n", interval->low);
       return;
    }
 
@@ -231,7 +231,7 @@ void DeleteNode( TreeNode **root, int leftend, int rightend )
       if ( successor->right != neel )
          successor->right->parent = successor->parent;
 
-      node->leftend = successor->leftend;
+      node->low = successor->low;
 
       deleteNodeColor = successor->color;
       deleteNodeChild = successor->right;

@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdbool.h>
 #include<stdlib.h>
+#include<limits.h>
 #include<time.h>
 #include"macro.h"
 #include"intervaltree.h"
@@ -16,22 +17,25 @@ TreeNode* allocateNewNode( TreeNode **parent, int leftend, int rightend, bool co
    if ( newNode == NULL ) REPORT_ERROR
 
    newNode->leftend    = leftend;
-   newNode->left   = neel;
-   newNode->right  = neel;
-   newNode->duplicate = 1;
-   newNode->color = color;
-   newNode->max = rightend;
+   newNode->rightend   = rightend;
+   newNode->left       = neel;
+   newNode->right      = neel;
+   newNode->duplicate  = 1;
+   newNode->color      = color;
 
    if ( left_root_right == ROOT ){
       newNode->parent = neel;
-      *parent = newNode;
+      *parent         = newNode;
+      newNode->max    = rightend;
    }
    else if ( left_root_right == LEFT_CHILD ){
       newNode->parent = *parent;
-      (*parent)->left  = newNode;
+      (*parent)->left = newNode;
+      newNode->max    = rightend;
    }else{
-      newNode->parent = *parent;
+      newNode->parent  = *parent;
       (*parent)->right = newNode;
+      newNode->max     = rightend;
    }
 
    return newNode;
@@ -64,13 +68,14 @@ TreeNode* inorderSuccessor( TreeNode *node ){
 }
 
 
-#define MANUAL_TEST
-//#define RANDOM_TEST
+//#define MANUAL_TEST
+#define RANDOM_TEST
 
 int main(){
 
 neel = (TreeNode*)malloc(sizeof(TreeNode));
 neel->color = BLACK;
+neel->max = INT_MIN;
 
 TreeNode *root = neel;
 root->parent = neel;
@@ -80,7 +85,16 @@ root->parent = neel;
 
    // Allocate null node
    InsertNode(&root, 2, 3);
-   //DeleteNode(&root, 5, 9);
+   InsertNode(&root, 3, 4);
+   InsertNode(&root, 4, 5);
+   InsertNode(&root, 5, 6);
+   InsertNode(&root, 6, 7);
+   InsertNode(&root, 7, 8);
+   InsertNode(&root, 8, 9);
+   InsertNode(&root, 9, 10);
+   InsertNode(&root,10, 15);
+
+   print2D(root);
 
    if (!isValidBST(root)){
       printf("Invalid BST!\n");
@@ -98,10 +112,6 @@ root->parent = neel;
 #  ifdef RANDOM_TEST
    // Initialization, should only be called once.
    srand((unsigned int)time(NULL));
-
-
-
-
 
 #  define ARRAY_LENGTH 1000
 

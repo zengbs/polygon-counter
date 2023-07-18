@@ -155,8 +155,12 @@ void InsertNode( TreeNode **root, int leftend, int rightend )
 
 
    // Update `max` attribute in each node on search path
-   current = previous;
+   //printf("%d\n", current->leftend);
+   current = newNode;
+
    while( current != *root ){
+      //PRINT_LOCATION;
+      //printf("%d\n", current->leftend);
       if ( current->max > current->parent->max ) current->parent->max = current->max;
       current = current->parent;
    }

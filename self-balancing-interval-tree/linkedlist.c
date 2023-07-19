@@ -5,7 +5,7 @@
 #include "prototypes.h"
 
 
-ListNode *searchNodeList( ListNode *head, int key )
+ListNode *SearchListNode( ListNode *head, int key )
 {
    ListNode *current = head;
 
@@ -21,7 +21,7 @@ ListNode *searchNodeList( ListNode *head, int key )
 
 
 
-void addNodeList( ListNode *head, int key )
+void AddListNode( ListNode **head, int key )
 {
    ListNode *newNode = (ListNode*)malloc(sizeof(ListNode));
 
@@ -29,10 +29,10 @@ void addNodeList( ListNode *head, int key )
 
    newNode->key = key;
 
-   ListNode *current = head;
+   ListNode *current = *head;
    ListNode *prev = NULL;
 
-   while( (current != NULL) && (current->key > key ) ){
+   while( ( current != NULL ) && (current->key > key ) ){
       prev = current;
       current = current->next;
    }
@@ -42,11 +42,14 @@ void addNodeList( ListNode *head, int key )
 
    if (   prev != NULL )  prev->next    = newNode;
    if (current != NULL )  current->prev = newNode;
+
+   if ( newNode->prev == NULL ) *head = newNode;
+
 }
 
 
 
-void deleteNodeList( ListNode *deleteNode )
+void DeleteListNode( ListNode *deleteNode )
 {
 
    if ( deleteNode->prev != NULL )
@@ -58,7 +61,7 @@ void deleteNodeList( ListNode *deleteNode )
 }
 
 
-void freeList( ListNode *head )
+void FreeList( ListNode *head )
 {
    ListNode *current = head;
    ListNode *prev = NULL;

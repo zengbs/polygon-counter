@@ -10,32 +10,31 @@ bool isLeftChild( TreeNode * node, char *fileName, int line )
    else { printf( "Error: %s(%d)\n", fileName, line ); exit(EXIT_FAILURE); return false; }
 }
 
-TreeNode* allocateNewNode( TreeNode **parent, Interval *interval, bool color, int left_root_right )
+TreeNode* allocateTreeNode( TreeNode **parent, Interval *interval, bool color, int left_root_right )
 {
    TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
 
    if ( newNode == NULL ) REPORT_ERROR;
 
    newNode->low        = interval->low;
-   addNodeList(newNode->highList, interval->high);
+   newNode->highList = NULL;
+   AddListNode(&(newNode->highList), interval->high);
    newNode->listLength = 1;
    newNode->left       = neel;
    newNode->right      = neel;
    newNode->color      = color;
+   newNode->max        = interval->high;
 
    if ( left_root_right == ROOT ){
       newNode->parent = neel;
       *parent         = newNode;
-      newNode->max    = interval->high;
    }
    else if ( left_root_right == LEFT_CHILD ){
       newNode->parent = *parent;
       (*parent)->left = newNode;
-      newNode->max    = interval->high;
    }else{
       newNode->parent  = *parent;
       (*parent)->right = newNode;
-      newNode->max     = interval->high;
    }
 
    return newNode;
@@ -81,7 +80,7 @@ TreeNode* searchInterval( TreeNode *root, Interval *interval, ListNode **listNod
          current = current->right;
          *listNode = NULL;
       }else{
-         *listNode = searchNodeList( current->highList, interval->high );
+         *listNode = SearchListNode( current->highList, interval->high );
       }
 
 
@@ -115,8 +114,11 @@ void print2DUtil(TreeNode* root, int space)
     for (int i = COUNT; i < space; i++)
         printf(" ");
 
-    if ( root->color == BLACK )      printf("[%d,%d](%d, B)\n", root->low, root->highList->key, root->max);
-    else                             printf("[%d,%d](%d, R)\n", root->low, root->highList->key, root->max);
+    if ( root != neel )
+    {
+       if ( root->color == BLACK )      printf("[%d,](%d, B) %d\n", root->low, root->max, root->listLength );
+       else                             printf("[%d,](%d, R) %d\n", root->low, root->max, root->listLength );
+    }
 
     // Process left child
     print2DUtil(root->left, space);

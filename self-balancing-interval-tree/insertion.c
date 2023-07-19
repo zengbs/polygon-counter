@@ -3,7 +3,7 @@
 #include "prototypes.h"
 
 
-static void InsertNodeFixUpIntervalTree( TreeNode **root, TreeNode *newNode )
+static void InsertTreeNodeFixUpRBTree( TreeNode **root, TreeNode *newNode )
 {
    TreeNode *current = newNode;
 
@@ -126,7 +126,7 @@ static void InsertNodeFixUpIntervalTree( TreeNode **root, TreeNode *newNode )
 
 }
 
-void InsertNode( TreeNode **root, Interval *interval )
+void InsertTreeNode( TreeNode **root, Interval *interval )
 {
 
    if ( interval->low > interval->high ) REPORT_ERROR;
@@ -143,7 +143,7 @@ void InsertNode( TreeNode **root, Interval *interval )
       }else if ( current->low < interval->low ){
          current = current->right;
       }else{
-         addNodeList(current->highList, interval->high );
+         AddListNode(&(current->highList), interval->high );
          (current->listLength)++;
          current->max = current->highList->key;
          return;
@@ -154,11 +154,11 @@ void InsertNode( TreeNode **root, Interval *interval )
    TreeNode *newNode = NULL;
 
    if ( previous == neel )
-      newNode = allocateNewNode( root     , interval, BLACK, ROOT        );
+      newNode = allocateTreeNode( root     , interval, BLACK, ROOT        );
    else if ( previous->low > interval->low )
-      newNode = allocateNewNode( &previous, interval, RED,   LEFT_CHILD  );
+      newNode = allocateTreeNode( &previous, interval, RED,   LEFT_CHILD  );
    else
-      newNode = allocateNewNode( &previous, interval, RED,   RIGHT_CHILD );
+      newNode = allocateTreeNode( &previous, interval, RED,   RIGHT_CHILD );
 
 
    // Update `max` attribute in each node on search path
@@ -170,6 +170,6 @@ void InsertNode( TreeNode **root, Interval *interval )
 
 
    // Fix up RB tree
-   InsertNodeFixUpIntervalTree( root, newNode );
+   InsertTreeNodeFixUpRBTree( root, newNode );
 
 }

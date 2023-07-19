@@ -17,35 +17,47 @@ TreeNode *neel = NULL;
 
 int main(){
 
+// Allocate neel node
 neel = (TreeNode*)malloc(sizeof(TreeNode));
 neel->color = BLACK;
 neel->max = INT_MIN;
+neel->highList = NULL;
+neel->left = NULL;
+neel->right = NULL;
+neel->parent = NULL;
 
 TreeNode *root = neel;
-root->parent = neel;
 
 Interval interval;
 
 #  ifdef MANUAL_TEST
-   // Allocate null node
    interval.low = 4; interval.high = 5;
-   InsertNode(&root, &interval);
+   InsertTreeNode(&root, &interval);
    interval.low = 2; interval.high = 9;
-   InsertNode(&root, &interval);
+   InsertTreeNode(&root, &interval);
    interval.low = -1; interval.high = 3;
-   InsertNode(&root, &interval);
+   InsertTreeNode(&root, &interval);
    interval.low = 2; interval.high = 9;
    DeleteNode(&root, &interval);
    interval.low = -9; interval.high = 4;
-   InsertNode(&root, &interval);
+   InsertTreeNode(&root, &interval);
    interval.low = -7; interval.high = 5;
-   InsertNode(&root, &interval);
+   InsertTreeNode(&root, &interval);
    interval.low = 4; interval.high = 11;
-   InsertNode(&root, &interval);
+   InsertTreeNode(&root, &interval);
    interval.low = 7; interval.high = 90;
-   InsertNode(&root, &interval);
+   InsertTreeNode(&root, &interval);
    interval.low = -8; interval.high = 10;
-   InsertNode(&root, &interval);
+   InsertTreeNode(&root, &interval);
+   interval.low = -8; interval.high = 10;
+   InsertTreeNode(&root, &interval);
+   interval.low = -8; interval.high = 10;
+   InsertTreeNode(&root, &interval);
+   interval.low = -8; interval.high = 10;
+   InsertTreeNode(&root, &interval);
+   interval.low = -8; interval.high = 10;
+   InsertTreeNode(&root, &interval);
+
 
    print2D(root);
 
@@ -75,7 +87,7 @@ Interval interval;
       // Returns a pseudo-random integer between 0 and RAND_MAX.
       int r = rand();
 
-      InsertNode( &root, r );
+      InsertTreeNode( &root, r );
 
       if ( insert[r%ARRAY_LENGTH] == 0)
          insert[r%ARRAY_LENGTH] = r;

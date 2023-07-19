@@ -79,7 +79,8 @@ root->parent = neel;
 
    // Allocate null node
    InsertNode(&root, 2);
-   deleteNode(&root, 2);
+
+   print2D(root);
 
    if (!isValidBST(root)){
       printf("Invalid BST!\n");

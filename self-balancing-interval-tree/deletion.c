@@ -140,7 +140,7 @@ void DeleteNode( TreeNode **root, Interval *interval )
    }
 
 
-   // Case 0: multiple intervals in a single node
+   // Case 0: multiple high-ends in a single node
    if ( node->listLength > 1 ){
       DeleteListNode( &(node->highList), listNode );
       (node->listLength)--;

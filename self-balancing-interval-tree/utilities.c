@@ -67,27 +67,86 @@ TreeNode* inorderSuccessor( TreeNode *node ){
 }
 
 
-TreeNode* searchInterval( TreeNode *root, Interval *interval, ListNode **listNode )
+bool IsOverlappingIntervals( Interval *interval1, Interval *interval2 )
+{
+   if      ( ( interval1->low < interval2->low  ) && ( interval2->low  < interval1->high ) ) return true;
+   else if ( ( interval1->low < interval2->high ) && ( interval2->high < interval1->high ) ) return true;
+   else return false;
+}
+
+bool IsTouchingIntervals( Interval *interval1, Interval *interval2 )
+{
+   if ( ( interval1->high == interval2->low ) ^ ( interval2->high == interval1->low ) ) return true;
+   else return false;
+}
+
+
+bool IsDuplicateIntervals( Interval *interval1, Interval *interval2 )
+{
+   if ( ( interval1->high == interval2->high ) && ( interval1->low == interval2->low ) ) return true;
+   else return false;
+}
+
+
+bool checkTargetIntervalInNode( TreeNode *treeNode, Interval *intervalTarget, ListNode **listNode, int relativePosition )
+{
+
+   Interval intervalNode;
+   intervalNode.low  = treeNode->low;
+   ListNode *current = treeNode->highList;
+
+   bool (*fptr)( Interval *interval1, Interval *interval2 );
+
+   switch( relativePosition )
+   {
+      case OVERLAPPING:
+         fptr = IsOverlappingIntervals;
+         break;
+      case TOUCHING:
+         fptr = IsTouchingIntervals;
+         break;
+      case DUPLICATE:
+         fptr = IsDuplicateIntervals;
+         break;
+      default:
+         REPORT_ERROR;
+   }
+
+   while( current != NULL ){
+
+      intervalNode.high = current->key;
+
+      if ( fptr( intervalTarget, &intervalNode ) ){
+         *listNode = current;
+         return true;
+      }
+
+      current = current->next;
+   }
+
+   return false;
+}
+
+TreeNode* SearchInterval( TreeNode *root, Interval *interval, ListNode **listNode, int relativePosition )
 {
    TreeNode *current = root;
 
-   while( current->low != interval->low ){
+   while( current != neel ){
 
-      if       ( current->low > interval->low ){
-         current = current->left;
-         *listNode = NULL;
-      }else if ( current->low < interval->low ){
+      if ( checkTargetIntervalInNode( current, interval, listNode, relativePosition )){
+         return current;
+      }else if( current->left == neel ){
          current = current->right;
-         *listNode = NULL;
+      }else if( current->left->max < current->low ){
+         current = current->right;
       }else{
-         *listNode = SearchListNode( current->highList, interval->high );
+         current = current->left;
       }
-
-
-      if ( current == neel ) REPORT_ERROR;
    }
 
-   return current;
+   REPORT_ERROR;
+
+   return NULL;
 }
 
 // ====== Print the structure of tree on 2D plane =======================
@@ -116,8 +175,8 @@ void print2DUtil(TreeNode* root, int space)
 
     if ( root != neel )
     {
-       if ( root->color == BLACK )      printf("[%d,](%d, B) %d\n", root->low, root->max, root->listLength );
-       else                             printf("[%d,](%d, R) %d\n", root->low, root->max, root->listLength );
+       if ( root->color == BLACK )      {printf("[%d,](%d, B) ", root->low, root->max ); PrintListNode(root->highList);}
+       else                             {printf("[%d,](%d, R) ", root->low, root->max ); PrintListNode(root->highList);}
     }
 
     // Process left child

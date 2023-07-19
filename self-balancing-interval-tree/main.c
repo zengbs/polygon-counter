@@ -58,6 +58,11 @@ Interval interval;
    interval.low = -8; interval.high = 10;
    InsertTreeNode(&root, &interval);
 
+   interval.low = -1; interval.high = 3;
+   DeleteNode(&root, &interval);
+
+   interval.low = -8; interval.high = 10;
+   DeleteNode(&root, &interval);
 
    print2D(root);
 

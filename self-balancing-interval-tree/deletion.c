@@ -128,12 +128,9 @@ static void DeleteFixedUpRBT( TreeNode **root, TreeNode *current )
 void DeleteNode( TreeNode **root, Interval *interval )
 {
 
+   bool deleteNodeColor = false;
    ListNode *listNode = NULL;
-
-   TreeNode *node = searchInterval( *root, interval, &listNode );
-
-   bool deleteNodeColor;
-
+   TreeNode *node = SearchInterval( *root, interval, &listNode, DUPLICATE );
    TreeNode *deleteNodeChild = NULL;
    TreeNode *deleteNode      = NULL;
 
@@ -145,7 +142,7 @@ void DeleteNode( TreeNode **root, Interval *interval )
 
    // Case 0: multiple intervals in a single node
    if ( node->listLength > 1 ){
-      DeleteListNode( listNode );
+      DeleteListNode( &(node->highList), listNode );
       (node->listLength)--;
       return;
    }

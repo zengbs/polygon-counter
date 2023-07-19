@@ -49,7 +49,7 @@ void AddListNode( ListNode **head, int key )
 
 
 
-void DeleteListNode( ListNode *deleteNode )
+void DeleteListNode( ListNode **head, ListNode *deleteNode )
 {
 
    if ( deleteNode->prev != NULL )
@@ -58,8 +58,22 @@ void DeleteListNode( ListNode *deleteNode )
    if ( deleteNode->next != NULL )
       deleteNode->next->prev = deleteNode->prev;
 
+   if ( deleteNode == *head ) *head = deleteNode->next;
+
+   free(deleteNode);
+   deleteNode = NULL;
 }
 
+
+void PrintListNode( ListNode *head )
+{
+   ListNode* current = head;
+
+   while( current != NULL ){
+      printf("%d ", current->key );
+      current = current->next;
+   }
+}
 
 void FreeList( ListNode *head )
 {

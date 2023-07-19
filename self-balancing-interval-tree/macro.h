@@ -11,7 +11,9 @@
 #define BLACK false
 #define LOW_END  0
 #define HIGH_END 1
-
+#define OVERLAPPING ( 1<<0 )
+#define TOUCHING    ( 1<<1 )
+#define DUPLICATE   ( 1<<2 )
 
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))

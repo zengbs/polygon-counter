@@ -240,9 +240,9 @@ void DeleteTreeNode( TreeNode **root, Interval *interval )
    }
    else REPORT_ERROR;
 
+   // Update `max` attribute in each node on search path
    deleteNode->parent->max = max( deleteNode->parent->left->max, deleteNode->parent->right->max, deleteNode->parent->highList->key );
 
-   // Update `max` attribute in each node on search path
    TreeNode *current = deleteNode->parent;
    while( current != *root ){
       if ( current->max > current->parent->max ) current->parent->max = current->max;

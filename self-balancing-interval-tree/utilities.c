@@ -24,7 +24,7 @@ TreeNode* allocateTreeNode( TreeNode **parent, Interval *interval, bool color, i
 
    newNode->low        = interval->low;
    newNode->highList = NULL;
-   AddListNode(&(newNode->highList), interval->high);
+   InsertListNode(&(newNode->highList), interval->high);
    newNode->listLength = 1;
    newNode->left       = neel;
    newNode->right      = neel;

@@ -71,7 +71,7 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
 #        endif
 
          // Delete interval into interval tree
-         DeleteNode( &root, &interval );
+         DeleteTreeNode( &root, &interval );
 
       }
 

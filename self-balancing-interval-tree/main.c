@@ -40,7 +40,7 @@ root = neel;
    interval.low = -1; interval.high = 3;
    InsertTreeNode(&root, &interval);
    interval.low = 2; interval.high = 9;
-   DeleteNode(&root, &interval);
+   DeleteTreeNode(&root, &interval);
    interval.low = -9; interval.high = 4;
    InsertTreeNode(&root, &interval);
    interval.low = -7; interval.high = 5;
@@ -61,10 +61,10 @@ root = neel;
    InsertTreeNode(&root, &interval);
 
    interval.low = -1; interval.high = 3;
-   DeleteNode(&root, &interval);
+   DeleteTreeNode(&root, &interval);
 
    interval.low = -8; interval.high = 10;
-   DeleteNode(&root, &interval);
+   DeleteTreeNode(&root, &interval);
 
    print2D(root);
 
@@ -101,7 +101,7 @@ root = neel;
       if ( insert[r%ARRAY_LENGTH] == 0)
          insert[r%ARRAY_LENGTH] = r;
       else{
-         DeleteNode(&root, insert[r%ARRAY_LENGTH] );
+         DeleteTreeNode(&root, insert[r%ARRAY_LENGTH] );
          insert[r%ARRAY_LENGTH] = 0;
       }
 

@@ -125,7 +125,7 @@ static void DeleteFixedUpRBT( TreeNode **root, TreeNode *current )
 
 }
 
-void DeleteNode( TreeNode **root, Interval *interval )
+void DeleteTreeNode( TreeNode **root, Interval *interval )
 {
 
    bool deleteNodeColor = false;

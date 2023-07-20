@@ -21,7 +21,7 @@ ListNode *SearchListNode( ListNode *head, int key )
 
 
 
-void AddListNode( ListNode **head, int key )
+void InsertListNode( ListNode **head, int key )
 {
    ListNode *newNode = (ListNode*)malloc(sizeof(ListNode));
 

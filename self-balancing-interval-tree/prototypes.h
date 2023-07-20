@@ -19,3 +19,4 @@ bool IsOverlappingIntervals( Interval *interval1, Interval *interval2 );
 bool IsTouchingIntervals( Interval *interval1, Interval *interval2 );
 bool IsTargetIntervalOverlapsIntervalsInNode( TreeNode *treeNode, Interval *intervalTarget, ListNode **listNode );
 TreeNode* SearchInterval( TreeNode *root, Interval *interval, ListNode **listNode, int relativePosition );
+void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counter );

@@ -28,3 +28,4 @@ struct IntervalTreeNode {
 };
 
 extern TreeNode *neel;
+extern TreeNode *root;

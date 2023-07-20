@@ -144,7 +144,6 @@ TreeNode* SearchInterval( TreeNode *root, Interval *interval, ListNode **listNod
       }
    }
 
-   REPORT_ERROR;
 
    return NULL;
 }

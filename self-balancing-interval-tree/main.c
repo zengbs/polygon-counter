@@ -9,11 +9,13 @@
 
 
 TreeNode *neel = NULL;
+TreeNode *root = NULL;
 
 
 
-#define MANUAL_TEST
+//#define MANUAL_TEST
 //#define RANDOM_TEST
+#define RECTANGLES
 
 int main(){
 
@@ -26,11 +28,11 @@ neel->left = NULL;
 neel->right = NULL;
 neel->parent = NULL;
 
-TreeNode *root = neel;
+root = neel;
 
-Interval interval;
 
 #  ifdef MANUAL_TEST
+   Interval interval;
    interval.low = 4; interval.high = 5;
    InsertTreeNode(&root, &interval);
    interval.low = 2; interval.high = 9;
@@ -80,6 +82,8 @@ Interval interval;
 
 
 #  ifdef RANDOM_TEST
+   Interval interval;
+
    // Initialization, should only be called once.
    srand((unsigned int)time(NULL));
 
@@ -112,6 +116,25 @@ Interval interval;
       }
    }
 
+#  endif
+
+#  ifdef RECTANGLES
+   int numRectangles = 2;
+
+   //int *EventListX = (int*)malloc(sizeof(int)*numRectangles*2);
+   //int *EventListY = (int*)malloc(sizeof(int)*numRectangles*2);
+
+   int EventListX[4] = { 1, 3, 2, 4 };
+   int EventListY[4] = { 2, 4, 1, 3 };
+
+   // EventListX = {1, 2, 3, 4}
+   // KeyX       = {0, 2, 1, 3}
+
+   int counter = 0;
+
+   SweepLine( EventListX, EventListY, numRectangles, &counter );
+
+   printf("counter = %d\n", counter);
 #  endif
 
    return 0;

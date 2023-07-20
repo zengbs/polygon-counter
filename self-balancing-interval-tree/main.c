@@ -119,22 +119,21 @@ root = neel;
 #  endif
 
 #  ifdef RECTANGLES
-   int numRectangles = 2;
+#  define NUM_RECTANGLES 3
+   int numRectangles = NUM_RECTANGLES;
 
    //int *EventListX = (int*)malloc(sizeof(int)*numRectangles*2);
    //int *EventListY = (int*)malloc(sizeof(int)*numRectangles*2);
 
-   int EventListX[4] = { 1, 3, 2, 4 };
-   int EventListY[4] = { 2, 4, 1, 3 };
+   int EventListX[NUM_RECTANGLES*2] = { 1, 5, 2, 4, 3, 6 };
+   int EventListY[NUM_RECTANGLES*2] = { 1, 4, 2, 6, 3, 5 };
 
-   // EventListX = {1, 2, 3, 4}
-   // KeyX       = {0, 2, 1, 3}
 
    int counter = 0;
 
    SweepLine( EventListX, EventListY, numRectangles, &counter );
 
-   printf("counter = %d\n", counter);
+   printf("Number of ovrlapping rectangles = %d\n", counter+1);
 #  endif
 
    return 0;

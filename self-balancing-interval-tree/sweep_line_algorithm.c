@@ -39,35 +39,44 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
    // Sort EventListX in ascending order
    qsort( wrapper, arrayLength, sizeof(EventListX_wrapper), compare);
 
-  Interval interval;
+   Interval interval;
 
-  for (int i=0; i<arrayLength; i++){
+   for (int i=0; i<arrayLength; i++){
 
-     // KeyX is even (including 0)
-     if ( ( ( wrapper[i].KeyX ) & 1 ) == 0 ){
+      // KeyX is even (including 0)
+      if ( ( ( wrapper[i].KeyX ) & 1 ) == 0 ){
 
-        interval.high = EventListY[wrapper[i].KeyX+1];
-        interval.low  = EventListY[wrapper[i].KeyX  ];
+         interval.high = EventListY[wrapper[i].KeyX+1];
+         interval.low  = EventListY[wrapper[i].KeyX  ];
 
-        //printf("[%d, %d]\n", interval.low, interval.high);
+#        ifdef DEBUG
+         printf("Insert [%d, %d]\n", interval.low, interval.high);
+#        endif
 
-        ListNode *listNode = NULL;
+         ListNode *listNode = NULL;
 
-        if ( SearchInterval( root, &interval, &listNode, OVERLAPPING ) != NULL ) (*counter)++;
+         if ( SearchInterval( root, &interval, &listNode, OVERLAPPING ) != NULL ) (*counter)++;
 
-        // Insert interval into interval tree
-        InsertTreeNode( &root, &interval );
+         // Insert interval into interval tree
+         InsertTreeNode( &root, &interval );
 
-     // KeyX is odd
-     }else{
+      // KeyX is odd
+      }else{
 
-        interval.high = EventListY[wrapper[i].KeyX  ];
-        interval.low  = EventListY[wrapper[i].KeyX-1];
+         interval.high = EventListY[wrapper[i].KeyX  ];
+         interval.low  = EventListY[wrapper[i].KeyX-1];
 
-        // Delete interval into interval tree
-        DeleteNode( &root, &interval );
+#        ifdef DEBUG
+         printf("Delete [%d, %d]\n", interval.low, interval.high);
+#        endif
 
-     }
-  }
+         // Delete interval into interval tree
+         DeleteNode( &root, &interval );
+
+      }
+
+      print2D(root);
+      printf("============================\n");
+   }
 
 }

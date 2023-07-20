@@ -3,6 +3,12 @@
 #include"prototypes.h"
 
 
+int max( int a, int b, int c )
+{
+   int d = MAX( a, b );
+   return MAX( d, c );
+}
+
 bool isLeftChild( TreeNode * node, char *fileName, int line )
 {
    if      ( node->parent->left == node ) return true;
@@ -150,7 +156,7 @@ TreeNode* SearchInterval( TreeNode *root, Interval *interval, ListNode **listNod
 
 // ====== Print the structure of tree on 2D plane =======================
 // ======================================================================
-#define COUNT 12
+#define COUNT 20
 
 // Function to print binary tree in 2D
 // It does reverse inorder traversal
@@ -187,4 +193,12 @@ void print2D( TreeNode* root)
 {
     // Pass initial space count as 0
     print2DUtil(root, 0);
+}
+
+
+void SwapPointer( void **ptr1, void **ptr2 )
+{
+   void *temp = *ptr1;
+   *ptr1 = *ptr2;
+   *ptr2 = temp;
 }

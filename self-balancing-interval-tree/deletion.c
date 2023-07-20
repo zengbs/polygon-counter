@@ -231,6 +231,7 @@ void DeleteNode( TreeNode **root, Interval *interval )
          successor->right->parent = successor->parent;
 
       node->low = successor->low;
+      SwapPointer( (void**)&(node->highList), (void**)&(successor->highList) );
 
       deleteNodeColor = successor->color;
       deleteNodeChild = successor->right;
@@ -239,9 +240,10 @@ void DeleteNode( TreeNode **root, Interval *interval )
    }
    else REPORT_ERROR;
 
+   deleteNode->parent->max = max( deleteNode->parent->left->max, deleteNode->parent->right->max, deleteNode->parent->highList->key );
 
    // Update `max` attribute in each node on search path
-   TreeNode *current = deleteNode;
+   TreeNode *current = deleteNode->parent;
    while( current != *root ){
       if ( current->max > current->parent->max ) current->parent->max = current->max;
       current = current->parent;

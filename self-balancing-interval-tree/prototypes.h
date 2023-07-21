@@ -22,3 +22,8 @@ TreeNode* SearchInterval( TreeNode *root, Interval *interval, ListNode **listNod
 void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counter );
 void SwapPointer( void **ptr1, void **ptr2 );
 int max( int a, int b, int c );
+void RectanglesGeneration(
+     int numberRectangles, int boxSizeX, int boxSizeY,
+     int rectangularMaxSizeX, int rectangularMaxSizeY,
+     int rectangularMinSizeX, int rectangularMinSizeY,
+     int *EventListX, int *EventListY );

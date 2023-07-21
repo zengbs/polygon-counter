@@ -119,15 +119,21 @@ root = neel;
 #  endif
 
 #  ifdef RECTANGLES
-#  define NUM_RECTANGLES 3
-   int numRectangles = NUM_RECTANGLES;
 
-   //int *EventListX = (int*)malloc(sizeof(int)*numRectangles*2);
-   //int *EventListY = (int*)malloc(sizeof(int)*numRectangles*2);
+   int numRectangles       = 1000;
+   int boxSizeX            = 1000;
+   int boxSizeY            = 1000;
+   int rectangularMaxSizeX = boxSizeX/6;
+   int rectangularMaxSizeY = boxSizeY/10;
+   int rectangularMinSizeX = 0;
+   int rectangularMinSizeY = 0;
+   int *EventListX         = (int*)malloc(sizeof(int)*numRectangles*2);
+   int *EventListY         = (int*)malloc(sizeof(int)*numRectangles*2);
 
-   int EventListX[NUM_RECTANGLES*2] = { 1, 5, 2, 4, 3, 6 };
-   int EventListY[NUM_RECTANGLES*2] = { 1, 4, 2, 6, 3, 5 };
-
+   RectanglesGeneration( numRectangles, boxSizeX, boxSizeY,
+                         rectangularMaxSizeX, rectangularMaxSizeY,
+                         rectangularMinSizeX, rectangularMinSizeY,
+                         EventListX, EventListY );
 
    int counter = 0;
 

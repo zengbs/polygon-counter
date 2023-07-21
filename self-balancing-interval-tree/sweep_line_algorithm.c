@@ -75,8 +75,10 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
 
       }
 
+#     ifdef DEBUG
       print2D(root);
       printf("============================\n");
+#     endif
    }
 
 }

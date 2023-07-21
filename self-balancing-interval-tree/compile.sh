@@ -8,7 +8,10 @@ gcc -g -Wall validate.c             -o validate.o -c
 gcc -g -Wall utilities.c            -o utilities.o -c
 gcc -g -Wall linkedlist.c           -o linkedlists.o -c
 gcc -g -Wall sweep_line_algorithm.c -o sweep_line_algorithm.o -c
+gcc -g -Wall rectangles_generation.c -o rectangles_generation.o -c
 
-gcc -g -o a.out main.o rotation.o insertion.o validate.o deletion.o utilities.o linkedlists.o sweep_line_algorithm.o
+
+gcc -g -o a.out main.o rotation.o insertion.o validate.o deletion.o utilities.o \
+          linkedlists.o sweep_line_algorithm.o rectangles_generation.o
 
 rm -f *.o vgcore.* log.core.*

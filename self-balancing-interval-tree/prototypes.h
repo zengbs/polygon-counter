@@ -23,8 +23,8 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
 void SwapPointer( void **ptr1, void **ptr2 );
 int max( int a, int b, int c );
 void RectanglesGeneration(
-     int numberRectanglesMax, int *numberRectangles,
-     int boxSizeX, int boxSizeY,
-     int rectangularMaxSizeX, int rectangularMaxSizeY,
-     int rectangularMinSizeX, int rectangularMinSizeY,
-     int **EventListX, int **EventListY );
+int numberRectanglesMax, int *numberRectangles,
+int boxSizeX, int boxSizeY,
+int rectangularMaxSizeX, int rectangularMaxSizeY,
+int rectangularMinSizeX, int rectangularMinSizeY,
+int **EventListX, int **EventListY );

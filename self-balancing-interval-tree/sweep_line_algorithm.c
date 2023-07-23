@@ -56,7 +56,9 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
          ListNode *listNode = NULL;
 
          if ( SearchInterval( root, &interval, &listNode, OVERLAPPING ) != NULL ) (*counter)++;
-
+#        ifdef DEBUG
+         else         printf( "[%d, %d] is not overlapping with all intervals in tree!\n", interval.low, interval.high );
+#        endif
          // Insert interval into interval tree
          InsertTreeNode( &root, &interval );
 
@@ -76,8 +78,8 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
       }
 
 #     ifdef DEBUG
-      //print2D(root);
-      //printf("============================\n");
+      print2D(root);
+      printf("============================\n");
 #     endif
    }
 

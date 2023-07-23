@@ -75,8 +75,14 @@ TreeNode* inorderSuccessor( TreeNode *node ){
 
 bool IsOverlappingIntervals( Interval *interval1, Interval *interval2 )
 {
+//printf("interval1->low = %d\n" , interval1->low ); // 418
+//printf("interval1->high = %d\n", interval1->high); // 542
+//printf("interval2->low = %d\n" , interval2->low ); // 356
+//printf("interval2->high = %d\n", interval2->high); // 681
    if      ( ( interval1->low < interval2->low  ) && ( interval2->low  < interval1->high ) ) return true;
    else if ( ( interval1->low < interval2->high ) && ( interval2->high < interval1->high ) ) return true;
+   else if ( ( interval2->low < interval1->low  ) && ( interval1->low  < interval2->high ) ) return true;
+   else if ( ( interval2->low < interval1->high ) && ( interval1->high < interval2->high ) ) return true;
    else return false;
 }
 
@@ -107,12 +113,21 @@ bool checkTargetIntervalInNode( TreeNode *treeNode, Interval *intervalTarget, Li
    {
       case OVERLAPPING:
          fptr = IsOverlappingIntervals;
+#        ifdef DEBUG
+         printf("Checking overlapping intervals..\n");
+#        endif
          break;
       case TOUCHING:
          fptr = IsTouchingIntervals;
+#        ifdef DEBUG
+         printf("Checking touching intervals..\n");
+#        endif
          break;
       case DUPLICATE:
          fptr = IsDuplicateIntervals;
+#        ifdef DEBUG
+         printf("Checking duplicate intervals..\n");
+#        endif
          break;
       default:
          REPORT_ERROR;
@@ -124,6 +139,7 @@ bool checkTargetIntervalInNode( TreeNode *treeNode, Interval *intervalTarget, Li
 
       if ( fptr( intervalTarget, &intervalNode ) ){
          *listNode = current;
+         PRINT_LOCATION;
          return true;
       }
 
@@ -143,7 +159,7 @@ TreeNode* SearchInterval( TreeNode *root, Interval *interval, ListNode **listNod
          return current;
       }else if( current->left == neel ){
          current = current->right;
-      }else if( current->left->max < current->low ){
+      }else if( current->left->max < interval->low ){
          current = current->right;
       }else{
          current = current->left;

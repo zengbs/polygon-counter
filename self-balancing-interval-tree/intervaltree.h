@@ -20,6 +20,7 @@ struct IntervalTreeNode {
    bool color;
    int low;
    ListNode *highList;
+   ListNode *countedList;
    int listLength;
    int max;
    TreeNode *parent;

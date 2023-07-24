@@ -21,18 +21,19 @@ ListNode *SearchListNode( ListNode *head, int key )
 
 
 
-void InsertListNode( ListNode **head, int key )
+void InsertListNode( ListNode **head, Interval *interval )
 {
    ListNode *newNode = (ListNode*)malloc(sizeof(ListNode));
 
    if ( newNode == NULL ) REPORT_ERROR;
 
-   newNode->key = key;
+   newNode->key = interval->high;
+   newNode->counted = interval->counted;
 
    ListNode *current = *head;
    ListNode *prev = NULL;
 
-   while( ( current != NULL ) && (current->key > key ) ){
+   while( ( current != NULL ) && (current->key > interval->high ) ){
       prev = current;
       current = current->next;
    }

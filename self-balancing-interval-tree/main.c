@@ -120,7 +120,7 @@ root = neel;
 
 #  ifdef RECTANGLES
 
-   int numRectanglesMax    = 25;
+   int numRectanglesMax    = 32;
    int numRectangles       = 0;
    int boxSizeX            = 50;
    int boxSizeY            = 1000;
@@ -141,7 +141,7 @@ root = neel;
 
    SweepLine( EventListX, EventListY, numRectangles, &counter );
 
-   printf("Number of ovrlapping rectangles = %d\n", counter+1);
+   printf("Number of ovrlapping rectangles = %d\n", counter);
 #  endif
 
    return 0;

@@ -5,12 +5,14 @@
 typedef struct Interval{
    int low;
    int high;
+   bool counted;
 } Interval;
 
 
 typedef struct ListNode ListNode;
 struct ListNode {
    int key;
+   bool counted;
    ListNode *next;
    ListNode *prev;
 };
@@ -20,7 +22,6 @@ struct IntervalTreeNode {
    bool color;
    int low;
    ListNode *highList;
-   ListNode *countedList;
    int listLength;
    int max;
    TreeNode *parent;

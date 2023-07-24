@@ -24,7 +24,7 @@ TreeNode* allocateTreeNode( TreeNode **parent, Interval *interval, bool color, i
 
    newNode->low        = interval->low;
    newNode->highList = NULL;
-   InsertListNode(&(newNode->highList), interval->high);
+   InsertListNode(&(newNode->highList), interval);
    newNode->listLength = 1;
    newNode->left       = neel;
    newNode->right      = neel;
@@ -75,10 +75,6 @@ TreeNode* inorderSuccessor( TreeNode *node ){
 
 bool IsOverlappingIntervals( Interval *interval1, Interval *interval2 )
 {
-//printf("interval1->low = %d\n" , interval1->low ); // 418
-//printf("interval1->high = %d\n", interval1->high); // 542
-//printf("interval2->low = %d\n" , interval2->low ); // 356
-//printf("interval2->high = %d\n", interval2->high); // 681
    if      ( ( interval1->low < interval2->low  ) && ( interval2->low  < interval1->high ) ) return true;
    else if ( ( interval1->low < interval2->high ) && ( interval2->high < interval1->high ) ) return true;
    else if ( ( interval2->low < interval1->low  ) && ( interval1->low  < interval2->high ) ) return true;
@@ -100,7 +96,8 @@ bool IsDuplicateIntervals( Interval *interval1, Interval *interval2 )
 }
 
 
-bool checkTargetIntervalInNode( TreeNode *treeNode, Interval *intervalTarget, ListNode **listNode, int relativePosition )
+bool checkTargetIntervalInNode( TreeNode *treeNode, Interval *intervalTarget, ListNode **listNode,
+                                int relativePosition, int mode, int *numberCounted )
 {
 
    Interval intervalNode;
@@ -136,28 +133,52 @@ bool checkTargetIntervalInNode( TreeNode *treeNode, Interval *intervalTarget, Li
    while( current != NULL ){
 
       intervalNode.high = current->key;
+      intervalNode.counted = current->counted;
 
-      if ( fptr( intervalTarget, &intervalNode ) ){
-         *listNode = current;
-         PRINT_LOCATION;
-         return true;
-      }
+      if ( mode == 1 ){
+         if ( fptr( intervalTarget, &intervalNode ) && intervalTarget->counted == false ){
+            intervalTarget->counted = true;
+            (*numberCounted)++;
+         }
+
+         if ( fptr( intervalTarget, &intervalNode ) && current->counted == false ){
+            current->counted = true;
+            (*numberCounted)++;
+         }
+
+      }else if( mode == 2 ){
+         if ( fptr( intervalTarget, &intervalNode ) ){
+            *listNode = current;
+            return true;
+         }
+
+      }else REPORT_ERROR;
 
       current = current->next;
    }
 
+   if ( mode == 1 && (*numberCounted) >  0 ) return true;
+   if ( mode == 1 && (*numberCounted) == 0 ) return false;
+
+
    return false;
 }
 
-TreeNode* SearchInterval( TreeNode *root, Interval *interval, ListNode **listNode, int relativePosition )
+TreeNode* SearchInterval( TreeNode *root, Interval *interval, ListNode **listNode,
+                          int relativePosition, int mode, int *numberCounted )
 {
    TreeNode *current = root;
 
+
    while( current != neel ){
 
-      if ( checkTargetIntervalInNode( current, interval, listNode, relativePosition )){
+      bool test = checkTargetIntervalInNode( current, interval, listNode, relativePosition, mode, numberCounted );
+
+      if ( test && mode == 2 ){
          return current;
-      }else if( current->left == neel ){
+      }
+
+      if( current->left == neel ){
          current = current->right;
       }else if( current->left->max < interval->low ){
          current = current->right;

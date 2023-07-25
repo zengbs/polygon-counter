@@ -29,3 +29,4 @@ int rectangularMinSizeX, int rectangularMinSizeY,
 int **EventListX, int **EventListY );
 TreeNode* SearchDuplicateInterval( TreeNode *root, Interval *interval, ListNode **listNode );
 TreeNode* CountOverlappingInterval( TreeNode *root, Interval *interval, ListNode **listNode, int *numberCounted );
+void NaiveCountOverlappingRectangles( int *EventListX, int *EventListY, int numRectangles, int *counter );

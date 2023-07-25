@@ -58,6 +58,7 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
 
          CountOverlappingInterval( root, &interval, &listNode, counter );
 
+
          // Insert interval into interval tree
          InsertTreeNode( &root, &interval );
 

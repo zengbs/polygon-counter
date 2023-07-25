@@ -138,11 +138,19 @@ void CountIntervalInNode( TreeNode *treeNode, Interval *intervalTarget, ListNode
       if ( fptr( intervalTarget, &intervalNode ) && intervalTarget->counted == false ){
          intervalTarget->counted = true;
          (*numberCounted)++;
+     //    printf("===========\n");
+     //    printf("[%d, %d]\n", intervalTarget->low, intervalTarget->high );
+     //    printf("[%d, %d]\n", intervalNode.low,    intervalNode.high );
+     //    printf("===========\n");
       }
 
       if ( fptr( intervalTarget, &intervalNode ) && current->counted == false ){
          current->counted = true;
          (*numberCounted)++;
+     //    printf("===========\n");
+     //    printf("[%d, %d]\n", intervalTarget->low, intervalTarget->high );
+     //    printf("[%d, %d]\n", intervalNode.low,    intervalNode.high );
+     //    printf("===========\n");
       }
 
       current = current->next;

@@ -41,6 +41,7 @@ void RectanglesGeneration(
 #        ifdef DEBUG
          printf("Rectangle: %d, %d, %d, %d\n", rectangularXL, rectangularXR, rectangularYB, rectangularYT);
 #        endif
+         printf("Rectangle: %d, %d, %d, %d\n", rectangularXL, rectangularXR, rectangularYB, rectangularYT);
 
          ii += 2;
       }

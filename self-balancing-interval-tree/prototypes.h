@@ -2,7 +2,7 @@ void rightRotate( TreeNode *x, TreeNode **root );
 void  leftRotate( TreeNode *x, TreeNode **root );
 void InsertTreeNode( TreeNode **root, Interval *interval );
 void DeleteTreeNode( TreeNode **root, Interval *interval );
-TreeNode* allocateTreeNode( TreeNode **parent, Interval *interval, bool color, int left_root_right );
+TreeNode* allocateTreeNode( TreeNode **parent, Interval *interval, bool color, int left_root_right, TreeNode **root );
 void printInorder( TreeNode *node );
 TreeNode* inorderSuccessor( TreeNode *node );
 bool validateBST(TreeNode* node, TreeNode* prev);

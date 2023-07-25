@@ -144,12 +144,18 @@ void DeleteTreeNode( TreeNode **root, Interval *interval )
    if ( node->listLength > 1 ){
       DeleteListNode( &(node->highList), listNode );
       (node->listLength)--;
+#     ifdef DEBUG
+      printf("deleteNode: Case 0\n");
+#     endif
       return;
    }
 
 
    // Case 1: The node to be deleted has no child
    if ( node->left == neel && node->right == neel ){
+#     ifdef DEBUG
+      printf("deleteNode: Case 1\n");
+#     endif
 
       if ( node == *root ) { *root = neel; free(node); return;}
 
@@ -166,15 +172,15 @@ void DeleteTreeNode( TreeNode **root, Interval *interval )
       deleteNodeChild->parent = node->parent;
       deleteNode = node;
 
-#     ifdef DEBUG
-      printf("deleteNode: Case 1\n");
-#     endif
    }
 
    // Case 2: The node to be deleted has left child
    else if ( node->right == neel && node->left != neel ){
+#     ifdef DEBUG
+      printf("deleteNode: Case 2\n");
+#     endif
 
-      if ( node == *root ) { *root = node->left; free(node); return; }
+      if ( node == *root ) { *root = node->left; (*root)->parent = neel ;(*root)->color = BLACK; free(node); return; }
 
       if ( node->parent->left == node ){
          node->parent->left  = node->left;
@@ -194,8 +200,11 @@ void DeleteTreeNode( TreeNode **root, Interval *interval )
 
    // Case 3: The node to be deleted has right child
    else if ( node->right != neel && node->left == neel ){
+#     ifdef DEBUG
+      printf("deleteNode: Case 3\n");
+#     endif
 
-      if ( node == *root ) { *root = node->right; free(node); return; }
+      if ( node == *root ) { *root = node->right; (*root)->parent = neel; (*root)->color = BLACK; free(node); return; }
 
       if ( node->parent->left == node ){
          node->parent->left  = node->right;
@@ -216,6 +225,10 @@ void DeleteTreeNode( TreeNode **root, Interval *interval )
    // Case 4: The node to be deleted has both child
    //         --> Delete the inorder successor in right-subtree
    else if ( node->right != neel && node->left != neel ){
+#     ifdef DEBUG
+      printf("deleteNode: Case 4\n");
+#     endif
+
 
       TreeNode *successor = inorderSuccessor(node);
 
@@ -231,7 +244,10 @@ void DeleteTreeNode( TreeNode **root, Interval *interval )
          successor->right->parent = successor->parent;
 
       node->low = successor->low;
+
       SwapPointer( (void**)&(node->highList), (void**)&(successor->highList) );
+
+      node->listLength = successor->listLength;
 
       deleteNodeColor = successor->color;
       deleteNodeChild = successor->right;
@@ -254,6 +270,5 @@ void DeleteTreeNode( TreeNode **root, Interval *interval )
    free(deleteNode);
 
    if ( deleteNodeColor == BLACK )  DeleteFixedUpRBT( root, deleteNodeChild );
-
 }
 

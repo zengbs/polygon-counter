@@ -16,14 +16,14 @@ bool isLeftChild( TreeNode * node, char *fileName, int line )
    else { printf( "Error: %s(%d)\n", fileName, line ); exit(EXIT_FAILURE); return false; }
 }
 
-TreeNode* allocateTreeNode( TreeNode **parent, Interval *interval, bool color, int left_root_right )
+TreeNode* allocateTreeNode( TreeNode **parent, Interval *interval, bool color, int left_root_right, TreeNode **root)
 {
    TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
 
    if ( newNode == NULL ) REPORT_ERROR;
 
    newNode->low        = interval->low;
-   newNode->highList = NULL;
+   newNode->highList   = NULL;
    InsertListNode(&(newNode->highList), interval);
    newNode->listLength = 1;
    newNode->left       = neel;
@@ -215,10 +215,10 @@ void print2DUtil(TreeNode* root, int space)
     for (int i = COUNT; i < space; i++)
         printf(" ");
 
-    if ( root != neel )
+//    if ( root != neel )
     {
-       if ( root->color == BLACK )      {printf("[%d,](%d, B) ", root->low, root->max ); PrintListNode(root->highList);}
-       else                             {printf("[%d,](%d, R) ", root->low, root->max ); PrintListNode(root->highList);}
+       if ( root->color == BLACK )      {printf("[%d,](%d, B) [%d] ", root->low, root->max, root->listLength ); PrintListNode(root->highList);}
+       else                             {printf("[%d,](%d, R) [%d] ", root->low, root->max, root->listLength ); PrintListNode(root->highList);}
     }
 
     // Process left child

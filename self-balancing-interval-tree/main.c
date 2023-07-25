@@ -120,9 +120,9 @@ root = neel;
 
 #  ifdef RECTANGLES
 
-   int numRectanglesMax    = 32;
+   int numRectanglesMax    = 32000;
    int numRectangles       = 0;
-   int boxSizeX            = 50;
+   int boxSizeX            = 1000;
    int boxSizeY            = 1000;
    int rectangularMaxSizeX = 10;
    int rectangularMaxSizeY = 10;

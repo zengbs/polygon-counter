@@ -16,6 +16,10 @@ static void InsertTreeNodeFixUpRBTree( TreeNode **root, TreeNode *newNode )
          // Case 1: uncle is red, current is left/right child
          if ( uncle->color == RED ){
 
+#           ifdef DEBUG
+            printf("InsertTreeNodeFixUpRBTree case 1-0\n");
+#           endif
+
             // Step 1: paint parent black
             current->parent->color = BLACK;
 
@@ -31,6 +35,10 @@ static void InsertTreeNodeFixUpRBTree( TreeNode **root, TreeNode *newNode )
 
          // Case 2: uncle is black, current is left child
          else if ( uncle->color == BLACK && current->parent->left == current ){
+#           ifdef DEBUG
+            printf("InsertTreeNodeFixUpRBTree case 2-0\n");
+#           endif
+
 
             // Step 1: paint parent black
             current->parent->color = BLACK;
@@ -45,11 +53,17 @@ static void InsertTreeNodeFixUpRBTree( TreeNode **root, TreeNode *newNode )
          // Case 3: uncle is black, current is right child
          else if ( uncle->color == BLACK && current->parent->right == current ){
 
+#           ifdef DEBUG
+            printf("InsertTreeNodeFixUpRBTree case 3-0\n");
+#           endif
+
             // Step 1: move current to parent
             current = current->parent;
 
+
             // Step 2: left rotate based on current
             leftRotate( current, root );
+
 
             // Repeat case 2:
             // Step 1: paint parent black
@@ -60,6 +74,7 @@ static void InsertTreeNodeFixUpRBTree( TreeNode **root, TreeNode *newNode )
 
             // Step 3: right rotate based on grandparent
             rightRotate( current->parent->parent, root );
+
          }
          else REPORT_ERROR;
 
@@ -71,6 +86,10 @@ static void InsertTreeNodeFixUpRBTree( TreeNode **root, TreeNode *newNode )
 
          // Case 1: uncle is red, current is right/left child
          if ( uncle->color == RED ){
+
+#           ifdef DEBUG
+            printf("InsertTreeNodeFixUpRBTree case 1-1\n");
+#           endif
 
             // Step 1: paint parent black
             current->parent ->color = BLACK;
@@ -88,6 +107,10 @@ static void InsertTreeNodeFixUpRBTree( TreeNode **root, TreeNode *newNode )
          // Case 2: uncle is black, current is left child
          else if ( uncle->color == BLACK && current->parent->right == current ){
 
+#           ifdef DEBUG
+            printf("InsertTreeNodeFixUpRBTree case 2-1\n");
+#           endif
+
             // Step 1: paint parent black
             current->parent->color = BLACK;
 
@@ -100,6 +123,10 @@ static void InsertTreeNodeFixUpRBTree( TreeNode **root, TreeNode *newNode )
 
          // Case 3: uncle is black, current is right child
          else if ( uncle->color == BLACK && current->parent->left == current ){
+
+#           ifdef DEBUG
+            printf("InsertTreeNodeFixUpRBTree case 3-1\n");
+#           endif
 
             // Step 1: move current to parent
             current = current->parent;
@@ -153,12 +180,13 @@ void InsertTreeNode( TreeNode **root, Interval *interval )
 
    TreeNode *newNode = NULL;
 
+
    if ( previous == neel )
-      newNode = allocateTreeNode( root     , interval, BLACK, ROOT        );
+      newNode = allocateTreeNode( root     , interval, BLACK, ROOT        , root);
    else if ( previous->low > interval->low )
-      newNode = allocateTreeNode( &previous, interval, RED,   LEFT_CHILD  );
+      newNode = allocateTreeNode( &previous, interval, RED,   LEFT_CHILD  , root);
    else
-      newNode = allocateTreeNode( &previous, interval, RED,   RIGHT_CHILD );
+      newNode = allocateTreeNode( &previous, interval, RED,   RIGHT_CHILD , root);
 
 
    // Update `max` attribute in each node on search path

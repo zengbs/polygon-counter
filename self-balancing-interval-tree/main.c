@@ -124,8 +124,8 @@ root = neel;
    int numRectangles       = 0;
    int boxSizeX            = 50;
    int boxSizeY            = 1000;
-   int rectangularMaxSizeX = boxSizeX;
-   int rectangularMaxSizeY = boxSizeY;
+   int rectangularMaxSizeX = 10;
+   int rectangularMaxSizeY = 10;
    int rectangularMinSizeX = 1;
    int rectangularMinSizeY = 1;
 

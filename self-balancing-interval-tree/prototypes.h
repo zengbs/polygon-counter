@@ -27,5 +27,5 @@ int boxSizeX, int boxSizeY,
 int rectangularMaxSizeX, int rectangularMaxSizeY,
 int rectangularMinSizeX, int rectangularMinSizeY,
 int **EventListX, int **EventListY );
-TreeNode* SearchInterval( TreeNode *root, Interval *interval, ListNode **listNode,
-                          int relativePosition, int mode, int *numberCounted );
+TreeNode* SearchDuplicateInterval( TreeNode *root, Interval *interval, ListNode **listNode );
+TreeNode* CountOverlappingInterval( TreeNode *root, Interval *interval, ListNode **listNode, int *numberCounted );

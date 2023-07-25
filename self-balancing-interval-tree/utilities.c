@@ -96,8 +96,8 @@ bool IsDuplicateIntervals( Interval *interval1, Interval *interval2 )
 }
 
 
-bool checkTargetIntervalInNode( TreeNode *treeNode, Interval *intervalTarget, ListNode **listNode,
-                                int relativePosition, int mode, int *numberCounted )
+void CountIntervalInNode( TreeNode *treeNode, Interval *intervalTarget, ListNode **listNode,
+                          int relativePosition, int *numberCounted )
 {
 
    Interval intervalNode;
@@ -117,13 +117,13 @@ bool checkTargetIntervalInNode( TreeNode *treeNode, Interval *intervalTarget, Li
       case TOUCHING:
          fptr = IsTouchingIntervals;
 #        ifdef DEBUG
-         printf("Checking touching intervals..\n");
+         printf("Not support yet!\n");
 #        endif
          break;
       case DUPLICATE:
          fptr = IsDuplicateIntervals;
 #        ifdef DEBUG
-         printf("Checking duplicate intervals..\n");
+         printf("Not support yet!\n");
 #        endif
          break;
       default:
@@ -135,48 +135,29 @@ bool checkTargetIntervalInNode( TreeNode *treeNode, Interval *intervalTarget, Li
       intervalNode.high = current->key;
       intervalNode.counted = current->counted;
 
-      if ( mode == 1 ){
-         if ( fptr( intervalTarget, &intervalNode ) && intervalTarget->counted == false ){
-            intervalTarget->counted = true;
-            (*numberCounted)++;
-         }
+      if ( fptr( intervalTarget, &intervalNode ) && intervalTarget->counted == false ){
+         intervalTarget->counted = true;
+         (*numberCounted)++;
+      }
 
-         if ( fptr( intervalTarget, &intervalNode ) && current->counted == false ){
-            current->counted = true;
-            (*numberCounted)++;
-         }
-
-      }else if( mode == 2 ){
-         if ( fptr( intervalTarget, &intervalNode ) ){
-            *listNode = current;
-            return true;
-         }
-
-      }else REPORT_ERROR;
+      if ( fptr( intervalTarget, &intervalNode ) && current->counted == false ){
+         current->counted = true;
+         (*numberCounted)++;
+      }
 
       current = current->next;
    }
 
-   if ( mode == 1 && (*numberCounted) >  0 ) return true;
-   if ( mode == 1 && (*numberCounted) == 0 ) return false;
-
-
-   return false;
 }
 
-TreeNode* SearchInterval( TreeNode *root, Interval *interval, ListNode **listNode,
-                          int relativePosition, int mode, int *numberCounted )
+TreeNode* CountOverlappingInterval( TreeNode *root, Interval *interval, ListNode **listNode, int *numberCounted )
 {
    TreeNode *current = root;
 
 
    while( current != neel ){
 
-      bool test = checkTargetIntervalInNode( current, interval, listNode, relativePosition, mode, numberCounted );
-
-      if ( test && mode == 2 ){
-         return current;
-      }
+      CountIntervalInNode( current, interval, listNode, OVERLAPPING, numberCounted );
 
       if( current->left == neel ){
          current = current->right;
@@ -189,6 +170,25 @@ TreeNode* SearchInterval( TreeNode *root, Interval *interval, ListNode **listNod
 
 
    return NULL;
+}
+
+TreeNode* SearchDuplicateInterval( TreeNode *root, Interval *interval, ListNode **listNode )
+{
+   TreeNode *current = root;
+
+   int key = interval->low;
+
+   while( current->low != key ){
+      if      ( current->low > key )  current = current->left;
+      else if ( current->low < key )  current = current->right;
+      else { REPORT_ERROR }
+
+      if ( current == neel ) REPORT_ERROR;
+   }
+
+   *listNode = SearchListNode( current->highList, interval->high );
+
+   return current;
 }
 
 // ====== Print the structure of tree on 2D plane =======================

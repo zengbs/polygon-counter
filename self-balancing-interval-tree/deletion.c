@@ -130,7 +130,7 @@ void DeleteTreeNode( TreeNode **root, Interval *interval )
 
    bool deleteNodeColor = false;
    ListNode *listNode = NULL;
-   TreeNode *node = SearchInterval( *root, interval, &listNode, DUPLICATE, 2, NULL );
+   TreeNode *node = SearchDuplicateInterval( *root, interval, &listNode );
    TreeNode *deleteNodeChild = NULL;
    TreeNode *deleteNode      = NULL;
 

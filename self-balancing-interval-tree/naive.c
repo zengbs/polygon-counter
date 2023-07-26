@@ -18,7 +18,7 @@ bool Overlap(int *rec1, int *rec2 )
 }
 
 
-void NaiveCountOverlappingRectangles( int *EventListX, int *EventListY, int numRectangles, int *counter )
+void NaiveCountOverlappingRectangles( bool *count, int *EventListX, int *EventListY, int numRectangles, int *counter )
 {
    int rec1[4] = {0};
    int rec2[4] = {0};
@@ -36,10 +36,11 @@ void NaiveCountOverlappingRectangles( int *EventListX, int *EventListY, int numR
                rec2[2] = EventListY[j  ];
                rec2[3] = EventListY[j+1];
 
-               if ( Overlap(rec1, rec2) ){
+               if ( Overlap(rec1, rec2) && count[i/2] == false ){
                   printf("rec1[0]=%d, rec1[1]=%d, rec1[2]=%d, rec1[3]=%d\n", rec1[0], rec1[1], rec1[2], rec1[3]);
                   printf("rec2[0]=%d, rec2[1]=%d, rec2[2]=%d, rec2[3]=%d\n", rec2[0], rec2[1], rec2[2], rec2[3]);
                   (*counter)++;
+                  count[i/2] = true;
                }
             }
       }

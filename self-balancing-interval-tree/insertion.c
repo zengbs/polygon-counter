@@ -153,10 +153,11 @@ static void InsertTreeNodeFixUpRBTree( TreeNode **root, TreeNode *newNode )
 
 }
 
-void InsertTreeNode( TreeNode **root, Interval *interval )
+void InsertTreeNode( TreeNode **root, Interval *intervalX, Interval *intervalY )
 {
 
-   if ( interval->low > interval->high ) REPORT_ERROR;
+   if ( intervalY->low >= intervalY->high ) REPORT_ERROR;
+   if ( intervalX->low >= intervalX->high ) REPORT_ERROR;
 
    TreeNode *current = *root;
    TreeNode *previous = neel;
@@ -165,12 +166,12 @@ void InsertTreeNode( TreeNode **root, Interval *interval )
 
       previous = current;
 
-      if ( current->low > interval->low ){
+      if ( current->low > intervalY->low ){
          current = current->left;
-      }else if ( current->low < interval->low ){
+      }else if ( current->low < intervalY->low ){
          current = current->right;
       }else{
-         InsertListNode(&(current->highList), interval );
+         InsertListNode(&(current->highList), intervalX, intervalY );
          (current->listLength)++;
          current->max = current->highList->key;
          return;
@@ -182,11 +183,11 @@ void InsertTreeNode( TreeNode **root, Interval *interval )
 
 
    if ( previous == neel )
-      newNode = allocateTreeNode( root     , interval, BLACK, ROOT        , root);
-   else if ( previous->low > interval->low )
-      newNode = allocateTreeNode( &previous, interval, RED,   LEFT_CHILD  , root);
+      newNode = allocateTreeNode( root     , intervalX, intervalY, BLACK, ROOT        , root);
+   else if ( previous->low > intervalY->low )
+      newNode = allocateTreeNode( &previous, intervalX, intervalY, RED,   LEFT_CHILD  , root);
    else
-      newNode = allocateTreeNode( &previous, interval, RED,   RIGHT_CHILD , root);
+      newNode = allocateTreeNode( &previous, intervalX, intervalY, RED,   RIGHT_CHILD , root);
 
 
    // Update `max` attribute in each node on search path

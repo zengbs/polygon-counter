@@ -26,7 +26,7 @@ int main(){
    root = neel;
 
 
-   int numRectanglesMax    = 253;
+   int numRectanglesMax    = 4080;
    int numRectangles       = 0;
    int boxSizeX            = 1000;
    int boxSizeY            = 1000;
@@ -51,7 +51,8 @@ int main(){
 
    SweepLine( EventListX, EventListY, numRectangles, &counter );
 
-   NaiveCountOverlappingRectangles( EventListX, EventListY, numRectangles, &naiveCounter );
+   bool *count = (bool*)calloc(numRectangles, sizeof(bool));
+   NaiveCountOverlappingRectangles( count, EventListX, EventListY, numRectangles, &naiveCounter );
 
    printf("Number of ovrlapping rectangles = %d\n", counter);
    printf("Number of ovrlapping rectangles = %d\n", naiveCounter);

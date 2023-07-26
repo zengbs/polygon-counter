@@ -173,7 +173,13 @@ void InsertTreeNode( TreeNode **root, Interval *intervalX, Interval *intervalY )
       }else{
          InsertListNode(&(current->highList), intervalX, intervalY );
          (current->listLength)++;
-         current->max = current->highList->key;
+
+         // Update `max` attribute in each node on search path
+         current->max = max(current->highList->key, current->left->max, current->right->max );
+         while( current != *root ){
+            current->parent->max = max( current->parent->left->max, current->parent->right->max, current->parent->highList->key );
+            current = current->parent;
+         }
          return;
       }
 
@@ -192,8 +198,10 @@ void InsertTreeNode( TreeNode **root, Interval *intervalX, Interval *intervalY )
 
    // Update `max` attribute in each node on search path
    current = newNode;
+   current->max = max( current->left->max, current->right->max, current->highList->key );
+
    while( current != *root ){
-      if ( current->max > current->parent->max ) current->parent->max = current->max;
+      current->parent->max = max( current->parent->left->max, current->parent->right->max, current->parent->highList->key );
       current = current->parent;
    }
 

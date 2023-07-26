@@ -60,6 +60,7 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
 
          CountOverlappingInterval( root, &intervalX, &intervalY, &listNode, counter );
 
+         //if ( intervalY.low == 757 && intervalY.high == 764 ) {  print2D(root); exit(0); }
 
          // Insert intervalY into interval tree
          InsertTreeNode( &root, &intervalX, &intervalY );
@@ -83,6 +84,8 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
       print2D(root);
       printf("============================\n");
 #     endif
+
+      //if ( intervalY.low == 530 && intervalY.high == 537 ) exit(0);
    }
 }
 

@@ -133,6 +133,7 @@ void DeleteTreeNode( TreeNode **root, Interval *interval )
    TreeNode *node = SearchDuplicateInterval( *root, interval, &listNode );
    TreeNode *deleteNodeChild = NULL;
    TreeNode *deleteNode      = NULL;
+   TreeNode *current = NULL;
 
    if ( node == NULL ){
       printf("The interval->low %d is not found.\n", interval->low);
@@ -147,6 +148,13 @@ void DeleteTreeNode( TreeNode **root, Interval *interval )
 #     ifdef DEBUG
       printf("deleteNode: Case 0\n");
 #     endif
+      node->max = max(node->highList->key, node->left->max, node->right->max);
+      current = node;
+
+      while( current != *root ){
+         current->parent->max = max( current->parent->left->max, current->parent->right->max, current->parent->highList->key );
+         current = current->parent;
+      }
       return;
    }
 
@@ -259,9 +267,9 @@ void DeleteTreeNode( TreeNode **root, Interval *interval )
    // Update `max` attribute in each node on search path
    deleteNode->parent->max = max( deleteNode->parent->left->max, deleteNode->parent->right->max, deleteNode->parent->highList->key );
 
-   TreeNode *current = deleteNode->parent;
+   current = deleteNode->parent;
    while( current != *root ){
-      if ( current->max > current->parent->max ) current->parent->max = current->max;
+      current->parent->max = max( current->parent->left->max, current->parent->right->max, current->parent->highList->key );
       current = current->parent;
    }
 

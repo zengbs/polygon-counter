@@ -142,10 +142,6 @@ void CountIntervalInNode( TreeNode *treeNode, Interval *intervalX, Interval *int
       bool overlap  = fptr( intervalY, &intervalYNode ) || IsDuplicateIntervals( intervalY, &intervalYNode );
            overlap &= fptr( intervalX, &intervalXNode ) || IsDuplicateIntervals( intervalX, &intervalXNode );
 
-      if ( intervalY->low == 530 && intervalY->high == 537 ){
-         printf("Rocky: %d\n", overlap);
-         printf("Rocky: [%d, %d]\n", intervalYNode.low, intervalYNode.high );
-      }
 
       if ( overlap && intervalY->counted == false ){
          intervalY->counted = true;
@@ -185,10 +181,15 @@ TreeNode* CountOverlappingInterval( TreeNode *root, Interval *intervalX, Interva
       CountIntervalInNode( current, intervalX, intervalY, listNode, OVERLAPPING, numberCounted );
 
       if( current->left == neel ){
+#        ifdef DEBUG
+         printf("Go to right (left = neel)\n");
+#        endif
          current = current->right;
-      }else if( current->left->max < intervalY->low ){
+      }else if( current->left->max <= intervalY->low ){
+printf("Go to right, current->left->max=%d, current->left->low=%d, intervalY->low=%d\n", current->left->max, current->left->low, intervalY->low);
          current = current->right;
       }else{
+printf("Go to left, current->left->max=%d, current->left->low=%d, intervalY->low=%d\n", current->left->max, current->left->low, intervalY->low);
          current = current->left;
       }
    }

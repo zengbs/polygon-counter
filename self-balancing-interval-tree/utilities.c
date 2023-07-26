@@ -186,10 +186,14 @@ TreeNode* CountOverlappingInterval( TreeNode *root, Interval *intervalX, Interva
 #        endif
          current = current->right;
       }else if( current->left->max <= intervalY->low ){
-printf("Go to right, current->left->max=%d, current->left->low=%d, intervalY->low=%d\n", current->left->max, current->left->low, intervalY->low);
+#        ifdef DEBUG
+         printf("Go to right, current->left->max=%d, current->left->low=%d, intervalY->low=%d\n", current->left->max, current->left->low, intervalY->low);
+#        endif
          current = current->right;
       }else{
-printf("Go to left, current->left->max=%d, current->left->low=%d, intervalY->low=%d\n", current->left->max, current->left->low, intervalY->low);
+#        ifdef DEBUG
+         printf("Go to left, current->left->max=%d, current->left->low=%d, intervalY->low=%d\n", current->left->max, current->left->low, intervalY->low);
+#        endif
          current = current->left;
       }
    }

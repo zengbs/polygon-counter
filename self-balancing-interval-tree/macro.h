@@ -18,4 +18,5 @@
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
+#define DEBUG_LEVEL_1
 #define DEBUG

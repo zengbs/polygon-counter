@@ -73,7 +73,7 @@ void PrintListNode( ListNode *head )
    ListNode* current = head;
 
    while( current != NULL ){
-      printf("%d ", current->key );
+      printf("%d {%d, %d}", current->key, current->leftEnd, current->rightEnd );
       current = current->next;
    }
 }

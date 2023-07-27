@@ -8,16 +8,7 @@
 // X1L, X1R, X2L, X2R, X3L, X3R, X4L, X4R
 // Y1T, Y1B, Y2T, Y2B, Y3T, Y3B, Y4T, Y4B
 
-
-struct EventListX_wrapper_structure{
-   int EventListX;
-   int KeyX;
-};
-
-
-typedef struct EventListX_wrapper_structure EventListX_wrapper;
-
-int compare ( const void *a, const void *b )
+static int compare ( const void *a, const void *b )
 {
    int number1 = (*(EventListX_wrapper*)a).EventListX;
    int number2 = (*(EventListX_wrapper*)b).EventListX;
@@ -39,9 +30,13 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
    // Sort EventListX in ascending order
    qsort( wrapper, arrayLength, sizeof(EventListX_wrapper), compare);
 
+   SegregateEvenAndOdd( wrapper, arrayLength );
+
    Interval intervalY, intervalX;
 
    for (int i=0; i<arrayLength; i++){
+
+//     if ( wrapper[i].EventListX == 843 ) printf("wrapper[%d].KeyX = %d\n", i, wrapper[i].KeyX);
 
       // KeyX is even (including 0)
       if ( ( ( wrapper[i].KeyX ) & 1 ) == 0 ){
@@ -53,7 +48,7 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
          intervalX.low  = EventListX[wrapper[i].KeyX  ];
 
 #        ifdef DEBUG
-         printf("Insert [%d, %d]\n", intervalY.low, intervalY.high);
+         printf("Insert X: [%d, %d], Y: [%d, %d]\n", intervalX.low, intervalX.high, intervalY.low, intervalY.high);
 #        endif
 
          ListNode *listNode = NULL;
@@ -67,11 +62,13 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
       // KeyX is odd
       }else{
 
+         intervalX.high = EventListX[wrapper[i].KeyX  ];
+         intervalX.low  = EventListX[wrapper[i].KeyX-1];
          intervalY.high = EventListY[wrapper[i].KeyX  ];
          intervalY.low  = EventListY[wrapper[i].KeyX-1];
 
 #        ifdef DEBUG
-         printf("Delete [%d, %d]\n", intervalY.low, intervalY.high);
+         printf("Delete X: [%d, %d], Y: [%d, %d]\n", intervalX.low, intervalX.high, intervalY.low, intervalY.high);
 #        endif
 
          // Delete intervalY into interval tree

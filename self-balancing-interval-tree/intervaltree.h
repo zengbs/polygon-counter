@@ -31,5 +31,12 @@ struct IntervalTreeNode {
    TreeNode *right;
 };
 
+struct EventListX_wrapper_structure{
+   int EventListX;
+   int KeyX;
+};
+
+typedef struct EventListX_wrapper_structure EventListX_wrapper;
+
 extern TreeNode *neel;
 extern TreeNode *root;

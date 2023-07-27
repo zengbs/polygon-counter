@@ -30,5 +30,7 @@ int rectangularMinSizeX, int rectangularMinSizeY,
 int **EventListX, int **EventListY );
 TreeNode* SearchDuplicateInterval( TreeNode *root, Interval *interval, ListNode **listNode );
 void NaiveCountOverlappingRectangles( bool *count, int *EventListX, int *EventListY, int numRectangles, int *counter );
-TreeNode* CountOverlappingInterval( TreeNode *root, Interval *intervalX, Interval *intervalY,
+void CountOverlappingInterval( TreeNode *root, Interval *intervalX, Interval *intervalY,
                                     ListNode **listNode, int *numberCounted );
+void XorSwap(int *x, int *y);
+void SegregateEvenAndOdd( EventListX_wrapper *wrapper, int numRectangles );

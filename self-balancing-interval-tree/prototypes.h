@@ -22,6 +22,7 @@ bool IsTargetIntervalOverlapsIntervalsInNode( TreeNode *treeNode, Interval *inte
 void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counter );
 void SwapPointer( void **ptr1, void **ptr2 );
 int max( int a, int b, int c );
+int min( int a, int b, int c );
 void RectanglesGeneration(
 int numberRectanglesMax, int *numberRectangles,
 int boxSizeX, int boxSizeY,

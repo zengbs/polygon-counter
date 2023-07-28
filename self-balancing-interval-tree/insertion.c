@@ -176,10 +176,13 @@ void InsertTreeNode( TreeNode **root, Interval *intervalX, Interval *intervalY )
 
          // Update `max` attribute in each node on search path
          current->max = max(current->highList->key, current->left->max, current->right->max );
+         current->min = min(current->low, current->left->min, current->right->min );
          while( current != *root ){
             current->parent->max = max( current->parent->left->max, current->parent->right->max, current->parent->highList->key );
+            current->parent->min = min( current->parent->left->min, current->parent->right->min, current->parent->low );
             current = current->parent;
          }
+
          return;
       }
 
@@ -196,12 +199,14 @@ void InsertTreeNode( TreeNode **root, Interval *intervalX, Interval *intervalY )
       newNode = allocateTreeNode( &previous, intervalX, intervalY, RED,   RIGHT_CHILD , root);
 
 
-   // Update `max` attribute in each node on search path
+   // Update `max` and `min` attribute in each node on search path
    current = newNode;
    current->max = max( current->left->max, current->right->max, current->highList->key );
+   current->min = min( current->left->min, current->right->min, current->low );
 
    while( current != *root ){
       current->parent->max = max( current->parent->left->max, current->parent->right->max, current->parent->highList->key );
+      current->parent->min = min( current->parent->left->min, current->parent->right->min, current->parent->low           );
       current = current->parent;
    }
 

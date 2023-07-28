@@ -27,7 +27,7 @@ int main(){
    root = neel;
 
 
-   int numRectanglesMax    = 4693;
+   int numRectanglesMax    = 56930;
    int numRectangles       = 0;
    int boxSizeX            = 1000;
    int boxSizeY            = 1000;

@@ -9,6 +9,12 @@ int max( int a, int b, int c )
    return MAX( d, c );
 }
 
+int min( int a, int b, int c )
+{
+   int d = MIN( a, b );
+   return MIN( d, c );
+}
+
 bool isLeftChild( TreeNode * node, char *fileName, int line )
 {
    if      ( node->parent->left == node ) return true;
@@ -31,6 +37,7 @@ TreeNode* allocateTreeNode( TreeNode **parent, Interval *intervalX, Interval *in
    newNode->right      = neel;
    newNode->color      = color;
    newNode->max        = intervalY->high;
+   newNode->min        = intervalY->low;
 
    if ( left_root_right == ROOT ){
       newNode->parent = neel;
@@ -143,6 +150,7 @@ void CountIntervalInNode( TreeNode *treeNode, Interval *intervalX, Interval *int
 
       bool overlap  = fptr( intervalY, &intervalYNode ) || IsDuplicateIntervals( intervalY, &intervalYNode );
 
+#        ifdef DEBUG_LEVEL_1
          printf("+++++++++++++++++\n");
          printf("A: intervalY->counted = %d\n", intervalY->counted );
          printf("A: intervalY    : [%d, %d]\n", intervalY->low,       intervalY->high );
@@ -151,6 +159,7 @@ void CountIntervalInNode( TreeNode *treeNode, Interval *intervalX, Interval *int
          printf("A: intervalXNode: [%d, %d]\n", intervalXNode.low,    intervalXNode.high );
          printf("overlap = %d\n", overlap );
          printf("+++++++++++++++++\n");
+#        endif
 
       if ( overlap && intervalY->counted == false ){
          intervalY->counted = true;
@@ -219,7 +228,7 @@ void CountOverlappingInterval( TreeNode *current, Interval *intervalX, Interval 
           printf("Go to left\n");
        }
 
-       if ( current->right != neel && current->right->low < intervalY->high ){
+       if ( current->right != neel && current->right->min < intervalY->high ){
           CountOverlappingInterval(current->right , intervalX, intervalY, listNode, numberCounted);
           printf("Go to right\n");
        }
@@ -277,8 +286,7 @@ void print2DUtil(TreeNode* root, int space)
 
 //    if ( root != neel )
     {
-       if ( root->color == BLACK )      {printf("[%d,](%d, B) [%d] ", root->low, root->max, root->listLength ); PrintListNode(root->highList);}
-       else                             {printf("[%d,](%d, R) [%d] ", root->low, root->max, root->listLength ); PrintListNode(root->highList);}
+       printf("[%d,](%d, %d) [%d] ", root->low, root->max, root->min, root->listLength ); PrintListNode(root->highList);
     }
 
     // Process left child

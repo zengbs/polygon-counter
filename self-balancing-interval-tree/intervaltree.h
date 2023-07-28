@@ -26,6 +26,7 @@ struct IntervalTreeNode {
    ListNode *highList;
    int listLength;
    int max;
+   int min;
    TreeNode *parent;
    TreeNode *left;
    TreeNode *right;

@@ -27,7 +27,8 @@ int main(){
    root = neel;
 
 
-   int numRectanglesMax    = INT_MAX/100000;
+   //int numRectanglesMax    = INT_MAX/100000;
+   int numRectanglesMax    = 5000;
    int numRectangles       = 0;
    int boxSizeX            = 1000;
    int boxSizeY            = 1000;
@@ -57,6 +58,10 @@ int main(){
 
    printf("Number of ovrlapping rectangles = %d\n", counter);
    printf("Number of ovrlapping rectangles = %d\n", naiveCounter);
+
+   free(EventListX);
+   free(EventListY);
+   free(neel);
 
    return 0;
 }

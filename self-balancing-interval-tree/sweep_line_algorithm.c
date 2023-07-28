@@ -88,5 +88,8 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
 #     endif
 
    }
+
+   free(wrapper);
+
 }
 

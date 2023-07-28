@@ -1,3 +1,6 @@
+#ifndef __PROTOTYPES_H__
+#define __PROTOTYPES_H__
+
 void rightRotate( TreeNode *x, TreeNode **root );
 void  leftRotate( TreeNode *x, TreeNode **root );
 void InsertTreeNode( TreeNode **root, Interval *intervalY );
@@ -33,3 +36,9 @@ void NaiveCountOverlappingRectangles( bool *count, int *EventListX, int *EventLi
 void CountOverlappingInterval( TreeNode *root, Interval *intervalY, ListNode **listNode, int *numberCounted );
 void XorSwap(int *x, int *y);
 void SegregateEvenAndOdd( EventListX_wrapper *wrapper, int numRectangles );
+void Reset();
+double GetValue();
+void Stop();
+void Start();
+
+#endif

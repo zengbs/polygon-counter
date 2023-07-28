@@ -1,3 +1,4 @@
+#include"global.h"
 #include"macro.h"
 #include"intervaltree.h"
 #include"prototypes.h"

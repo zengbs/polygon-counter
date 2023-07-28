@@ -11,9 +11,10 @@ gcc -g -Wall sweep_line_algorithm.c  -o sweep_line_algorithm.o -c
 gcc -g -Wall rectangles_generation.c -o rectangles_generation.o -c
 gcc -g -Wall naive.c                 -o naive.o -c
 gcc -g -Wall segregate.c             -o segregate.o -c
+gcc -g -Wall timer.c                 -o timer.o -c
 
 gcc -g -o a.out main.o rotation.o insertion.o validate.o deletion.o utilities.o \
           linkedlists.o sweep_line_algorithm.o rectangles_generation.o naive.o \
-          segregate.o
+          segregate.o timer.o
 
 rm -f *.o vgcore.* log.core.*

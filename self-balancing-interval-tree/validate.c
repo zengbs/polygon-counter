@@ -1,5 +1,6 @@
 #include<stdbool.h>
 #include<stdlib.h>
+#include"global.h"
 #include"macro.h"
 #include"intervaltree.h"
 #include"prototypes.h"

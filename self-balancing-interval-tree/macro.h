@@ -1,3 +1,6 @@
+#ifndef __MACRO_H__
+#define __MACRO_H__
+
 #include<stdio.h>
 
 #define LOCATION __FILE__, __FUNCTION__, __LINE__
@@ -16,5 +19,9 @@
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
+#define TIMER
+
 //#define DEBUG_LEVEL_1
 //#define DEBUG
+
+#endif

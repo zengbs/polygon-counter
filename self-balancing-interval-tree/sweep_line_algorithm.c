@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "macro.h"
-#include "intervaltree.h"
-#include "prototypes.h"
+#include"global.h"
+#include"macro.h"
+#include"intervaltree.h"
+#include"prototypes.h"
 
 
 // X1L, X1R, X2L, X2R, X3L, X3R, X4L, X4R

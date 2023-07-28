@@ -1,6 +1,7 @@
+#include"global.h"
 #include"macro.h"
 #include"intervaltree.h"
-#include "prototypes.h"
+#include"prototypes.h"
 
 
 static void InsertTreeNodeFixUpRBTree( TreeNode **root, TreeNode *newNode )

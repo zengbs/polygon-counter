@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "macro.h"
-#include "intervaltree.h"
-#include "prototypes.h"
+#include"global.h"
+#include"macro.h"
+#include"intervaltree.h"
+#include"prototypes.h"
 
 
 void LomutoPartition( EventListX_wrapper *wrapper, int leftEnd, int rightEnd )

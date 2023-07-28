@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdbool.h>
+#include"global.h"
 
 // Returns true if two rectangles (l1, r1) and (l2, r2)
 // overlap

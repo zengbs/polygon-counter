@@ -1,8 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include"global.h"
 #include"macro.h"
 #include"intervaltree.h"
-#include "prototypes.h"
+#include"prototypes.h"
 
 
 ListNode *SearchListNode( ListNode *head, int key )

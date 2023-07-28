@@ -3,6 +3,7 @@
 #include<stdlib.h>
 #include<limits.h>
 #include<time.h>
+#include"global.h"
 #include"macro.h"
 #include"intervaltree.h"
 #include"prototypes.h"
@@ -28,7 +29,7 @@ int main(){
 
 
    //int numRectanglesMax    = INT_MAX/100000;
-   int numRectanglesMax    = 5000;
+   int numRectanglesMax    = 50000;
    int numRectangles       = 0;
    int boxSizeX            = 1000;
    int boxSizeY            = 1000;
@@ -51,10 +52,25 @@ int main(){
    int counter = 0;
    int naiveCounter = 0;
 
+#  ifdef TIMER
+   Start();
+#  endif
    SweepLine( EventListX, EventListY, numRectangles, &counter );
+#  ifdef TIMER
+   Stop();
+   printf("%e sec\n", GetValue());
+#  endif
 
    bool *count = (bool*)calloc(numRectangles, sizeof(bool));
+
+#  ifdef TIMER
+   Start();
+#  endif
    NaiveCountOverlappingRectangles( count, EventListX, EventListY, numRectangles, &naiveCounter );
+#  ifdef TIMER
+   Stop();
+   printf("%e sec\n", GetValue());
+#  endif
 
    printf("Number of ovrlapping rectangles = %d\n", counter);
    printf("Number of ovrlapping rectangles = %d\n", naiveCounter);

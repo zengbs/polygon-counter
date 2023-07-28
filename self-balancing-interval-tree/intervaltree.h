@@ -1,3 +1,7 @@
+#ifndef __INTERVALTREE_H___
+#define __INTERVALTREE_H___
+
+
 #include<stdbool.h>
 #include<stdlib.h>
 
@@ -37,5 +41,4 @@ struct EventListX_wrapper_structure{
 
 typedef struct EventListX_wrapper_structure EventListX_wrapper;
 
-extern TreeNode *neel;
-extern TreeNode *root;
+#endif

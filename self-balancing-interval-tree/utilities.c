@@ -15,6 +15,25 @@ int min( int a, int b, int c )
    return MIN( d, c );
 }
 
+
+void SwapPointer( void **ptr1, void **ptr2 )
+{
+   void *temp = *ptr1;
+   *ptr1 = *ptr2;
+   *ptr2 = temp;
+}
+
+
+void XorSwap(int *x, int *y)
+{
+  if (x != y)
+  {
+    *x ^= *y;
+    *y ^= *x;
+    *x ^= *y;
+  }
+}
+
 bool isLeftChild( TreeNode * node, char *fileName, int line )
 {
    if      ( node->parent->left == node ) return true;
@@ -22,7 +41,7 @@ bool isLeftChild( TreeNode * node, char *fileName, int line )
    else { printf( "Error: %s(%d)\n", fileName, line ); exit(EXIT_FAILURE); return false; }
 }
 
-TreeNode* allocateTreeNode( TreeNode **parent, Interval *intervalX, Interval *intervalY,
+TreeNode* allocateTreeNode( TreeNode **parent, Interval *intervalY,
                             bool color, int left_root_right, TreeNode **root)
 {
    TreeNode* newNode = (TreeNode*)malloc(sizeof(TreeNode));
@@ -31,7 +50,7 @@ TreeNode* allocateTreeNode( TreeNode **parent, Interval *intervalX, Interval *in
 
    newNode->low        = intervalY->low;
    newNode->highList   = NULL;
-   InsertListNode(&(newNode->highList), intervalX, intervalY);
+   InsertListNode(&(newNode->highList), intervalY);
    newNode->listLength = 1;
    newNode->left       = neel;
    newNode->right      = neel;
@@ -104,11 +123,11 @@ bool IsDuplicateIntervals( Interval *interval1, Interval *interval2 )
 }
 
 
-void CountIntervalInNode( TreeNode *treeNode, Interval *intervalX, Interval *intervalY, ListNode **listNode,
+void CountIntervalInNode( TreeNode *treeNode, Interval *intervalY, ListNode **listNode,
                           int relativePosition, int *numberCounted )
 {
 
-   Interval intervalYNode, intervalXNode;
+   Interval intervalYNode;
    intervalYNode.low  = treeNode->low;
    ListNode *current  = treeNode->highList;
 
@@ -145,9 +164,6 @@ void CountIntervalInNode( TreeNode *treeNode, Interval *intervalX, Interval *int
       intervalYNode.high    = current->key;
       intervalYNode.counted = current->counted;
 
-      intervalXNode.low  = current->leftEnd;
-      intervalXNode.high = current->rightEnd;
-
       bool overlap  = fptr( intervalY, &intervalYNode ) || IsDuplicateIntervals( intervalY, &intervalYNode );
 
 #        ifdef DEBUG_LEVEL_1
@@ -155,8 +171,6 @@ void CountIntervalInNode( TreeNode *treeNode, Interval *intervalX, Interval *int
          printf("A: intervalY->counted = %d\n", intervalY->counted );
          printf("A: intervalY    : [%d, %d]\n", intervalY->low,       intervalY->high );
          printf("A: intervalYNode: [%d, %d]\n", intervalYNode.low,    intervalYNode.high );
-         printf("A: intervalX    : [%d, %d]\n", intervalX->low,       intervalX->high );
-         printf("A: intervalXNode: [%d, %d]\n", intervalXNode.low,    intervalXNode.high );
          printf("overlap = %d\n", overlap );
          printf("+++++++++++++++++\n");
 #        endif
@@ -168,8 +182,6 @@ void CountIntervalInNode( TreeNode *treeNode, Interval *intervalX, Interval *int
          printf("===========\n");
          printf("A: intervalY    : [%d, %d]\n", intervalY->low,       intervalY->high );
          printf("A: intervalYNode: [%d, %d]\n", intervalYNode.low,    intervalYNode.high );
-         printf("A: intervalX    : [%d, %d]\n", intervalX->low,       intervalX->high );
-         printf("A: intervalXNode: [%d, %d]\n", intervalXNode.low,    intervalXNode.high );
          printf("===========\n");
 #        endif
       }
@@ -181,8 +193,6 @@ void CountIntervalInNode( TreeNode *treeNode, Interval *intervalX, Interval *int
          printf("===========\n");
          printf("B: intervalY    : [%d, %d]\n", intervalY->low,       intervalY->high );
          printf("B: intervalYNode: [%d, %d]\n", intervalYNode.low,    intervalYNode.high );
-         printf("B: intervalX    : [%d, %d]\n", intervalX->low,       intervalX->high );
-         printf("B: intervalXNode: [%d, %d]\n", intervalXNode.low,    intervalXNode.high );
          printf("===========\n");
 #        endif
 
@@ -195,50 +205,27 @@ void CountIntervalInNode( TreeNode *treeNode, Interval *intervalX, Interval *int
 }
 
 
-void CountOverlappingInterval( TreeNode *current, Interval *intervalX, Interval *intervalY,
+void CountOverlappingInterval( TreeNode *current, Interval *intervalY,
                                     ListNode **listNode, int *numberCounted )
 {
-//   TreeNode *current = root;
 
   if ( current == neel ) return;
 
-//   while( current != neel ){
-
-      CountIntervalInNode( current, intervalX, intervalY, listNode, OVERLAPPING, numberCounted );
-
-//      if( current->left == neel ){
-//#        ifdef DEBUG
-//         printf("Go to right (left = neel)\n");
-//#        endif
-//         current = current->right;
-//      }else if( current->left->max <= intervalY->low ){
-//#        ifdef DEBUG
-//         printf("Go to right, current->left->max=%d <= intervalY->low=%d\n", current->left->max, intervalY->low);
-//#        endif
-//         current = current->right;
-//      }else{
-//#        ifdef DEBUG
-//         printf("Go to left, current->left->max=%d > intervalY->low=%d\n", current->left->max, intervalY->low);
-//#        endif
-//         current = current->left;
-//      }
+      CountIntervalInNode( current, intervalY, listNode, OVERLAPPING, numberCounted );
 
        if ( current->left != neel && current->left->max > intervalY->low ){
-          CountOverlappingInterval( current->left , intervalX, intervalY, listNode, numberCounted);
+          CountOverlappingInterval( current->left, intervalY, listNode, numberCounted);
+#         ifdef DEBUG
           printf("Go to left\n");
+#         endif
        }
 
        if ( current->right != neel && current->right->min < intervalY->high ){
-          CountOverlappingInterval(current->right , intervalX, intervalY, listNode, numberCounted);
+          CountOverlappingInterval(current->right, intervalY, listNode, numberCounted);
+#         ifdef DEBUG
           printf("Go to right\n");
+#         endif
        }
-
-
-//   }
-
-//print2D(root);
-//      if ( intervalY->low == 236 && intervalY->high == 246 ) exit(0);
-//   return NULL;
 }
 
 TreeNode* SearchDuplicateInterval( TreeNode *root, Interval *interval, ListNode **listNode )
@@ -298,23 +285,4 @@ void print2D( TreeNode* root)
 {
     // Pass initial space count as 0
     print2DUtil(root, 0);
-}
-
-
-void SwapPointer( void **ptr1, void **ptr2 )
-{
-   void *temp = *ptr1;
-   *ptr1 = *ptr2;
-   *ptr2 = temp;
-}
-
-
-void XorSwap(int *x, int *y)
-{
-  if (x != y)
-  {
-    *x ^= *y;
-    *y ^= *x;
-    *x ^= *y;
-  }
 }

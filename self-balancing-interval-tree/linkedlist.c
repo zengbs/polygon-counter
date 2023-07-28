@@ -21,7 +21,7 @@ ListNode *SearchListNode( ListNode *head, int key )
 
 
 
-void InsertListNode( ListNode **head, Interval *intervalX, Interval *intervalY )
+void InsertListNode( ListNode **head, Interval *intervalY )
 {
    ListNode *newNode = (ListNode*)malloc(sizeof(ListNode));
 
@@ -29,8 +29,6 @@ void InsertListNode( ListNode **head, Interval *intervalX, Interval *intervalY )
 
    newNode->key      = intervalY->high;
    newNode->counted  = intervalY->counted;
-   newNode->leftEnd  = intervalX->low;
-   newNode->rightEnd = intervalX->high;
 
    ListNode *current = *head;
    ListNode *prev = NULL;
@@ -73,7 +71,7 @@ void PrintListNode( ListNode *head )
    ListNode* current = head;
 
    while( current != NULL ){
-      printf("%d {%d, %d}", current->key, current->leftEnd, current->rightEnd );
+      printf("%d ", current->key );
       current = current->next;
    }
 }

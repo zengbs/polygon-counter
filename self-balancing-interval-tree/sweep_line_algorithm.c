@@ -32,11 +32,13 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
 
    SegregateEvenAndOdd( wrapper, arrayLength );
 
-   Interval intervalY, intervalX;
+   Interval intervalY;
+#  ifdef DEBUG
+   Interval intervalX;
+#  endif
 
    for (int i=0; i<arrayLength; i++){
 
-//     if ( wrapper[i].EventListX == 843 ) printf("wrapper[%d].KeyX = %d\n", i, wrapper[i].KeyX);
 
       // KeyX is even (including 0)
       if ( ( ( wrapper[i].KeyX ) & 1 ) == 0 ){
@@ -44,8 +46,10 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
          intervalY.counted = false;
          intervalY.high = EventListY[wrapper[i].KeyX+1];
          intervalY.low  = EventListY[wrapper[i].KeyX  ];
+#        ifdef DEBUG
          intervalX.high = EventListX[wrapper[i].KeyX+1];
          intervalX.low  = EventListX[wrapper[i].KeyX  ];
+#        endif
 
 #        ifdef DEBUG
          printf("Insert X: [%d, %d], Y: [%d, %d]\n", intervalX.low, intervalX.high, intervalY.low, intervalY.high);
@@ -53,17 +57,19 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
 
          ListNode *listNode = NULL;
 
-         CountOverlappingInterval( root, &intervalX, &intervalY, &listNode, counter );
+         CountOverlappingInterval( root, &intervalY, &listNode, counter );
 
 
          // Insert intervalY into interval tree
-         InsertTreeNode( &root, &intervalX, &intervalY );
+         InsertTreeNode( &root, &intervalY );
 
       // KeyX is odd
       }else{
 
+#        ifdef DEBUG
          intervalX.high = EventListX[wrapper[i].KeyX  ];
          intervalX.low  = EventListX[wrapper[i].KeyX-1];
+#        endif
          intervalY.high = EventListY[wrapper[i].KeyX  ];
          intervalY.low  = EventListY[wrapper[i].KeyX-1];
 
@@ -71,7 +77,7 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
          printf("Delete X: [%d, %d], Y: [%d, %d]\n", intervalX.low, intervalX.high, intervalY.low, intervalY.high);
 #        endif
 
-         // Delete intervalY into interval tree
+         // Delete intervalY from interval tree
          DeleteTreeNode( &root, &intervalY );
 
       }
@@ -81,7 +87,6 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
       printf("============================\n");
 #     endif
 
-      //if ( intervalY.low == 530 && intervalY.high == 537 ) exit(0);
    }
 }
 

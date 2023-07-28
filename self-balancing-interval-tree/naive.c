@@ -37,8 +37,10 @@ void NaiveCountOverlappingRectangles( bool *count, int *EventListX, int *EventLi
                rec2[3] = EventListY[j+1];
 
                if ( Overlap(rec1, rec2) && count[i/2] == false ){
+#                 ifdef DEBUG
                   printf("rec1[0]=%d, rec1[1]=%d, rec1[2]=%d, rec1[3]=%d\n", rec1[0], rec1[1], rec1[2], rec1[3]);
                   printf("rec2[0]=%d, rec2[1]=%d, rec2[2]=%d, rec2[3]=%d\n", rec2[0], rec2[1], rec2[2], rec2[3]);
+#                 endif
                   (*counter)++;
                   count[i/2] = true;
                }

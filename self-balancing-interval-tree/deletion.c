@@ -148,6 +148,8 @@ void DeleteTreeNode( TreeNode **root, Interval *interval )
 #     ifdef DEBUG
       printf("deleteNode: Case 0\n");
 #     endif
+
+      // Update max/min attributes in each node on search path
       node->max = max(node->highList->key, node->left->max, node->right->max);
       node->min = min(node->highList->key, node->left->min, node->right->min);
       current = node;
@@ -266,7 +268,7 @@ void DeleteTreeNode( TreeNode **root, Interval *interval )
    }
    else REPORT_ERROR;
 
-   // Update max/min attribute in each node on search path
+   // Update max/min attributes in each node on search path
    deleteNode->parent->max = max( deleteNode->parent->left->max, deleteNode->parent->right->max, deleteNode->parent->highList->key );
    deleteNode->parent->min = min( deleteNode->parent->left->min, deleteNode->parent->right->min, deleteNode->parent->low           );
 

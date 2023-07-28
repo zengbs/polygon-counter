@@ -153,11 +153,10 @@ static void InsertTreeNodeFixUpRBTree( TreeNode **root, TreeNode *newNode )
 
 }
 
-void InsertTreeNode( TreeNode **root, Interval *intervalX, Interval *intervalY )
+void InsertTreeNode( TreeNode **root, Interval *intervalY )
 {
 
    if ( intervalY->low >= intervalY->high ) REPORT_ERROR;
-   if ( intervalX->low >= intervalX->high ) REPORT_ERROR;
 
    TreeNode *current = *root;
    TreeNode *previous = neel;
@@ -171,10 +170,10 @@ void InsertTreeNode( TreeNode **root, Interval *intervalX, Interval *intervalY )
       }else if ( current->low < intervalY->low ){
          current = current->right;
       }else{
-         InsertListNode(&(current->highList), intervalX, intervalY );
+         InsertListNode(&(current->highList), intervalY );
          (current->listLength)++;
 
-         // Update `max` attribute in each node on search path
+         // Update max/min attributes in each node on search path
          current->max = max(current->highList->key, current->left->max, current->right->max );
          current->min = min(current->low, current->left->min, current->right->min );
          while( current != *root ){
@@ -192,14 +191,14 @@ void InsertTreeNode( TreeNode **root, Interval *intervalX, Interval *intervalY )
 
 
    if ( previous == neel )
-      newNode = allocateTreeNode( root     , intervalX, intervalY, BLACK, ROOT        , root);
+      newNode = allocateTreeNode( root     , intervalY, BLACK, ROOT        , root);
    else if ( previous->low > intervalY->low )
-      newNode = allocateTreeNode( &previous, intervalX, intervalY, RED,   LEFT_CHILD  , root);
+      newNode = allocateTreeNode( &previous, intervalY, RED,   LEFT_CHILD  , root);
    else
-      newNode = allocateTreeNode( &previous, intervalX, intervalY, RED,   RIGHT_CHILD , root);
+      newNode = allocateTreeNode( &previous, intervalY, RED,   RIGHT_CHILD , root);
 
 
-   // Update `max` and `min` attribute in each node on search path
+   // Update max/min attributes in each node on search path
    current = newNode;
    current->max = max( current->left->max, current->right->max, current->highList->key );
    current->min = min( current->left->min, current->right->min, current->low );

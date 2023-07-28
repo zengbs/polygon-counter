@@ -13,8 +13,6 @@ typedef struct ListNode ListNode;
 struct ListNode {
    int key;
    bool counted;
-   int leftEnd;
-   int rightEnd;
    ListNode *next;
    ListNode *prev;
 };

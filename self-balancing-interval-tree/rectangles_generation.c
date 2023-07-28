@@ -12,7 +12,7 @@ int randomNumberInRange( int minimum_number, int max_number ){
 }
 
 void RectanglesGeneration(
-     int numberRectanglesMax, int *numberRectangles,
+     int numberRectangles,
      int boxSizeX, int boxSizeY,
      int rectangularMaxSizeX, int rectangularMaxSizeY,
      int rectangularMinSizeX, int rectangularMinSizeY,
@@ -23,27 +23,25 @@ void RectanglesGeneration(
 
    int ii = 0;
 
-   for (int i=0; i<numberRectanglesMax; i++)
+   for (int i=0; i<numberRectangles; i++)
    {
+      int rectangularWidth  = randomNumberInRange( rectangularMinSizeX, rectangularMaxSizeX );
+      int rectangularHeight = randomNumberInRange( rectangularMinSizeY, rectangularMaxSizeY );
 
-      int rectangularXL = randomNumberInRange( 0, boxSizeX );
-      int rectangularXR = rectangularXL + randomNumberInRange( rectangularMinSizeX, rectangularMaxSizeX );
-      int rectangularYB = randomNumberInRange( 0, boxSizeY );
-      int rectangularYT = rectangularYB + randomNumberInRange( rectangularMinSizeY, rectangularMaxSizeY );
+      int rectangularXL     = randomNumberInRange( 0, boxSizeX - rectangularWidth  );
+      int rectangularXR     = rectangularXL + rectangularWidth;
+      int rectangularYB     = randomNumberInRange( 0, boxSizeY - rectangularHeight );
+      int rectangularYT     = rectangularYB + rectangularHeight;
 
-      if (  ( 0 < rectangularXR && rectangularXR < boxSizeX )
-         && ( 0 < rectangularYT && rectangularYT < boxSizeY ) )
-      {
-         (*numberRectangles)++;
-         (*EventListX)[ii  ] = rectangularXL;
-         (*EventListX)[ii+1] = rectangularXR;
-         (*EventListY)[ii  ] = rectangularYB;
-         (*EventListY)[ii+1] = rectangularYT;
-#        ifdef DEBUG
-         printf("Rectangle: %d, %d, %d, %d\n", rectangularXL, rectangularXR, rectangularYB, rectangularYT);
-#        endif
+      (*EventListX)[ii  ] = rectangularXL;
+      (*EventListX)[ii+1] = rectangularXR;
+      (*EventListY)[ii  ] = rectangularYB;
+      (*EventListY)[ii+1] = rectangularYT;
 
-         ii += 2;
-      }
+#     ifdef DEBUG
+      printf("Rectangle: %d, %d, %d, %d\n", rectangularXL, rectangularXR, rectangularYB, rectangularYT);
+#     endif
+
+      ii += 2;
    }
 }

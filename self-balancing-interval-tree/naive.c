@@ -4,7 +4,7 @@
 
 // Returns true if two rectangles (l1, r1) and (l2, r2)
 // overlap
-bool Overlap(int *rec1, int *rec2 )
+static bool Overlap(int *rec1, int *rec2 )
 {
 
     // If one rectangle is on left side of other
@@ -19,10 +19,12 @@ bool Overlap(int *rec1, int *rec2 )
 }
 
 
-void NaiveCountOverlappingRectangles( bool *count, int *EventListX, int *EventListY, int numRectangles, int *counter )
+void NaiveCountOverlappingRectangles( int *EventListX, int *EventListY, int numRectangles, int *counter )
 {
    int rec1[4] = {0};
    int rec2[4] = {0};
+
+   bool *count = (bool*)calloc(numRectangles, sizeof(bool));
 
    for (int i=0; i<numRectangles*2; i += 2){
       rec1[0] = EventListX[i  ];

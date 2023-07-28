@@ -26,13 +26,13 @@ void SwapPointer( void **ptr1, void **ptr2 );
 int max( int a, int b, int c );
 int min( int a, int b, int c );
 void RectanglesGeneration(
-int numberRectanglesMax, int *numberRectangles,
+int numberRectangles,
 int boxSizeX, int boxSizeY,
 int rectangularMaxSizeX, int rectangularMaxSizeY,
 int rectangularMinSizeX, int rectangularMinSizeY,
 int **EventListX, int **EventListY );
 TreeNode* SearchDuplicateInterval( TreeNode *root, Interval *interval, ListNode **listNode );
-void NaiveCountOverlappingRectangles( bool *count, int *EventListX, int *EventListY, int numRectangles, int *counter );
+void NaiveCountOverlappingRectangles( int *EventListX, int *EventListY, int numRectangles, int *counter );
 void CountOverlappingInterval( TreeNode *root, Interval *intervalY, ListNode **listNode, int *numberCounted );
 void XorSwap(int *x, int *y);
 void SegregateEvenAndOdd( EventListX_wrapper *wrapper, int numRectangles );

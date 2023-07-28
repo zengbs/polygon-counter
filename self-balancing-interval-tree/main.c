@@ -17,20 +17,17 @@ int main(){
 
 
    // Allocate neel node
-   neel = (TreeNode*)malloc(sizeof(TreeNode));
-   neel->color = BLACK;
-   neel->max = INT_MIN;
+   neel           = (TreeNode*)malloc(sizeof(TreeNode));
+   neel->color    = BLACK;
+   neel->max      = INT_MIN;
    neel->highList = NULL;
-   neel->left = NULL;
-   neel->right = NULL;
-   neel->parent = NULL;
+   neel->left     = NULL;
+   neel->right    = NULL;
+   neel->parent   = NULL;
 
    root = neel;
 
 
-   //int numRectanglesMax    = INT_MAX/100000;
-   int numRectanglesMax    = 50000;
-   int numRectangles       = 0;
    int boxSizeX            = 1000;
    int boxSizeY            = 1000;
    int rectangularMaxSizeX = 10;
@@ -38,42 +35,61 @@ int main(){
    int rectangularMinSizeX = 1;
    int rectangularMinSizeY = 1;
 
-   int *EventListX         = (int*)malloc(sizeof(int)*numRectanglesMax*2);
-   int *EventListY         = (int*)malloc(sizeof(int)*numRectanglesMax*2);
-
-   RectanglesGeneration( numRectanglesMax, &numRectangles, boxSizeX, boxSizeY,
-                         rectangularMaxSizeX, rectangularMaxSizeY,
-                         rectangularMinSizeX, rectangularMinSizeY,
-                         &EventListX, &EventListY );
+   int *EventListX         = NULL;
+   int *EventListY         = NULL;
 
 
-   printf("Total numRectangles = %d\n", numRectangles);
-
-   int counter = 0;
-   int naiveCounter = 0;
+   FILE *pFile = fopen("Record__polygonCount_vs_time", "w");
 
 #  ifdef TIMER
-   Start();
-#  endif
-   SweepLine( EventListX, EventListY, numRectangles, &counter );
-#  ifdef TIMER
-   Stop();
-   printf("%e sec\n", GetValue());
+   double time_sweepLine, time_naive;
 #  endif
 
-   bool *count = (bool*)calloc(numRectangles, sizeof(bool));
+   for (int numRectangles=10; numRectangles<1000001; numRectangles *= 10)
+   {
 
-#  ifdef TIMER
-   Start();
-#  endif
-   NaiveCountOverlappingRectangles( count, EventListX, EventListY, numRectangles, &naiveCounter );
-#  ifdef TIMER
-   Stop();
-   printf("%e sec\n", GetValue());
-#  endif
+      EventListX              = (int*)malloc(sizeof(int)*numRectangles*2);
+      EventListY              = (int*)malloc(sizeof(int)*numRectangles*2);
 
-   printf("Number of ovrlapping rectangles = %d\n", counter);
-   printf("Number of ovrlapping rectangles = %d\n", naiveCounter);
+      RectanglesGeneration( numRectangles, boxSizeX, boxSizeY,
+                            rectangularMaxSizeX, rectangularMaxSizeY,
+                            rectangularMinSizeX, rectangularMinSizeY,
+                            &EventListX, &EventListY );
+
+
+      int counter = 0;
+      int naiveCounter = 0;
+
+#     ifdef TIMER
+      Start();
+#     endif
+
+      SweepLine( EventListX, EventListY, numRectangles, &counter );
+
+#     ifdef TIMER
+      Stop();
+      time_sweepLine = GetValue();
+#     endif
+
+
+#     ifdef TIMER
+      Start();
+#     endif
+
+      NaiveCountOverlappingRectangles( EventListX, EventListY, numRectangles, &naiveCounter );
+
+#     ifdef TIMER
+      Stop();
+      time_naive = GetValue();
+#     endif
+
+      if ( counter != naiveCounter ) REPORT_ERROR;
+
+#     ifdef TIMER
+      fprintf( pFile, "%e  %e  %d  %d %d\n", time_sweepLine, time_naive, counter, naiveCounter, numRectangles );
+#     endif
+
+   }
 
    free(EventListX);
    free(EventListY);

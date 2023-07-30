@@ -23,6 +23,19 @@ void RectanglesGeneration(
 
    int ii = 0;
 
+#  ifdef PRINT_RECTANGLES
+   FILE *pFile = fopen("table__rectangles", "w");
+
+   if ( numberRectangles == 100 ){
+      fprintf( pFile, "# boxSizeX = %d\n", boxSizeX );
+      fprintf( pFile, "# boxSizeY = %d\n", boxSizeY );
+      fprintf( pFile, "# rectangularMaxSizeX = %d\n", rectangularMaxSizeX );
+      fprintf( pFile, "# rectangularMaxSizeY = %d\n", rectangularMaxSizeY );
+      fprintf( pFile, "# rectangularMinSizeX = %d\n", rectangularMinSizeX );
+      fprintf( pFile, "# rectangularMinSizeY = %d\n", rectangularMinSizeY );
+   }
+#  endif
+
    for (int i=0; i<numberRectangles; i++)
    {
       int rectangularWidth  = randomNumberInRange( rectangularMinSizeX, rectangularMaxSizeX );
@@ -33,15 +46,22 @@ void RectanglesGeneration(
       int rectangularYB     = randomNumberInRange( 0, boxSizeY - rectangularHeight );
       int rectangularYT     = rectangularYB + rectangularHeight;
 
+#     ifdef PRINT_RECTANGLES
+      if ( numberRectangles == 100 )
+         fprintf(pFile, "%d %d %d %d\n", rectangularXL, rectangularYB, rectangularWidth, rectangularHeight );
+#     endif
+
       (*EventListX)[ii  ] = rectangularXL;
       (*EventListX)[ii+1] = rectangularXR;
       (*EventListY)[ii  ] = rectangularYB;
       (*EventListY)[ii+1] = rectangularYT;
 
-#     ifdef DEBUG
-      printf("Rectangle: %d, %d, %d, %d\n", rectangularXL, rectangularXR, rectangularYB, rectangularYT);
-#     endif
 
       ii += 2;
    }
+
+#  ifdef PRINT_RECTANGLES
+   fclose(pFile);
+#  endif
+
 }

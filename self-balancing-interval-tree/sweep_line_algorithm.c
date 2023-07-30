@@ -1,5 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<immintrin.h>
 #include"global.h"
 #include"macro.h"
 #include"intervaltree.h"
@@ -90,6 +91,7 @@ void SweepLine( int *EventListX, int *EventListY, int numRectangles, int *counte
 
    }
 
+   _mm_clflush(wrapper);
    free(wrapper);
 
 }

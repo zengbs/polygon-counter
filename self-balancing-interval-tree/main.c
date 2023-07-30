@@ -3,6 +3,7 @@
 #include<stdlib.h>
 #include<limits.h>
 #include<time.h>
+#include<immintrin.h>
 #include"global.h"
 #include"macro.h"
 #include"intervaltree.h"
@@ -31,10 +32,10 @@ int main(){
    root = neel;
 
 
-   int boxSizeX            = 100;
-   int boxSizeY            = 100;
-   int rectangularMaxSizeX = 10;
-   int rectangularMaxSizeY = 10;
+   int boxSizeX            = 1000000000;
+   int boxSizeY            = 1000000000;
+   int rectangularMaxSizeX = 200;
+   int rectangularMaxSizeY = 200;
    int rectangularMinSizeX = 1;
    int rectangularMinSizeY = 1;
 
@@ -48,8 +49,16 @@ int main(){
    double time_sweepLine, time_naive;
 #  endif
 
-   //for (int numRectangles=10; numRectangles<1000001; numRectangles *= 10)
-   for (int numRectangles=10; numRectangles<10001; numRectangles *= 10)
+#  ifdef TIMER
+   fprintf( pFile, "# boxSizeX = %d\n", boxSizeX );
+   fprintf( pFile, "# boxSizeY = %d\n", boxSizeY );
+   fprintf( pFile, "# rectangularMaxSizeX = %d\n", rectangularMaxSizeX );
+   fprintf( pFile, "# rectangularMaxSizeY = %d\n", rectangularMaxSizeY );
+   fprintf( pFile, "# rectangularMinSizeX = %d\n", rectangularMinSizeX );
+   fprintf( pFile, "# rectangularMinSizeY = %d\n", rectangularMinSizeY );
+#  endif
+
+   for (int numRectangles=10; numRectangles<1000001; numRectangles *= 10)
    {
 
       EventListX              = (int*)malloc(sizeof(int)*numRectangles*2);
@@ -62,7 +71,9 @@ int main(){
 
 
       int counter = 0;
+#     ifdef NAIVE
       int naiveCounter = 0;
+#     endif
 
 #     ifdef TIMER
       Start();
@@ -80,18 +91,25 @@ int main(){
       Start();
 #     endif
 
+#     ifdef NAIVE
       NaiveCountOverlappingRectangles( EventListX, EventListY, numRectangles, &naiveCounter );
+#     endif
 
 #     ifdef TIMER
       Stop();
       time_naive = GetValue();
 #     endif
 
+#     ifdef NAIVE
       if ( counter != naiveCounter ) REPORT_ERROR;
+#     endif
 
 #     ifdef TIMER
-      fprintf( pFile, "%e  %e  %d  %d %d\n", time_sweepLine, time_naive, counter, naiveCounter, numRectangles );
+      fprintf( pFile, "%e  %e  %d  %d %f\n", time_sweepLine, time_naive, counter, numRectangles, (float)counter/(float)numRectangles);
 #     endif
+
+      _mm_clflush(EventListX);
+      _mm_clflush(EventListY);
 
       free(EventListX);
       free(EventListY);

@@ -20,7 +20,8 @@
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
 #define TIMER
-
+#define NAIVE
+//#define PRINT_RECTANGLES
 //#define DEBUG_LEVEL_1
 //#define DEBUG
 

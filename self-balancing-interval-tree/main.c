@@ -20,16 +20,19 @@ int main(){
    neel           = (TreeNode*)malloc(sizeof(TreeNode));
    neel->color    = BLACK;
    neel->max      = INT_MIN;
+   neel->min      = INT_MIN;
+   neel->low      = INT_MIN;
    neel->highList = NULL;
    neel->left     = NULL;
    neel->right    = NULL;
    neel->parent   = NULL;
+   neel->listLength = 0;
 
    root = neel;
 
 
-   int boxSizeX            = 1000;
-   int boxSizeY            = 1000;
+   int boxSizeX            = 100;
+   int boxSizeY            = 100;
    int rectangularMaxSizeX = 10;
    int rectangularMaxSizeY = 10;
    int rectangularMinSizeX = 1;
@@ -45,7 +48,8 @@ int main(){
    double time_sweepLine, time_naive;
 #  endif
 
-   for (int numRectangles=10; numRectangles<1000001; numRectangles *= 10)
+   //for (int numRectangles=10; numRectangles<1000001; numRectangles *= 10)
+   for (int numRectangles=10; numRectangles<10001; numRectangles *= 10)
    {
 
       EventListX              = (int*)malloc(sizeof(int)*numRectangles*2);
@@ -89,11 +93,13 @@ int main(){
       fprintf( pFile, "%e  %e  %d  %d %d\n", time_sweepLine, time_naive, counter, naiveCounter, numRectangles );
 #     endif
 
+      free(EventListX);
+      free(EventListY);
+
    }
 
-   free(EventListX);
-   free(EventListY);
    free(neel);
+   fclose(pFile);
 
    return 0;
 }

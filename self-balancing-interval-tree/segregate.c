@@ -6,6 +6,15 @@
 #include"intervaltree.h"
 #include"prototypes.h"
 
+//void XorSwap(int *x, int *y)
+//{
+//  if (x != y)
+//  {
+//    *x ^= *y;
+//    *y ^= *x;
+//    *x ^= *y;
+//  }
+//}
 
 void LomutoPartition( EventListX_wrapper *wrapper, int leftEnd, int rightEnd )
 {
@@ -27,7 +36,7 @@ void SegregateEvenAndOdd( EventListX_wrapper *wrapper, int numRectangles )
    int start = -1;
    int current, next;
 
-   for ( int end=0; end<numRectangles; end++ ){
+   for ( int end=0; end<numRectangles-1; end++ ){
 
       start++;
 
@@ -49,3 +58,26 @@ void SegregateEvenAndOdd( EventListX_wrapper *wrapper, int numRectangles )
       }
    }
 }
+
+
+//int main(){
+//
+//   int numRectangles = 6;
+//
+//   EventListX_wrapper *wrapper = (EventListX_wrapper*)malloc(sizeof(EventListX_wrapper)*numRectangles);
+//
+//   wrapper[0].EventListX = 0;  wrapper[0].KeyX = 0;
+//   wrapper[1].EventListX = 0;  wrapper[1].KeyX = 1;
+//   wrapper[2].EventListX = 0;  wrapper[2].KeyX = 2;
+//   wrapper[3].EventListX = 1;  wrapper[3].KeyX = 3;
+//   wrapper[4].EventListX = 1;  wrapper[4].KeyX = 4;
+//   wrapper[5].EventListX = 1;  wrapper[5].KeyX = 5;
+//
+//   SegregateEvenAndOdd(wrapper, numRectangles);
+//
+//    for (int i=0; i<numRectangles; i++){
+//       printf("%d, %d\n", wrapper[i].EventListX, wrapper[i].KeyX);
+//    }
+//
+//
+//}

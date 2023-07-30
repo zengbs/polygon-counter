@@ -170,7 +170,12 @@ void DeleteTreeNode( TreeNode **root, Interval *interval )
       printf("deleteNode: Case 1\n");
 #     endif
 
-      if ( node == *root ) { *root = neel; free(node); return;}
+      if ( node == *root ) {
+         *root = neel;
+         FreeList(node->highList);
+         free(node);
+         return;
+       }
 
       if ( node->parent->left == node ){
          node->parent->left  = neel;
@@ -193,7 +198,14 @@ void DeleteTreeNode( TreeNode **root, Interval *interval )
       printf("deleteNode: Case 2\n");
 #     endif
 
-      if ( node == *root ) { *root = node->left; (*root)->parent = neel ;(*root)->color = BLACK; free(node); return; }
+      if ( node == *root ) {
+         *root = node->left;
+         (*root)->parent = neel;
+         (*root)->color = BLACK;
+         FreeList(node->highList);
+         free(node);
+         return;
+      }
 
       if ( node->parent->left == node ){
          node->parent->left  = node->left;
@@ -217,7 +229,14 @@ void DeleteTreeNode( TreeNode **root, Interval *interval )
       printf("deleteNode: Case 3\n");
 #     endif
 
-      if ( node == *root ) { *root = node->right; (*root)->parent = neel; (*root)->color = BLACK; free(node); return; }
+      if ( node == *root ) {
+         *root = node->right;
+         (*root)->parent = neel;
+         (*root)->color = BLACK;
+         FreeList(node->highList);
+         free(node);
+         return;
+      }
 
       if ( node->parent->left == node ){
          node->parent->left  = node->right;

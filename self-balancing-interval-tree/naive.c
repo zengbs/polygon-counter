@@ -52,4 +52,6 @@ void NaiveCountOverlappingRectangles( int *EventListX, int *EventListY, int numR
 
    }
 
+   free(count);
+
 }

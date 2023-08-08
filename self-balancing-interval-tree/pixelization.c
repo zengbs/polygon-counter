@@ -1,11 +1,12 @@
 #include<stdio.h>
 #include<stdbool.h>
 #include<stdlib.h>
+#include"global.h"
+#include"macro.h"
+#include"intervaltree.h"
+#include"prototypes.h"
 
-()
-
-
-void Pixelization( int numRectangles, int boxSizeX, int boxSizeY, int EventListX, int EventListY, int *counter )
+void Pixelization( int numRectangles, int boxSizeX, int boxSizeY, int *EventListX, int *EventListY, int *counter )
 {
    int *box = calloc(boxSizeX*boxSizeY, sizeof(int));
 
@@ -21,8 +22,8 @@ void Pixelization( int numRectangles, int boxSizeX, int boxSizeY, int EventListX
       xR = EventListX[i+1];
       yT = EventListY[i+1];
 
-      for ( int y=yB; y<=yT; y++ ){
-         for ( int x=xL; x<=xR; x++ ){
+      for ( int y=yB; y<yT; y++ ){
+         for ( int x=xL; x<xR; x++ ){
             box[ x+y*boxSizeX ]++;
          }
       }
@@ -40,8 +41,8 @@ void Pixelization( int numRectangles, int boxSizeX, int boxSizeY, int EventListX
 
       bool breakloops = false;
 
-      for ( int y=yB; y<=yT; y++ ){
-         for ( int x=xL; x<=xR; x++ ){
+      for ( int y=yB; y<yT; y++ ){
+         for ( int x=xL; x<xR; x++ ){
             if ( box[ x+y*boxSizeX ] > 1 ){
                (*counter)++;
                breakloops = true;
@@ -51,5 +52,7 @@ void Pixelization( int numRectangles, int boxSizeX, int boxSizeY, int EventListX
          if ( breakloops ) break;
       }
    }
+
+   free(box);
 
 }

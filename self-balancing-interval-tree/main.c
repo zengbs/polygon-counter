@@ -32,12 +32,13 @@ int main(){
    root = neel;
 
 
-   int boxSizeX            = 1000000000;
-   int boxSizeY            = 1000000000;
-   int rectangularMaxSizeX = 200;
-   int rectangularMaxSizeY = 200;
+   int boxSizeX            = 1000;
+   int boxSizeY            = 1000;
+   int rectangularMaxSizeX = 20;
+   int rectangularMaxSizeY = 20;
    int rectangularMinSizeX = 1;
    int rectangularMinSizeY = 1;
+   int rectangleArea       = 400;
 
    int *EventListX         = NULL;
    int *EventListY         = NULL;
@@ -46,7 +47,7 @@ int main(){
    FILE *pFile = fopen("Record__polygonCount_vs_time", "w");
 
 #  ifdef TIMER
-   double time_sweepLine, time_naive;
+   double time_sweepLine, time_naive, time_pixelization;
 #  endif
 
 #  ifdef TIMER
@@ -58,7 +59,9 @@ int main(){
    fprintf( pFile, "# rectangularMinSizeY = %d\n", rectangularMinSizeY );
 #  endif
 
-   for (int numRectangles=10; numRectangles<1000001; numRectangles *= 10)
+   int x = 1000000000;
+
+   for (int numRectangles=x; numRectangles<x+1; numRectangles *= 10)
    {
 
       EventListX              = (int*)malloc(sizeof(int)*numRectangles*2);
@@ -67,12 +70,17 @@ int main(){
       RectanglesGeneration( numRectangles, boxSizeX, boxSizeY,
                             rectangularMaxSizeX, rectangularMaxSizeY,
                             rectangularMinSizeX, rectangularMinSizeY,
+                            rectangleArea,
                             &EventListX, &EventListY );
 
 
       int counter = 0;
 #     ifdef NAIVE
       int naiveCounter = 0;
+#     endif
+
+#     ifdef PIXELIZATION
+      int pixelizationCounter = 0;
 #     endif
 
 #     ifdef TIMER
@@ -104,8 +112,28 @@ int main(){
       if ( counter != naiveCounter ) REPORT_ERROR;
 #     endif
 
+
+
 #     ifdef TIMER
-      fprintf( pFile, "%e  %e  %d  %d %f\n", time_sweepLine, time_naive, counter, numRectangles, (float)counter/(float)numRectangles);
+      Start();
+#     endif
+
+#     ifdef PIXELIZATION
+      Pixelization( numRectangles, boxSizeX, boxSizeY, EventListX, EventListY, &pixelizationCounter );
+#     endif
+
+#     ifdef TIMER
+      Stop();
+      time_pixelization = GetValue();
+#     endif
+
+#     ifdef PIXELIZATION
+      if ( counter != pixelizationCounter ) REPORT_ERROR;
+#     endif
+
+#     ifdef TIMER
+      fprintf( pFile, "%e  %e  %e  %d  %d %f\n",
+               time_sweepLine, time_pixelization, time_naive, counter, numRectangles, (float)counter/(float)numRectangles);
 #     endif
 
       _mm_clflush(EventListX);

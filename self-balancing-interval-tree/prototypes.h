@@ -30,6 +30,7 @@ int numberRectangles,
 int boxSizeX, int boxSizeY,
 int rectangularMaxSizeX, int rectangularMaxSizeY,
 int rectangularMinSizeX, int rectangularMinSizeY,
+int rectangleArea,
 int **EventListX, int **EventListY );
 TreeNode* SearchDuplicateInterval( TreeNode *root, Interval *interval, ListNode **listNode );
 void NaiveCountOverlappingRectangles( int *EventListX, int *EventListY, int numRectangles, int *counter );
@@ -40,5 +41,6 @@ void Reset();
 double GetValue();
 void Stop();
 void Start();
+void Pixelization( int numRectangles, int boxSizeX, int boxSizeY, int *EventListX, int *EventListY, int *counter );
 
 #endif

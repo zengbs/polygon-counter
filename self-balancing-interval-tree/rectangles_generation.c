@@ -16,6 +16,7 @@ void RectanglesGeneration(
      int boxSizeX, int boxSizeY,
      int rectangularMaxSizeX, int rectangularMaxSizeY,
      int rectangularMinSizeX, int rectangularMinSizeY,
+     int rectangleArea,
      int **EventListX, int **EventListY )
 {
    //srand(time(NULL));
@@ -38,8 +39,13 @@ void RectanglesGeneration(
 
    for (int i=0; i<numberRectangles; i++)
    {
-      int rectangularWidth  = randomNumberInRange( rectangularMinSizeX, rectangularMaxSizeX );
-      int rectangularHeight = randomNumberInRange( rectangularMinSizeY, rectangularMaxSizeY );
+
+      int rectangularWidth, rectangularHeight;
+
+      rectangularWidth  = randomNumberInRange( rectangularMinSizeX, rectangularMaxSizeX );
+
+      ( rectangleArea > 1 ) ? ( rectangularHeight = rectangleArea/rectangularWidth ) :
+                              ( rectangularHeight = randomNumberInRange( rectangularMinSizeY, rectangularMaxSizeY ) );
 
       int rectangularXL     = randomNumberInRange( 0, boxSizeX - rectangularWidth  );
       int rectangularXR     = rectangularXL + rectangularWidth;

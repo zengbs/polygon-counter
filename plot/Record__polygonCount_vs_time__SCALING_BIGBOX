@@ -1,0 +1,31 @@
+# boxSizeX            = 18446744073709551615
+# boxSizeY            = 18446744073709551615
+# Generate wrapper      Sorting               Segregate             Counting              Insertion             Deleteion             SweepLine             Pixelization          Naive
+  2.0000000000000e-06   6.0000000000000e-06   1.0000000000000e-06   2.8000000000000e-05   7.0000000000000e-06   6.0000000000000e-06   5.0000000000000e-05   0.0000000000000e+00   0.0000000000000e+00               14              100 14.0000%
+# boxSizeX            = 18446744073709551615
+# boxSizeY            = 18446744073709551615
+# Generate wrapper      Sorting               Segregate             Counting              Insertion             Deleteion             SweepLine             Pixelization          Naive
+  2.1000000000000e-05   7.2000000000000e-05   2.0000000000000e-06   3.8000000000000e-05   5.4000000000000e-05   3.9000000000000e-05   2.3400000000000e-04   0.0000000000000e+00   0.0000000000000e+00               14             1000 1.4000%
+# boxSizeX            = 18446744073709551615
+# boxSizeY            = 18446744073709551615
+# Generate wrapper      Sorting               Segregate             Counting              Insertion             Deleteion             SweepLine             Pixelization          Naive
+  1.6100000000000e-04   8.8400000000000e-04   2.2000000000000e-05   2.8400000000000e-04   5.8200000000001e-04   4.4800000000000e-04   2.2800000000000e-03   0.0000000000000e+00   0.0000000000000e+00               14            10000 0.1400%
+# boxSizeX            = 18446744073709551615
+# boxSizeY            = 18446744073709551615
+# Generate wrapper      Sorting               Segregate             Counting              Insertion             Deleteion             SweepLine             Pixelization          Naive
+  1.2750000000000e-03   1.0958000000000e-02   2.2200000000000e-04   2.7810000000000e-03   1.5133999999995e-02   4.3970000000003e-03   3.3564000000000e-02   0.0000000000000e+00   0.0000000000000e+00               14           100000 0.0140%
+# boxSizeX            = 18446744073709551615
+# boxSizeY            = 18446744073709551615
+# Generate wrapper      Sorting               Segregate             Counting              Insertion             Deleteion             SweepLine             Pixelization          Naive
+  9.1540000000000e-03   1.2169500000000e-01   2.3940000000000e-03   2.7752000000007e-02   1.6076500000014e-01   4.3222000000023e-02   3.6359800000000e-01   0.0000000000000e+00   0.0000000000000e+00               14          1000000 0.0014%
+# boxSizeX            = 18446744073709551615
+# boxSizeY            = 18446744073709551615
+# Generate wrapper      Sorting               Segregate             Counting              Insertion             Deleteion             SweepLine             Pixelization          Naive
+  8.5077000000000e-02   1.4387570000000e+00   2.4867000000000e-02   2.8031499999942e-01   1.9206799999323e+00   4.6222999999455e-01   4.5908320000000e+00   0.0000000000000e+00   0.0000000000000e+00               14         10000000 0.0001%
+# boxSizeX            = 18446744073709551615
+# boxSizeY            = 18446744073709551615
+# Generate wrapper      Sorting               Segregate             Counting              Insertion             Deleteion             SweepLine             Pixelization          Naive
+  1.3626840000000e+00   1.6764505000000e+01   3.7319100000000e-01   3.0449980000693e+00   3.6449293000810e+01   4.7442600003054e+00   6.5307220000000e+01   0.0000000000000e+00   1.0000000000000e-06               14        100000000 0.0000%
+# boxSizeX            = 18446744073709551615
+# boxSizeY            = 18446744073709551615
+# Generate wrapper      Sorting               Segregate             Counting              Insertion             Deleteion             SweepLine             Pixelization          Naive

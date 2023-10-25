@@ -2,10 +2,10 @@
 Counting overlapping/touching/duplicate polygons on a 2D plane
 
 # Example
-<img src="https://github.kla-tencor.com/pohtsen/utility-counting-polygons/blob/main/fig__example.png" width="480">
+<img src="https://github.kla-tencor.com/pohtsen/utility-counting-polygons/plot/blob/main/fig__example.png" width="480">
 
 # Performance
-<img src="https://github.kla-tencor.com/pohtsen/utility-counting-polygons/blob/main/fig__performance.png" width="480">
+<img src="https://github.kla-tencor.com/pohtsen/utility-counting-polygons/plot/blob/main/fig__performance.png" width="480">
 
 # External Library
 Computational Geometry Algorithm Library (CGAL)

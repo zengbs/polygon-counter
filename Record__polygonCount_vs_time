@@ -1,0 +1,4 @@
+# boxSizeX            = 3100
+# boxSizeY            = 3100
+# Generate wrapper      Sorting               Segregate             Counting              Insertion             Deleteion             SweepLine             Pixelization          Naive
+  1.7000000000000e-05   9.3000000000000e-05   1.4000000000000e-05   2.0880000000000e-03   9.3000000000000e-05   1.0700000000000e-04   2.4110000000000e-03   0.0000000000000e+00   1.4915113000000e+01               48             1000 4.8000%

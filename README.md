@@ -1,13 +1,11 @@
 # Purpose
-Count overlapping/touching/duplicate polygons on a 2D plane
+Counting overlapping/touching/duplicate polygons on a 2D plane
 
 # Example
-fig__example.png
-
-<img src="" width="480">
+<img src="https://github.kla-tencor.com/pohtsen/utility-counting-polygons/blob/main/fig__example.png" width="480">
 
 # Performance
-fig__performance.png
+<img src="https://github.kla-tencor.com/pohtsen/utility-counting-polygons/blob/main/fig__performance.png" width="480">
 
 # Quick Start
 git clone git@github.kla-tencor.com:pohtsen/utility-counting-polygons.git

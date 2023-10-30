@@ -16,3 +16,5 @@ Computational Geometry Algorithm Library (CGAL)
 * `make clean`
 * `make -j`
 * `./bin/a.out`
+
+<img src="https://github.kla-tencor.com/pohtsen/utility-counting-polygons/blob/main/plot/fig__quick-start.png" width="480">

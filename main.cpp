@@ -62,7 +62,7 @@ int main(int argc, char *argv[]){
    std::string fileName = "Record__polygonCount_vs_time__" + std::string(argv[1]);
 #  endif
    std::ofstream outputFile(fileName);
-   std::cout << fileName << std::endl;
+
    if (!outputFile.is_open()) REPORT_ERROR;
 
 
@@ -71,13 +71,16 @@ int main(int argc, char *argv[]){
    unsigned long timeUL_naive, timeUL_pixelization;
 #  endif
 
-   // 200 B = 2*10^{11} ~ 2^{37.5}
 #  if   ( defined SAME_SCALE ) || ( defined QUICK_START )
    UINT inputNumberObjects = 1000;
 #  elif ( defined SCALING_BIGBOX ) || ( defined SCALING_SMALLBOX )
    UINT inputNumberObjects = 100;
 #  endif
 
+
+#  ifdef QUICK_START
+   std::cout << "Generating " << inputNumberObjects  <<  " polygons..." <<  std::endl;
+#  endif
 
 #  ifdef QUICK_START
    bool stop = true;
@@ -139,6 +142,13 @@ int main(int argc, char *argv[]){
       SweepLine( &root, polygonFullArray, EventListX, EventListY, inputNumberObjects,
                  &RectangularCounter, &TouchingCounter, &IntersectedCounter, &DuplicateCounter );
 
+#     ifdef QUICK_START
+      std::cout << "\nEfficient algorithm:" << std::endl
+                << "Overlapping/touching bounding box counter = " << RectangularCounter << std::endl
+                << "Duplicate counter                         = " << DuplicateCounter << std::endl
+                << "Touching counter                          = " << TouchingCounter << std::endl
+                << "Intersected counter                       = " << IntersectedCounter << std::endl << std::endl;
+#     endif
 
 #     ifdef TIMER
       Start(&timeUL_naive);
@@ -158,17 +168,11 @@ int main(int argc, char *argv[]){
 
 
 #     ifdef NAIVE
-      std::cout << "Efficient algorithm:" << std::endl
-                << "Rectangular counter = " << RectangularCounter << std::endl
-                << "Duplicate counter   = " << DuplicateCounter << std::endl
-                << "Touching counter    = " << TouchingCounter << std::endl
-                << "Intersected counter = " << IntersectedCounter << std::endl << std::endl
-
-                << "Naive algorithm:" << std::endl
-                << "Rectangular counter = " << NaiveRectangularCounter << std::endl
-                << "Duplicate counter   = " << NaiveDuplicateCounter << std::endl
-                << "Touching counter    = " << NaiveTouchingCounter << std::endl
-                << "Intersected counter = " << NaiveIntersectedCounter << std::endl;
+      std::cout << "Naive algorithm:" << std::endl
+                << "Overlapping/touching bounding box counter = " << RectangularCounter << std::endl
+                << "Duplicate counter                         = " << NaiveDuplicateCounter << std::endl
+                << "Touching counter                          = " << NaiveTouchingCounter << std::endl
+                << "Intersected counter                       = " << NaiveIntersectedCounter << std::endl;
 
       if ( RectangularCounter != NaiveRectangularCounter ||
            DuplicateCounter   != NaiveDuplicateCounter   ||
@@ -248,9 +252,9 @@ int main(int argc, char *argv[]){
    }
    while( !stop );
 
-
    delete neel;
-   outputFile.close();
-   return 0;
 
+   outputFile.close();
+
+   return 0;
 }

@@ -79,7 +79,7 @@ int main(int argc, char *argv[]){
 
 
 #  ifdef QUICK_START
-   std::cout << "Generating " << inputNumberObjects  <<  " polygons..." <<  std::endl;
+   std::cout << "Randomly generating " << inputNumberObjects  <<  " polygons..." <<  std::endl;
 #  endif
 
 #  ifdef QUICK_START

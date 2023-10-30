@@ -97,11 +97,11 @@ int main(int argc, char *argv[]){
 #     endif
 
 #     ifdef SCALING_SMALLBOX
-      UINT boxSizeX            = 200000*10;
-      UINT boxSizeY            = 200000*10;
+      UINT boxSizeX            = 20000;
+      UINT boxSizeY            = 20000;
 #     endif
 
-#     if ( defined SCALING_SMALLBOX ) || ( defined SAME_SCALE ) || ( defined QUICK_START )
+#     if  ( defined SAME_SCALE ) || ( defined QUICK_START )
       UINT boxSizeX            = (UINT)(sqrt((double)inputNumberObjects))*100;
       UINT boxSizeY            = (UINT)(sqrt((double)inputNumberObjects))*100;
 #     endif
@@ -241,8 +241,9 @@ int main(int argc, char *argv[]){
       }else{
 #        if   ( defined SAME_SCALE )
          inputNumberObjects *= 1;
-#        elif ( defined SCALING_BIGBOX ) || ( defined SCALING_ADAPTIVE_BOX )
+#        elif ( defined SCALING_BIGBOX ) || ( defined SCALING_SMALLBOX )
          inputNumberObjects *= 10;
+         if ( inputNumberObjects == 1e9 ) break;
 #        endif
       }
 

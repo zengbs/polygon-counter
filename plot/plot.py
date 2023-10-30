@@ -12,10 +12,10 @@ def NLogN(x):
 
 
 # performance tables
-table = 'Record__polygonCount_vs_time__SCALING_ADAPTIVE_BOX'
+table = 'Record__polygonCount_vs_time__SCALING_BIGBOX'
 
 # settings
-FileOut = 'fig__scaling_adaptivebox'
+FileOut = 'fig__scaling_bigbox'
 
 
 f, ax = plt.subplots( 1, 1, sharex=False, sharey=False )
@@ -51,7 +51,7 @@ ax.plot( numberPolygons, segregate      , '-o', color='green',  lw=3, ms=12, lab
 ax.plot( numberPolygons, counting       , '-v', color='orange', lw=3, ms=12, label="Counting bounding box"  )
 ax.plot( numberPolygons, insertion      , '-P', color='purple', lw=3, ms=12, label="Insertion" )
 ax.plot( numberPolygons, deletion       , '-*', color='brown',  lw=3, ms=12, label="Deletion"  )
-ax.plot( numberPolygons, sweepLine      , '-D', color='olive',  lw=3, ms=12, label="Sweeping"  )
+#ax.plot( numberPolygons, sweepLine      , '-D', color='olive',  lw=3, ms=12, label="Sweeping"  )
 ax.plot( numberPolygons, 0.5*total[0]/NLogN(numberPolygons[0])*NLogN(numberPolygons), color='k',  lw=3, linestyle='dashed' )
 ax.plot( numberPolygons, 0.5*total[0]/Square(numberPolygons[0])*Square(numberPolygons), color='k',  lw=3, linestyle='dashed' )
 

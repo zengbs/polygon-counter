@@ -2,3 +2,4 @@ a.out
 log*
 *.*swp
 *.o
+Record__*

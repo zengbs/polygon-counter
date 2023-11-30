@@ -1,5 +1,5 @@
 # Purpose
-Counting overlapping/touching/duplicate polygons on a 2D plane
+Counting overlapping/touching/duplicate polygons on a 2D plane with the sweep line algorithm and red-black based interval tree
 
 # Example
 <img src="https://github.com/zengbs/polygons-counter/blob/main/plot/fig__example.png" width="480">

@@ -3,9 +3,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "includes/typedef.h"
-#include "includes/global.h"
-#include "includes/macro.h"
+#include "../includes/typedef.h"
+#include "../includes/global.h"
+#include "../includes/macro.h"
 
 
 UINT randomNumberInRange( UINT minimum_number, UINT max_number ){

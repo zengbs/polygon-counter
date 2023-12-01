@@ -15,11 +15,11 @@
 #include <CGAL/Boolean_set_operations_2.h>
 #include <CGAL/point_generators_2.h>
 #include <CGAL/random_polygon_2.h>
-#include "includes/typedef.h"
-#include "includes/global.h"
-#include "includes/macro.h"
-#include "includes/intervaltree.h"
-#include "includes/prototypes.h"
+#include "../includes/typedef.h"
+#include "../includes/global.h"
+#include "../includes/macro.h"
+#include "../includes/intervaltree.h"
+#include "../includes/prototypes.h"
 
 
 IntervalTreeNode *neel       = NULL;

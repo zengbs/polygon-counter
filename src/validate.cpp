@@ -1,9 +1,9 @@
 #include <stdbool.h>
 #include <stdlib.h>
-#include "includes/global.h"
-#include "includes/macro.h"
-#include "includes/intervaltree.h"
-#include "includes/prototypes.h"
+#include "../includes/global.h"
+#include "../includes/macro.h"
+#include "../includes/intervaltree.h"
+#include "../includes/prototypes.h"
 
 // ====== Validate the properties of binary search tree =================
 // 1. The left subtree of a node contains only nodes with keys less than the node's key.

@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include "includes/typedef.h"
-#include "includes/global.h"
-#include "includes/macro.h"
-#include "includes/intervaltree.h"
-#include "includes/prototypes.h"
+#include "../includes/typedef.h"
+#include "../includes/global.h"
+#include "../includes/macro.h"
+#include "../includes/intervaltree.h"
+#include "../includes/prototypes.h"
 
 void Pixelization( UINT numRectangles, UINT boxSizeX, UINT boxSizeY, UINT *EventListX, UINT *EventListY, UINT *counter )
 {

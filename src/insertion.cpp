@@ -1,9 +1,9 @@
 #include <type_traits>
-#include "includes/typedef.h"
-#include "includes/global.h"
-#include "includes/macro.h"
-#include "includes/intervaltree.h"
-#include "includes/prototypes.h"
+#include "../includes/typedef.h"
+#include "../includes/global.h"
+#include "../includes/macro.h"
+#include "../includes/intervaltree.h"
+#include "../includes/prototypes.h"
 
 
 template <typename T>

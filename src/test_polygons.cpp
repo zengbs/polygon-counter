@@ -5,9 +5,9 @@
 #include <CGAL/Boolean_set_operations_2.h>
 #include <CGAL/point_generators_2.h>
 #include <CGAL/random_polygon_2.h>
-#include "includes/macro.h"
-#include "includes/typedef.h"
-#include "includes/intervaltree.h"
+#include "../includes/macro.h"
+#include "../includes/typedef.h"
+#include "../includes/intervaltree.h"
 
 // https://doc.cgal.org/latest/Boolean_set_operations_2/group__boolean__do__intersect.html
 

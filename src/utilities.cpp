@@ -2,11 +2,11 @@
 #include <fstream>
 #include <type_traits>
 #include <limits.h>
-#include "includes/typedef.h"
-#include "includes/global.h"
-#include "includes/macro.h"
-#include "includes/intervaltree.h"
-#include "includes/prototypes.h"
+#include "../includes/typedef.h"
+#include "../includes/global.h"
+#include "../includes/macro.h"
+#include "../includes/intervaltree.h"
+#include "../includes/prototypes.h"
 
 
 UINT max( UINT a, UINT b, UINT c )

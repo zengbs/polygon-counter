@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include "includes/typedef.h"
-#include "includes/global.h"
+#include "../includes/typedef.h"
+#include "../includes/global.h"
 
 // Returns true if two rectangles (l1, r1) and (l2, r2)
 // overlap

@@ -1,5 +1,5 @@
-#include "includes/intervaltree.h"
-#include "includes/prototypes.h"
+#include "../includes/intervaltree.h"
+#include "../includes/prototypes.h"
 
 void NaiveCheckIntersection( Polygon **polygonArray, UINT numberObjects, UINT *IntersectedCounter,
                              UINT *TouchingCounter, UINT *DuplicateCounter, UINT *DisjointCounter )

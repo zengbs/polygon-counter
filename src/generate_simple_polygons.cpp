@@ -4,8 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <ctime>
-#include "includes/intervaltree.h"
-#include "includes/prototypes.h"
+#include "../includes/intervaltree.h"
+#include "../includes/prototypes.h"
 
 typedef K::FT FT;
 

@@ -15,13 +15,17 @@ EXECUTABLE := a.out
 
 
 ## source files
-CC_SRC =  main.cpp rotation.cpp insertion.cpp validate.cpp deletion.cpp utilities.cpp \
+CC_FILE =  main.cpp rotation.cpp insertion.cpp validate.cpp deletion.cpp utilities.cpp \
           sweep_line_algorithm.cpp rectangles_generation.cpp naive.cpp  \
           segregate.cpp timer.cpp pixelization.cpp generate_simple_polygons.cpp \
           test_polygons.cpp naivePolygons.cpp
 
+SRC_PATH = src
+
+CC_SRC = $(patsubst %,$(SRC_PATH)/%,$(CC_FILE))
+
 ## object files
-CC_OBJ_FILE = $(CC_SRC:.cpp=.o)
+CC_OBJ_FILE = $(CC_FILE:.cpp=.o)
 OBJ_PATH    = objective
 CC_OBJ      = $(patsubst %,$(OBJ_PATH)/%,$(CC_OBJ_FILE))
 
@@ -35,7 +39,7 @@ CC_ALL_FLAG   = $(CC_DEBUG_FLAG)  $(INC) $(CC_FLAGS) $(MACRO)
 CUDA_ALL_FLAG = $(INC) $(CUDA_FLAGS) $(MACRO)
 
 # Compiling
-$(OBJ_PATH)/%.o : %.cpp $(HEADER)
+$(OBJ_PATH)/%.o : $(SRC_PATH)/%.cpp $(HEADER)
 	$(CC) $(CC_ALL_FLAG) -o $@ -c $<
 
 

@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <immintrin.h>
-#include "includes/typedef.h"
-#include "includes/global.h"
-#include "includes/macro.h"
-#include "includes/intervaltree.h"
-#include "includes/prototypes.h"
+#include "../includes/typedef.h"
+#include "../includes/global.h"
+#include "../includes/macro.h"
+#include "../includes/intervaltree.h"
+#include "../includes/prototypes.h"
 
 
 bool compare ( const EventListX_wrapper& a, const EventListX_wrapper& b )

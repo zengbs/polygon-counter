@@ -7,6 +7,9 @@ Counting overlapping/touching/duplicate polygons on a 2D plane with the sweep li
 # Performance
 <img src="https://github.com/zengbs/polygons-counter/blob/main/plot/fig__scaling_adaptivebox.png" width="480">
 
+# Data Structure
+<img src="https://github.com/zengbs/polygons-counter/blob/main/plot/fig__data-structure.png" width="480">
+
 # External Library
 Computational Geometry Algorithm Library (CGAL)
 
